@@ -1,0 +1,78 @@
+Jun 01, 2022 5:14:42 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: org.unibl.etf.pj2.projektni.exception.MatrixSizeException: Dimenzije matrice nisu odgovarajuće.
+Jun 01, 2022 5:15:03 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: org.unibl.etf.pj2.projektni.exception.MatrixSizeException: Dimenzije matrice nisu odgovarajuće.
+Jun 01, 2022 5:15:08 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: org.unibl.etf.pj2.projektni.exception.NumberOfPlayersException: Broj igrača nije unesen na ispravan način.
+Jun 01, 2022 5:26:16 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: org.unibl.etf.pj2.projektni.exception.NumberOfPlayersException: Broj igrača nije unesen na ispravan način.
+Jun 01, 2022 5:53:08 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: org.unibl.etf.pj2.projektni.exception.MatrixSizeException: Dimenzije matrice nisu odgovarajuće.
+Jun 02, 2022 5:50:43 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: org.unibl.etf.pj2.projektni.exception.MatrixSizeException: Dimenzije matrice nisu odgovarajuće.
+Jun 02, 2022 5:56:15 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: java.io.FileNotFoundException: textfile.txt (The system cannot find the file specified)
+Jun 02, 2022 6:30:21 PM sample.PocetnaStranaController pokupiPodatke
+SEVERE: org.unibl.etf.pj2.projektni.exception.NameAllreadyExistException: a već postoji i morate izabrati drugo ime
+Jun 02, 2022 7:03:01 PM sample.PocetnaStranaController pokupiPodatke
+SEVERE: org.unibl.etf.pj2.projektni.exception.BadNameInputException: Popunjavanje polja sa imenima nije validno.
+Jun 02, 2022 7:03:01 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: java.io.FileNotFoundException: igraci.txt (The system cannot find the file specified)
+Jun 02, 2022 7:03:17 PM sample.PocetnaStranaController pokupiPodatke
+SEVERE: org.unibl.etf.pj2.projektni.exception.BadNameInputException: Popunjavanje polja sa imenima nije validno.
+Jun 02, 2022 7:03:17 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: java.io.FileNotFoundException: igraci.txt (The system cannot find the file specified)
+Jun 02, 2022 7:04:37 PM sample.PocetnaStranaController pokupiPodatke
+SEVERE: org.unibl.etf.pj2.projektni.exception.BadNameInputException: Popunjavanje polja sa imenima nije validno.
+Jun 02, 2022 7:04:37 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: java.io.IOException: Stream closed
+Jun 02, 2022 7:04:49 PM sample.PocetnaStranaController pokupiPodatke
+SEVERE: org.unibl.etf.pj2.projektni.exception.BadNameInputException: Popunjavanje polja sa imenima nije validno.
+Jun 02, 2022 7:04:49 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: java.io.IOException: Stream closed
+Jun 02, 2022 7:04:55 PM sample.PocetnaStranaController pokupiPodatke
+SEVERE: org.unibl.etf.pj2.projektni.exception.BadNameInputException: Popunjavanje polja sa imenima nije validno.
+Jun 02, 2022 7:04:55 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: java.io.IOException: Stream closed
+Jun 02, 2022 7:04:57 PM sample.PocetnaStranaController pokupiPodatke
+SEVERE: org.unibl.etf.pj2.projektni.exception.BadNameInputException: Popunjavanje polja sa imenima nije validno.
+Jun 02, 2022 7:04:57 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: java.io.IOException: Stream closed
+Jun 02, 2022 7:05:00 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: java.io.IOException: Stream closed
+Jun 02, 2022 7:05:19 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: java.io.IOException: Stream closed
+Jun 02, 2022 7:13:09 PM sample.PocetnaStranaController pokupiPodatke
+SEVERE: org.unibl.etf.pj2.projektni.exception.BadNameInputException: Popunjavanje polja sa imenima nije validno.
+Jun 02, 2022 7:13:19 PM sample.PocetnaStranaController pokupiPodatke
+SEVERE: org.unibl.etf.pj2.projektni.exception.BadNameInputException: Popunjavanje polja sa imenima nije validno.
+Jun 02, 2022 7:13:19 PM sample.PocetnaStranaController pokupiPodatke
+SEVERE: org.unibl.etf.pj2.projektni.exception.NameAllreadyExistException:  već postoji i morate izabrati drugo ime
+Jun 10, 2022 4:51:34 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: org.unibl.etf.pj2.projektni.exception.MatrixSizeException: Dimenzije matrice nisu odgovarajuće.
+Jun 10, 2022 4:52:53 PM sample.PocetnaStranaController pokupiPodatke
+SEVERE: org.unibl.etf.pj2.projektni.exception.BadNameInputException: Popunjavanje polja sa imenima nije validno.
+Jun 10, 2022 4:52:53 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: java.lang.NullPointerException: Cannot invoke "String.length()" because "str" is null
+Jun 10, 2022 4:52:59 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: java.lang.NullPointerException: Cannot invoke "String.length()" because "str" is null
+Jun 10, 2022 4:56:43 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: org.unibl.etf.pj2.projektni.exception.MatrixSizeException: Dimenzije matrice nisu odgovarajuće.
+Jun 10, 2022 4:56:53 PM sample.PocetnaStranaController pokupiPodatke
+SEVERE: org.unibl.etf.pj2.projektni.exception.BadNameInputException: Popunjavanje polja sa imenima nije validno.
+Jun 10, 2022 4:57:04 PM sample.PocetnaStranaController pokupiPodatke
+SEVERE: org.unibl.etf.pj2.projektni.exception.BadNameInputException: Popunjavanje polja sa imenima nije validno.
+Jun 10, 2022 4:57:13 PM sample.PocetnaStranaController pokupiPodatke
+SEVERE: org.unibl.etf.pj2.projektni.exception.BadNameInputException: Popunjavanje polja sa imenima nije validno.
+Jun 10, 2022 5:19:54 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: javafx.fxml.LoadException: Controller value already specified.
+/C:/Users/Boris/OneDrive/Desktop/JAVA-PROJEKTNI-MAJ2022/out/production/JavaFxApplication/sample/sample.fxml:12
+
+Jun 10, 2022 5:20:13 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: javafx.fxml.LoadException: Controller value already specified.
+/C:/Users/Boris/OneDrive/Desktop/JAVA-PROJEKTNI-MAJ2022/out/production/JavaFxApplication/sample/sample.fxml:12
+
+Jun 10, 2022 5:22:05 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: javafx.fxml.LoadException: Controller value already specified.
+/C:/Users/Boris/OneDrive/Desktop/JAVA-PROJEKTNI-MAJ2022/out/production/JavaFxApplication/sample/sample.fxml:12
+

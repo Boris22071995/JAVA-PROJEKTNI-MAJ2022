@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="577.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane fx:id="pane7" prefHeight="66.0" prefWidth="696.0">
+         <children>
+            <Label fx:id="label" layoutX="28.0" layoutY="12.0" prefHeight="42.0" prefWidth="107.0" text="Label" textFill="#2707df" />
+            <Pane fx:id="pane1" layoutX="248.0" layoutY="6.0" prefHeight="54.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="label2" prefHeight="54.0" prefWidth="200.0" text="Label" textAlignment="CENTER" textFill="#e21053" />
+               </children>
+            </Pane>
+            <Button fx:id="pokreni" layoutX="579.0" layoutY="21.0" mnemonicParsing="false" onAction="#zapocni" prefHeight="25.0" prefWidth="86.0" text="Pokreni" />
+         </children>
+      </Pane>
+      <Pane fx:id="pane2" layoutX="6.0" layoutY="78.0" prefHeight="42.0" prefWidth="682.0">
+         <children>
+            <Label fx:id="ime1Label" layoutX="148.0" layoutY="11.0" prefHeight="17.0" prefWidth="63.0" text="Igrac1" textFill="#e8030b" />
+            <Label fx:id="ime2Label" layoutX="274.0" layoutY="13.0" prefHeight="17.0" prefWidth="55.0" text="igrac2" textFill="#e2fa05" />
+            <Label fx:id="ime3Label" layoutX="397.0" layoutY="13.0" prefHeight="17.0" prefWidth="55.0" text="igrac3" textFill="#05da30" />
+            <Label fx:id="ime4Label" layoutX="497.0" layoutY="13.0" prefHeight="17.0" prefWidth="63.0" text="igrac4" textFill="#0808ea" />
+         </children>
+      </Pane>
+      <Pane fx:id="pane3" layoutX="7.0" layoutY="129.0" prefHeight="441.0" prefWidth="100.0">
+         <children>
+            <Label layoutX="14.0" layoutY="21.0" text="Figura 1" />
+         </children>
+      </Pane>
+      <GridPane fx:id="gridPane" layoutX="138.0" layoutY="139.0" prefHeight="326.0" prefWidth="326.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
+      <Pane fx:id="pane5" layoutX="505.0" layoutY="131.0" prefHeight="282.0" prefWidth="176.0">
+         <children>
+            <Label layoutX="48.0" layoutY="14.0" prefHeight="17.0" prefWidth="79.0" text="Trenutna karta" textFill="#150bd5" />
+            <ImageView fitHeight="181.0" fitWidth="166.0" layoutX="14.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </Pane>
+      <Label layoutX="522.0" layoutY="435.0" prefHeight="18.0" prefWidth="166.0" text="Vrijeme trajanje igre: 10s" textFill="#02f22e" />
+      <Pane fx:id="pane4" layoutX="138.0" layoutY="480.0" prefHeight="90.0" prefWidth="358.0">
+         <children>
+            <Label layoutX="126.0" layoutY="14.0" prefHeight="17.0" prefWidth="107.0" text="Opis znacenja karte:" />
+         </children>
+      </Pane>
+      <Pane fx:id="pane6" layoutX="514.0" layoutY="479.0" prefHeight="90.0" prefWidth="176.0">
+         <children>
+            <Label layoutX="74.0" layoutY="14.0" prefHeight="17.0" prefWidth="35.0" text="Fajlovi" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
