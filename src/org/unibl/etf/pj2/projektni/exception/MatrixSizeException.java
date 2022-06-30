@@ -1,11 +1,9 @@
 package org.unibl.etf.pj2.projektni.exception;
 
 public class MatrixSizeException extends Exception{
-
     public MatrixSizeException() {
-        super("Dimenzije matrice nisu odgovarajuće.");
+        super("Matrix dimension is not valid.");
     }
-
     public MatrixSizeException(String message) {
         super(message);
     }

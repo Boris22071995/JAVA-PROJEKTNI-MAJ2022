@@ -6,14 +6,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import org.unibl.etf.pj2.projektni.model.Igrac;
-import org.unibl.etf.pj2.projektni.model.LebdecaFigura;
-import org.unibl.etf.pj2.projektni.model.ObicnaFigura;
-import org.unibl.etf.pj2.projektni.model.SuperBrzaFigura;
+import org.unibl.etf.pj2.projektni.model.*;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -214,5 +212,7 @@ public class Controller implements Initializable {
 
        }
     }
+
+
 
 }
