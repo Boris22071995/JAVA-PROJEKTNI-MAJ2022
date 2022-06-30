@@ -13,12 +13,12 @@ public class SimpleFigure extends Figure implements MovingWay {
     Circle circle = new Circle();
     List<Pane> paneList = new ArrayList<>();
     int matrixDimension;
-    Pane[][] orginalPanes;
+ //   Pane[][] orginalPanes;
 
     public SimpleFigure(String boja, Pane[][] panes, int matrixDimension) {
-        super(boja);
+        super(boja,panes);
         this.matrixDimension = matrixDimension;
-        orginalPanes = panes;
+      //  orginalPanes = panes;
         this.circle.setRadius(10);
         circle.setCenterX(20);
         circle.setCenterY(20);
@@ -49,4 +49,5 @@ public class SimpleFigure extends Figure implements MovingWay {
             }
         }
     }
+    public Pane[][] getOrginalPanes(){return this.orginalPanes;}
 }

@@ -11,7 +11,8 @@ import org.unibl.etf.pj2.projektni.model.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -52,10 +53,10 @@ public class Controller implements Initializable {
     String bojaTrecegIgraca;
     String bojaCetvrtogIgraca;
 
-    Igrac igrac1;
-    Igrac igrac2;
-    Igrac igrac3;
-    Igrac igrac4;
+    Player player1;
+    Player player2;
+    Player player3;
+    Player player4;
 
     int dimenzijaMatrice;
     int brojIgraca;
@@ -100,8 +101,9 @@ public class Controller implements Initializable {
         label.setText("Trenutni broj odigranih igara: 10");
         label2.setText("DIAMOND CIRCLE");
         label2.setAlignment(Pos.CENTER);
-        podesavanjeImena();
+
         napraviMatricu();
+        podesavanjeImena();
 
     }
     public void napraviMatricu()
@@ -159,17 +161,17 @@ public class Controller implements Initializable {
 
     @FXML
     public void zapocni(javafx.event.ActionEvent ae) throws InterruptedException {
-        LebdecaFigura lf = new LebdecaFigura("crvena", panes, dimenzijaMatrice);
-     //   lf.start();
-    //    for(int i = 0; i < 1000;i++);
-        ObicnaFigura of = new ObicnaFigura("plava",panes,dimenzijaMatrice);
-        of.start();
-        SuperBrzaFigura sbf = new SuperBrzaFigura("zelena",panes,dimenzijaMatrice);
-   //     sbf.start();
+    /*   Figure[] figure = player1.getFigure();
+       for(int i = 0; i < figure.length; i ++)
+           figure[i].start();*/
+     //   SimpleFigure sf = new SimpleFigure("plava", panes, dimenzijaMatrice);
+     //   sf.start();
+     List<Figure> figures =   player1.getFigure();
+     figures.get(0).start();
+     figures.get(1).start();
 
 
     }
-
     public void podesavanjeImena() {
        if(brojIgraca == 2) {
             ime2Label.setText(ime1);
@@ -178,8 +180,8 @@ public class Controller implements Initializable {
             ime4Label.setVisible(false);
             bojaPrvogIgraca = "zuta";
             bojaDrugogIgraca = "zelena";
-            igrac1 = new Igrac(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice);
-            igrac2 = new Igrac(ime2, bojaDrugogIgraca, panes,dimenzijaMatrice);
+            player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice);
+            player2 = new Player(ime2, bojaDrugogIgraca, panes,dimenzijaMatrice);
        }
        else if(brojIgraca == 3) {
            ime1Label.setText(ime1);
@@ -192,9 +194,9 @@ public class Controller implements Initializable {
            bojaPrvogIgraca = "crvena";
            bojaDrugogIgraca = "zuta";
            bojaTrecegIgraca = "zelena";
-           igrac1 = new Igrac(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice);
-           igrac2 = new Igrac(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice);
-           igrac3 = new Igrac(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice);
+           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice);
+           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice);
+           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice);
        }
        else {
            ime1Label.setText(ime1);
@@ -205,14 +207,13 @@ public class Controller implements Initializable {
            bojaDrugogIgraca = "zuta";
            bojaTrecegIgraca = "zelena";
            bojaCetvrtogIgraca = "plava";
-           igrac1 = new Igrac(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice);
-           igrac2 = new Igrac(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice);
-           igrac3 = new Igrac(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice);
-           igrac4 = new Igrac(ime4, bojaCetvrtogIgraca, panes, dimenzijaMatrice);
+           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice);
+           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice);
+           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice);
+           player4 = new Player(ime4, bojaCetvrtogIgraca, panes, dimenzijaMatrice);
 
        }
     }
-
 
 
 }

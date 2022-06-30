@@ -10,14 +10,14 @@ import java.util.List;
 
 public class FlyingFigure extends Figure implements MovingWay {
     Polygon triangle;
-    Pane[][] orginalPanes;
+  //  Pane[][] orginalPanes;
     int matrixDimension;
     List<Pane> paneList = new ArrayList<>();
 
     public FlyingFigure(String boja, Pane[][] panes, int matrixDimension) {
-        super(boja);
+        super(boja, panes);
         this.matrixDimension = matrixDimension;
-        orginalPanes = panes;
+      //  orginalPanes = panes;
         this.triangle = new Polygon();
         this.triangle.getPoints()
                 .setAll(25.0, 10.0,
@@ -50,4 +50,6 @@ public class FlyingFigure extends Figure implements MovingWay {
                     }
                 }
     }
+    public Pane[][] getOrginalPanes(){return this.orginalPanes;}
+
 }

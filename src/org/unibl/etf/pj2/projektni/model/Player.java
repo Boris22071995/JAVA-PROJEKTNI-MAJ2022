@@ -1,13 +1,16 @@
 package org.unibl.etf.pj2.projektni.model;
 
 import javafx.scene.layout.Pane;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Player {
 
     String name;
     String colour;
-    Figure[] figure = new Figure[4];
+    List<Figure> figure = new ArrayList<>();
     Pane[][] orginalPane;
     int matrixDimension;
 
@@ -18,10 +21,10 @@ public class Player {
         this.matrixDimension = matrixDimension;
         dodajFigure();
     }
-    public Figure[] getFigure() {
+    public List<Figure> getFigure() {
         return figure;
     }
-    public void setFigure(Figure[] figure) {
+    public void setFigure(List<Figure> figure) {
         this.figure = figure;
     }
     public void dodajFigure() {
@@ -30,17 +33,21 @@ public class Player {
             int br = rand.nextInt(3);
             if(br == 0) {
                 SimpleFigure of = new SimpleFigure(colour, orginalPane, matrixDimension);
-                figure[i]  = of;
+                figure.add(of);
             }
             else if(br == 1) {
                 FlyingFigure lf = new FlyingFigure(colour, orginalPane, matrixDimension);
-                figure[i] = lf;
+                figure.add(lf);
             }
             else {
                 SuperSpeedFigure sbf = new SuperSpeedFigure(colour, orginalPane, matrixDimension);
-                figure[i] = sbf;
+                figure.add(sbf);
             }
         }
     }
+    public String getName() {
+        return name;
+    }
+    public String getColour() {return colour;}
 
 }

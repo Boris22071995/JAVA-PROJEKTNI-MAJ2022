@@ -12,12 +12,12 @@ public class SuperSpeedFigure extends Figure implements MovingWay {
     Rectangle rectangle = new Rectangle();
     List<Pane> paneList = new ArrayList<>();
     int matrixDimension;
-    Pane[][] orginalPanes;
+ //   Pane[][] orginalPanes;
 
     public SuperSpeedFigure(String boja, Pane[][] panes, int matrixDimension) {
-        super(boja);
+        super(boja,panes);
         this.matrixDimension = matrixDimension;
-        orginalPanes = panes;
+       // orginalPanes = panes;
         rectangle.setY(10);
         rectangle.setX(10);
         rectangle.setWidth(20);
@@ -49,4 +49,5 @@ public class SuperSpeedFigure extends Figure implements MovingWay {
             }
         }
     }
+    public Pane[][] getOrginalPanes(){return this.orginalPanes;}
 }
