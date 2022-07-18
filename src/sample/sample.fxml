@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="577.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="577.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
       <Pane fx:id="pane7" prefHeight="66.0" prefWidth="696.0">
          <children>
@@ -64,7 +64,7 @@
       <Pane fx:id="pane5" layoutX="505.0" layoutY="131.0" prefHeight="282.0" prefWidth="176.0">
          <children>
             <Label layoutX="48.0" layoutY="14.0" prefHeight="17.0" prefWidth="79.0" text="Trenutna karta" textFill="#150bd5" />
-            <ImageView fitHeight="181.0" fitWidth="166.0" layoutX="14.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imageView" fitHeight="223.0" fitWidth="148.0" layoutX="18.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </Pane>
       <Label layoutX="522.0" layoutY="435.0" prefHeight="18.0" prefWidth="166.0" text="Vrijeme trajanje igre: 10s" textFill="#02f22e" />

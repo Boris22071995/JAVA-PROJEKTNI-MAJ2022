@@ -4,10 +4,14 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import org.unibl.etf.pj2.projektni.model.*;
 
+
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -48,6 +52,9 @@ public class Controller implements Initializable {
     Label ime3Label = new Label();
     @FXML
     Label ime4Label = new Label();
+    @FXML
+    ImageView imageView;
+
     String bojaPrvogIgraca;
     String bojaDrugogIgraca;
     String bojaTrecegIgraca;
@@ -56,7 +63,7 @@ public class Controller implements Initializable {
     Player player1;
     Player player2;
     Player player3;
-    Player player4;
+    Player player4;  //C:\Users\Boris\OneDrive\Desktop\JAVA-PROJEKTNI-MAJ2022\karte
 
     int dimenzijaMatrice;
     int brojIgraca;
@@ -104,6 +111,11 @@ public class Controller implements Initializable {
 
         napraviMatricu();
         podesavanjeImena();
+
+        File file = new File("karte/1.png");
+        Image image = new Image(file.toURI().toString());
+        //imageView = new ImageView(image);
+        imageView.setImage(image);
 
     }
     public void napraviMatricu()
