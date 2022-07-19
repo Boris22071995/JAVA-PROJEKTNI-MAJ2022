@@ -111,11 +111,14 @@ public class Controller implements Initializable {
 
         napraviMatricu();
         podesavanjeImena();
-
-        File file = new File("karte/1.png");
+        File file = new File("karte/6.png");
         Image image = new Image(file.toURI().toString());
-        //imageView = new ImageView(image);
         imageView.setImage(image);
+//
+//        File file = new File("karte/1.png");
+//        Image image = new Image(file.toURI().toString());
+//        //imageView = new ImageView(image);
+//        imageView.setImage(image);
 
     }
     public void napraviMatricu()
@@ -181,6 +184,8 @@ public class Controller implements Initializable {
      List<Figure> figures =   player1.getFigure();
      figures.get(0).start();
      figures.get(1).start();
+     PlayingDeck pd = new PlayingDeck(imageView);
+     pd.start();
 
 
     }
