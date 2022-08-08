@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import org.unibl.etf.pj2.projektni.model.*;
 
 
@@ -54,6 +55,8 @@ public class Controller implements Initializable {
     Label ime4Label = new Label();
     @FXML
     ImageView imageView;
+    @FXML
+    Label meaningOfCard = new Label();
 
     String bojaPrvogIgraca;
     String bojaDrugogIgraca;
@@ -64,6 +67,8 @@ public class Controller implements Initializable {
     Player player2;
     Player player3;
     Player player4;  //C:\Users\Boris\OneDrive\Desktop\JAVA-PROJEKTNI-MAJ2022\karte
+
+    List<PlayingCard> pastCards = new ArrayList<PlayingCard>();
 
     int dimenzijaMatrice;
     int brojIgraca;
@@ -114,11 +119,7 @@ public class Controller implements Initializable {
         File file = new File("karte/6.png");
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
-//
-//        File file = new File("karte/1.png");
-//        Image image = new Image(file.toURI().toString());
-//        //imageView = new ImageView(image);
-//        imageView.setImage(image);
+        createLabelForFigures();
 
     }
     public void napraviMatricu()
@@ -156,19 +157,19 @@ public class Controller implements Initializable {
                 gridPane.add(tmp,j,i);
             }
         if(dimenzijaMatrice == 7) {
-            gridPane.setLayoutX(160);
+            gridPane.setLayoutX(200);
             gridPane.setLayoutY(150);
             gridPane.setPrefSize(420, 420);
         }else if(dimenzijaMatrice == 8) {
-            gridPane.setLayoutX(140);
+            gridPane.setLayoutX(200);
             gridPane.setLayoutY(130);
             gridPane.setPrefSize(420, 420);
         } else if(dimenzijaMatrice == 9) {
-            gridPane.setLayoutX(140);
+            gridPane.setLayoutX(200);
             gridPane.setLayoutY(130);
             gridPane.setPrefSize(370, 370);
         } else {
-            gridPane.setLayoutX(140);
+            gridPane.setLayoutX(200);
             gridPane.setLayoutY(130);
             gridPane.setPrefSize(340, 340);
         }
@@ -183,11 +184,9 @@ public class Controller implements Initializable {
      //   sf.start();
      List<Figure> figures =   player1.getFigure();
      figures.get(0).start();
-     figures.get(1).start();
-     PlayingDeck pd = new PlayingDeck(imageView);
+   // figures.get(1).start();
+     PlayingDeck pd = new PlayingDeck(imageView, meaningOfCard);
      pd.start();
-
-
     }
     public void podesavanjeImena() {
        if(brojIgraca == 2) {
@@ -231,6 +230,95 @@ public class Controller implements Initializable {
 
        }
     }
+    public void createLabelForFigures() {
+        List<Figure> figureList1 = new ArrayList<>();
+        List<Figure> figureList2 = new ArrayList<>();
+        List<Figure> figureList3 = new ArrayList<>();
+        List<Figure> figureList4 = new ArrayList<>();
+        List<Label> labels = new ArrayList<Label>();
+            if(brojIgraca == 2) {
+                figureList1 = player1.getFigure();
+                figureList2 = player2.getFigure();
 
+                for(int i = 0; i < 4; i++) {
+                    Label l = new Label(player1.getName()+ ": " + figureList1.get(i).move());
+                    l.setTextFill(Color.YELLOW);
+                    labels.add(l);
+                }
+                for(int i = 0; i < 4; i++) {
+                    Label l = new Label(player2.getName()+ ": " + figureList2.get(i).move());
+                    l.setTextFill(Color.GREEN);
+                    labels.add(l);
+                }
+                for(int i = 0; i < labels.size(); i++) {
+                    Label tmp = labels.get(i);
+                    tmp.setLayoutX(5);
+                    tmp.setLayoutY(i*20);
+                    pane3.getChildren().add(tmp);
+                }
+
+            }
+            else if(brojIgraca == 3) {
+                figureList1 = player1.getFigure();
+                figureList2 = player2.getFigure();
+                figureList3 = player3.getFigure();
+                for(int i = 0; i < 4; i++) {
+                    Label l = new Label(player1.getName()+ ": " + figureList1.get(i).move());
+                    l.setTextFill(Color.RED);
+                    labels.add(l);
+                }
+                for(int i = 0; i < 4; i++) {
+                    Label l = new Label(player2.getName()+ ": " + figureList2.get(i).move());
+                    l.setTextFill(Color.YELLOW);
+                    labels.add(l);
+                }
+                for(int i = 0; i < 4; i++) {
+                    Label l = new Label(player3.getName() + ": " + figureList3.get(i).move());
+                    l.setTextFill(Color.GREEN);
+                    labels.add(l);
+                }
+                for(int i = 0; i < labels.size(); i++) {
+                    Label tmp = labels.get(i);
+                    tmp.setLayoutX(5);
+                    tmp.setLayoutY(i*20);
+                    pane3.getChildren().add(tmp);
+                }
+            }
+            else {
+                figureList1 = player1.getFigure();
+                figureList2 = player2.getFigure();
+                figureList3 = player3.getFigure();
+                figureList4 = player4.getFigure();
+                for(int i = 0; i < 4; i++) {
+                    Label l = new Label( player1.getName() + ": " + figureList1.get(i).move());
+                    l.setTextFill(Color.RED);
+                    labels.add(l);
+                }
+                for(int i = 0; i < 4; i++) {
+                    Label l = new Label(player2.getName() + ": " + figureList2.get(i).move());
+                    l.setTextFill(Color.YELLOW);
+                    labels.add(l);
+                }
+                for(int i = 0; i < 4; i++) {
+                    Label l = new Label(player3.getName() + ": " + figureList3.get(i).move());
+                    l.setTextFill(Color.GREEN);
+                    labels.add(l);
+                }
+                for(int i = 0; i < 4; i++) {
+                    Label l = new Label(player4.getName() + ": " + figureList4.get(i).move());
+                    l.setTextFill(Color.BLUE);
+                    labels.add(l);
+                }
+                for(int i = 0; i < labels.size(); i++) {
+                    Label tmp = labels.get(i);
+                    tmp.setLayoutX(5);
+                    tmp.setLayoutY(i*20);
+                    pane3.getChildren().add(tmp);
+                }
+
+
+            }
+
+    }
 
 }

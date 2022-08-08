@@ -76,3 +76,5 @@ Jun 10, 2022 5:22:05 PM sample.PocetnaStranaController zapocniIgru
 SEVERE: javafx.fxml.LoadException: Controller value already specified.
 /C:/Users/Boris/OneDrive/Desktop/JAVA-PROJEKTNI-MAJ2022/out/production/JavaFxApplication/sample/sample.fxml:12
 
+Aug 08, 2022 4:24:28 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: java.lang.NumberFormatException: For input string: "7`"

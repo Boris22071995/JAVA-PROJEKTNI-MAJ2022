@@ -1,9 +1,11 @@
 package org.unibl.etf.pj2.projektni.model;
 
 import javafx.application.Platform;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+//import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,7 @@ public class PlayingDeck extends Thread{
     PlayingCard[] cards = new PlayingCard[52];
     ImageView imageView;
     List<String> stringList= new ArrayList<String>();
+    Label meaningOfCard;
 
     public PlayingDeck() {
         super();
@@ -25,8 +28,9 @@ public class PlayingDeck extends Thread{
         imageView.setImage(image);
      */
 
-    public PlayingDeck(ImageView imageView) {
+    public PlayingDeck(ImageView imageView, Label meaningOfCard) {
         this.imageView = imageView;
+        this.meaningOfCard = meaningOfCard;
         int br = 0;
         for(int i = 0; i < 40; i+=4)
             for(int j = 0; j < 4; j++) {
@@ -72,6 +76,9 @@ public class PlayingDeck extends Thread{
             stringList.add(putanja);
             Image image = new Image(file.toURI().toString());
             Platform.runLater(()->imageView.setImage(image));
+            String tmp = meaningOfCardForLabel(putanja);
+            Platform.runLater(()->meaningOfCard.setText(tmp));
+
             br++;
             try{
                 sleep(2000);
@@ -80,6 +87,21 @@ public class PlayingDeck extends Thread{
             } }
             else br = 0;
         }
+
+
+    }
+
+    public String meaningOfCardForLabel(String putanja) {
+        if(putanja.equals("karte/1.png"))
+            return "Figura prelazi jedno polje.";
+        else if(putanja.equals("karte/2.png"))
+            return "Figrua prelazi dva polja.";
+        else if(putanja.equals("karte/3.png"))
+            return "Figura prelazi tri polja.";
+        else if(putanja.equals("karte/4.png"))
+            return "Figura prelazi cetiri polja.";
+        else
+            return "Figura prelazi n polja";
     }
 
 }
