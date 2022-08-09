@@ -1,4 +1,5 @@
 package sample;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -6,17 +7,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import org.unibl.etf.pj2.projektni.model.*;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -68,15 +68,21 @@ public class Controller implements Initializable {
     Player player3;
     Player player4;  //C:\Users\Boris\OneDrive\Desktop\JAVA-PROJEKTNI-MAJ2022\karte
 
-    List<PlayingCard> pastCards = new ArrayList<PlayingCard>();
+    List<PlayingCard> pastCards = new ArrayList<>();
 
+    Boolean on = false;
+    @FXML
+    Label timerLabel;
     int dimenzijaMatrice;
     int brojIgraca;
     String ime1;
     String ime2;
     String ime3;
     String ime4;
-   ArrayList<Label> labele = new ArrayList<Label>();
+   ArrayList<Label> labele = new ArrayList<>();
+    PlayingDeck pd;
+    List<Figure> figures;
+    int brojac = 0;
    public Controller(int dimenzijaMatrice, int brojIgraca, String ime1, String ime2) throws IOException {
        this.dimenzijaMatrice = dimenzijaMatrice;
        this.brojIgraca = brojIgraca;
@@ -113,6 +119,7 @@ public class Controller implements Initializable {
         label.setText("Trenutni broj odigranih igara: 10");
         label2.setText("DIAMOND CIRCLE");
         label2.setAlignment(Pos.CENTER);
+        timerLabel.setText("");
 
         napraviMatricu();
         podesavanjeImena();
@@ -120,6 +127,9 @@ public class Controller implements Initializable {
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
         createLabelForFigures();
+
+         pd = new PlayingDeck(imageView, meaningOfCard);
+         figures =   player1.getFigure();
 
     }
     public void napraviMatricu()
@@ -157,7 +167,7 @@ public class Controller implements Initializable {
                 gridPane.add(tmp,j,i);
             }
         if(dimenzijaMatrice == 7) {
-            gridPane.setLayoutX(200);
+            gridPane.setLayoutX(220);
             gridPane.setLayoutY(150);
             gridPane.setPrefSize(420, 420);
         }else if(dimenzijaMatrice == 8) {
@@ -177,16 +187,29 @@ public class Controller implements Initializable {
 
     @FXML
     public void zapocni(javafx.event.ActionEvent ae) throws InterruptedException {
+       timerLabel.setText("MRS");
+        if(on == false) {
+            on = true;
+            figures.get(0).start();
+            pd.start();
+        }
+       if(on == true) {
+           on = false;
+            pokreni.setText("Zaustavi");
+       }
+       else {
+           on = false;
+           pokreni.setText("Pokreni");
+       }
     /*   Figure[] figure = player1.getFigure();
        for(int i = 0; i < figure.length; i ++)
            figure[i].start();*/
      //   SimpleFigure sf = new SimpleFigure("plava", panes, dimenzijaMatrice);
      //   sf.start();
-     List<Figure> figures =   player1.getFigure();
-     figures.get(0).start();
+
    // figures.get(1).start();
-     PlayingDeck pd = new PlayingDeck(imageView, meaningOfCard);
-     pd.start();
+
+
     }
     public void podesavanjeImena() {
        if(brojIgraca == 2) {
@@ -231,10 +254,10 @@ public class Controller implements Initializable {
        }
     }
     public void createLabelForFigures() {
-        List<Figure> figureList1 = new ArrayList<>();
-        List<Figure> figureList2 = new ArrayList<>();
-        List<Figure> figureList3 = new ArrayList<>();
-        List<Figure> figureList4 = new ArrayList<>();
+        List<Figure> figureList1;
+        List<Figure> figureList2;
+        List<Figure> figureList3;
+        List<Figure> figureList4;
         List<Label> labels = new ArrayList<Label>();
             if(brojIgraca == 2) {
                 figureList1 = player1.getFigure();
@@ -243,11 +266,17 @@ public class Controller implements Initializable {
                 for(int i = 0; i < 4; i++) {
                     Label l = new Label(player1.getName()+ ": " + figureList1.get(i).move());
                     l.setTextFill(Color.YELLOW);
+                    l.setOnMouseClicked(mouseEvent -> {
+                        System.out.println("Mahrina je car");
+                    });
                     labels.add(l);
                 }
                 for(int i = 0; i < 4; i++) {
                     Label l = new Label(player2.getName()+ ": " + figureList2.get(i).move());
                     l.setTextFill(Color.GREEN);
+                    l.setOnMouseClicked(mouseEvent -> {
+                        System.out.println("Mahrina je car");
+                    });
                     labels.add(l);
                 }
                 for(int i = 0; i < labels.size(); i++) {
@@ -265,16 +294,25 @@ public class Controller implements Initializable {
                 for(int i = 0; i < 4; i++) {
                     Label l = new Label(player1.getName()+ ": " + figureList1.get(i).move());
                     l.setTextFill(Color.RED);
+                    l.setOnMouseClicked(mouseEvent -> {
+                        System.out.println("Mahrina je car");
+                    });
                     labels.add(l);
                 }
                 for(int i = 0; i < 4; i++) {
                     Label l = new Label(player2.getName()+ ": " + figureList2.get(i).move());
                     l.setTextFill(Color.YELLOW);
+                    l.setOnMouseClicked(mouseEvent -> {
+                        System.out.println("Mahrina je car");
+                    });
                     labels.add(l);
                 }
                 for(int i = 0; i < 4; i++) {
                     Label l = new Label(player3.getName() + ": " + figureList3.get(i).move());
                     l.setTextFill(Color.GREEN);
+                    l.setOnMouseClicked(mouseEvent -> {
+                        System.out.println("Mahrina je car");
+                    });
                     labels.add(l);
                 }
                 for(int i = 0; i < labels.size(); i++) {
@@ -292,21 +330,33 @@ public class Controller implements Initializable {
                 for(int i = 0; i < 4; i++) {
                     Label l = new Label( player1.getName() + ": " + figureList1.get(i).move());
                     l.setTextFill(Color.RED);
+                    l.setOnMouseClicked(mouseEvent -> {
+                        System.out.println("Mahrina je car");
+                    });
                     labels.add(l);
                 }
                 for(int i = 0; i < 4; i++) {
                     Label l = new Label(player2.getName() + ": " + figureList2.get(i).move());
                     l.setTextFill(Color.YELLOW);
+                    l.setOnMouseClicked(mouseEvent -> {
+                        System.out.println("Mahrina je car");
+                    });
                     labels.add(l);
                 }
                 for(int i = 0; i < 4; i++) {
                     Label l = new Label(player3.getName() + ": " + figureList3.get(i).move());
                     l.setTextFill(Color.GREEN);
+                    l.setOnMouseClicked(mouseEvent -> {
+                        System.out.println("Mahrina je car");
+                    });
                     labels.add(l);
                 }
                 for(int i = 0; i < 4; i++) {
                     Label l = new Label(player4.getName() + ": " + figureList4.get(i).move());
                     l.setTextFill(Color.BLUE);
+                    l.setOnMouseClicked(mouseEvent -> {
+                        System.out.println("Mahrina je car");
+                    });
                     labels.add(l);
                 }
                 for(int i = 0; i < labels.size(); i++) {
