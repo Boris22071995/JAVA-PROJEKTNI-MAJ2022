@@ -15,6 +15,7 @@ public class SimpleFigure extends Figure implements MovingWay {
     int matrixDimension;
     MovingPath mp;
 
+
     public SimpleFigure(String boja, Pane[][] panes, int matrixDimension) {
         super(boja,panes);
         this.startSpot = 0;
@@ -65,6 +66,7 @@ public class SimpleFigure extends Figure implements MovingWay {
                 e.printStackTrace();
             }
         }
+        this.setIsDone(true);
         startSpot = endSpot + 1;
     }
     public Pane[][] getOrginalPanes(){return this.orginalPanes;}

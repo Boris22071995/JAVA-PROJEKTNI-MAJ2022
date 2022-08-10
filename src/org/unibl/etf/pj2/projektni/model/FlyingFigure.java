@@ -66,6 +66,7 @@ public class FlyingFigure extends Figure implements MovingWay {
          }
      }
      startSpot = endSpot + 1;
+     this.setIsDone(true);
  }
     public Pane[][] getOrginalPanes(){return this.orginalPanes;}
 }

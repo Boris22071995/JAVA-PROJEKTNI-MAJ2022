@@ -10,6 +10,7 @@ public abstract class Figure extends Thread implements MovingWay {
     int startSpot;
     int endSpot;
     int count;
+    Boolean isDone = false;
 
     public Figure() {
         super();
@@ -49,4 +50,10 @@ public abstract class Figure extends Thread implements MovingWay {
     }
     @Override
     public abstract void run();
+    public void setIsDone(Boolean value) {
+        isDone = value;
+    }
+    public Boolean getIsDone() {
+        return isDone;
+    }
 }
