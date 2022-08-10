@@ -80,6 +80,7 @@ public class Controller implements Initializable {
     String ime3;
     String ime4;
    ArrayList<Label> labele = new ArrayList<>();
+   ArrayList<Figure> sveFigure = new ArrayList<>();
     PlayingDeck pd;
     List<Figure> figures;
     int brojac = 0;
@@ -130,6 +131,7 @@ public class Controller implements Initializable {
 
          pd = new PlayingDeck(imageView, meaningOfCard);
          figures =   player1.getFigure();
+
 
     }
     public void napraviMatricu()
@@ -187,28 +189,9 @@ public class Controller implements Initializable {
 
     @FXML
     public void zapocni(javafx.event.ActionEvent ae) throws InterruptedException {
-       timerLabel.setText("MRS");
-        if(on == false) {
-            on = true;
-            figures.get(0).start();
-            pd.start();
-        }
-       if(on == true) {
-           on = false;
-            pokreni.setText("Zaustavi");
-       }
-       else {
-           on = false;
-           pokreni.setText("Pokreni");
-       }
-    /*   Figure[] figure = player1.getFigure();
-       for(int i = 0; i < figure.length; i ++)
-           figure[i].start();*/
-     //   SimpleFigure sf = new SimpleFigure("plava", panes, dimenzijaMatrice);
-     //   sf.start();
-
-   // figures.get(1).start();
-
+      figures.get(0).setStartSpot(0);
+      figures.get(0).setEndSpot(25);
+      figures.get(0).start();
 
     }
     public void podesavanjeImena() {

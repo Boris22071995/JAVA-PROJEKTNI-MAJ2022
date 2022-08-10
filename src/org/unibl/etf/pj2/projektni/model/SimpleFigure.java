@@ -11,14 +11,14 @@ import java.util.List;
 public class SimpleFigure extends Figure implements MovingWay {
 
     Circle circle = new Circle();
-    List<Pane> paneList = new ArrayList<>();
+    List<Pane> paneList;
     int matrixDimension;
- //   Pane[][] orginalPanes;
+    MovingPath mp;
 
     public SimpleFigure(String boja, Pane[][] panes, int matrixDimension) {
         super(boja,panes);
+        this.startSpot = 0;
         this.matrixDimension = matrixDimension;
-      //  orginalPanes = panes;
         this.circle.setRadius(10);
         circle.setCenterX(20);
         circle.setCenterY(20);
@@ -28,12 +28,16 @@ public class SimpleFigure extends Figure implements MovingWay {
             case "zelena" -> this.circle.setFill(Color.GREEN);
             default -> circle.setFill(Color.YELLOW);
         }
+        this.mp = new MovingPath(orginalPanes, matrixDimension);
+        if(matrixDimension % 2 == 0) mp.addToListEvenNumber();
+        else mp.addToListOddNumber();
+        paneList = mp.getPaneList();
     }
     @Override
     public String move() {
         return "Obicna figura";
     }
-    @Override
+ /*   @Override
     public void run() {
         MovingPath mp = new MovingPath(orginalPanes, matrixDimension);
         if(matrixDimension % 2 == 0) mp.addToListEvenNumber();
@@ -48,6 +52,20 @@ public class SimpleFigure extends Figure implements MovingWay {
                 e.printStackTrace();
             }
         }
+    }*/
+
+    @Override
+    public synchronized void run() {
+        for(int i = startSpot; i < endSpot; i++) {
+            final int x = i;
+            Platform.runLater(()->paneList.get(x).getChildren().add(circle));
+            try{
+                sleep(1000);
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        startSpot = endSpot + 1;
     }
     public Pane[][] getOrginalPanes(){return this.orginalPanes;}
 }

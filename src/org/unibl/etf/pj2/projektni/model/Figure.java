@@ -7,6 +7,9 @@ public abstract class Figure extends Thread implements MovingWay {
 
     String colour;
     Pane[][] orginalPanes;
+    int startSpot;
+    int endSpot;
+    int count;
 
     public Figure() {
         super();
@@ -22,7 +25,24 @@ public abstract class Figure extends Thread implements MovingWay {
         return this.colour;
     }
     public Pane[][] getOrginalPanes() {return this.orginalPanes;}
-
+    public void setStartSpot(int startSpot) {
+        this.startSpot = startSpot;
+    }
+    public int getStartSpot() {
+        return this.startSpot;
+    }
+    public void setCount(int count) {
+        this.count = count;
+    }
+    public int getCount() {
+        return this.count;
+    }
+    public void setEndSpot(int endSpot) {
+        this.endSpot = endSpot;
+    }
+    public int getEndSpot() {
+        return this.endSpot;
+    }
     @Override
     public String move() {
         return "Figura";
