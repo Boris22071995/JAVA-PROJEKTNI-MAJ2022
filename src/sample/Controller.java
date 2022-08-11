@@ -190,10 +190,14 @@ public class Controller implements Initializable {
     @FXML
     public void zapocni(javafx.event.ActionEvent ae) throws InterruptedException {
             pd.start();
-            figures.get(0).setStartSpot(0);
-            figures.get(0).setEndSpot(25);
-            figures.get(0).start();
 
+            figures.get(0).setStartSpot(0);
+            figures.get(0).setEndSpot(6);
+            figures.get(1).setStartSpot(0);
+            figures.get(1).setEndSpot(8);
+
+       figures.get(0).start();
+       figures.get(1).start();
    }
     public void podesavanjeImena() {
        if(brojIgraca == 2) {

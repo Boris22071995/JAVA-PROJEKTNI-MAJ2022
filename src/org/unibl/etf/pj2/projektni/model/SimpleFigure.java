@@ -14,7 +14,7 @@ public class SimpleFigure extends Figure implements MovingWay {
     List<Pane> paneList;
     int matrixDimension;
     MovingPath mp;
-
+    boolean done = false;
 
     public SimpleFigure(String boja, Pane[][] panes, int matrixDimension) {
         super(boja,panes);
@@ -57,7 +57,23 @@ public class SimpleFigure extends Figure implements MovingWay {
 
     @Override
     public synchronized void run() {
-        for(int i = startSpot; i < endSpot; i++) {
+        while(startSpot < endSpot) {
+            final int x = startSpot;
+            Platform.runLater(()->paneList.get(x).getChildren().add(circle));
+            try{
+                sleep(1000);
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            startSpot++;
+        }
+        try {
+            this.wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.notify();
+/*        for(int i = startSpot; i < endSpot; i++) {
             final int x = i;
             Platform.runLater(()->paneList.get(x).getChildren().add(circle));
             try{
@@ -67,7 +83,7 @@ public class SimpleFigure extends Figure implements MovingWay {
             }
         }
         this.setIsDone(true);
-        startSpot = endSpot + 1;
+        startSpot = endSpot + 1;*/
     }
     public Pane[][] getOrginalPanes(){return this.orginalPanes;}
 }
