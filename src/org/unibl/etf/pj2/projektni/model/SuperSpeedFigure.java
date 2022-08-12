@@ -70,7 +70,6 @@ public class SuperSpeedFigure extends Figure implements MovingWay {
       } catch (InterruptedException e) {
           e.printStackTrace();
       }
-      this.notify();
     /*  for(int i = startSpot; i < endSpot; i++) {
           final int x = i;
           Platform.runLater(()->paneList.get(x).getChildren().add(rectangle));

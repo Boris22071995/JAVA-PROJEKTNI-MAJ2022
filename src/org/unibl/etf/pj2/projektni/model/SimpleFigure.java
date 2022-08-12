@@ -57,9 +57,17 @@ public class SimpleFigure extends Figure implements MovingWay {
 
     @Override
     public synchronized void run() {
-        while(startSpot < endSpot) {
+        while(startSpot <= endSpot) {
             final int x = startSpot;
             Platform.runLater(()->paneList.get(x).getChildren().add(circle));
+            if(startSpot == endSpot)
+            {
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             try{
                 sleep(1000);
             }catch (InterruptedException e) {
@@ -67,12 +75,7 @@ public class SimpleFigure extends Figure implements MovingWay {
             }
             startSpot++;
         }
-        try {
-            this.wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        this.notify();
+
 /*        for(int i = startSpot; i < endSpot; i++) {
             final int x = i;
             Platform.runLater(()->paneList.get(x).getChildren().add(circle));

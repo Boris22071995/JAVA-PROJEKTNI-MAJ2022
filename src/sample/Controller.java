@@ -195,9 +195,13 @@ public class Controller implements Initializable {
             figures.get(0).setEndSpot(6);
             figures.get(1).setStartSpot(0);
             figures.get(1).setEndSpot(8);
+            figures.get(2).setStartSpot(0);
+            figures.get(2).setEndSpot(18);
+            figures.get(3).setStartSpot(0);
+            figures.get(3).setEndSpot(2);
+            Game startGame  =new Game(figures);
+            startGame.start();
 
-       figures.get(0).start();
-       figures.get(1).start();
    }
     public void podesavanjeImena() {
        if(brojIgraca == 2) {
