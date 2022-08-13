@@ -67,6 +67,7 @@ public class FlyingFigure extends Figure implements MovingWay {
          startSpot++;
      }
      try {
+         System.out.println("LETECA, " + this.getEndSpot());
          this.wait();
      } catch (InterruptedException e) {
          e.printStackTrace();

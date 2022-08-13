@@ -63,7 +63,9 @@ public class SimpleFigure extends Figure implements MovingWay {
             if(startSpot == endSpot)
             {
                 try {
+                    System.out.println("OBICNA, " + this.getEndSpot());
                     wait();
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

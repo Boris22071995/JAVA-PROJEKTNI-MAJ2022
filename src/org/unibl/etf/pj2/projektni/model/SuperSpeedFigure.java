@@ -66,6 +66,7 @@ public class SuperSpeedFigure extends Figure implements MovingWay {
           startSpot++;
       }
       try {
+          System.out.println("SUPER, " + this.getEndSpot());
           this.wait();
       } catch (InterruptedException e) {
           e.printStackTrace();

@@ -14,18 +14,24 @@ public class Game extends Thread{
     }
 
     @Override
-    public void run() {
-
+    public synchronized  void run() {
+        for(int i = 0; i < allFigures.size(); i++){
+            allFigures.get(i).setStartSpot(0);
+            allFigures.get(i).setEndSpot(1);
+            allFigures.get(i).start();
+        }
         while (allFigures.size() != 0) {
-            Figure figure = allFigures.get(0);
-            allFigures.remove(0).start();
-            figure.setStartSpot(figure.getEndSpot() + 1);
-            figure.setEndSpot(figure.endSpot + 4);
-            allFigures.add(figure);
+            Figure figure = allFigures.remove(0);
             try
             {
+                figure.setStartSpot(figure.getEndSpot()+1);
+                figure.setEndSpot(figure.getEndSpot() + 4);
+                allFigures.add(figure);
+                System.out.println(figure.move());
+                this.notify();
                 sleep(5000);
-                figure.notify();
+
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
