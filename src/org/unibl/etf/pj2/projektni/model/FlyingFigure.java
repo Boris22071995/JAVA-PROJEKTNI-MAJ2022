@@ -60,6 +60,24 @@ public class FlyingFigure extends Figure implements MovingWay {
          final int x = startSpot;
          Platform.runLater(()->paneList.get(x).getChildren().add(triangle));
          try{
+             System.out.println("RADI LETECA FIGURE...");
+             sleep(1000);
+         } catch (InterruptedException e) {
+             e.printStackTrace();
+         }
+         startSpot++;
+     }
+     if(startSpot == endSpot) {
+         try{
+             System.out.println("LETECA CEKA OVDJE...");
+             wait();
+         } catch (InterruptedException e) {
+             e.printStackTrace();
+         }}
+    /* while(startSpot < endSpot) {
+         final int x = startSpot;
+         Platform.runLater(()->paneList.get(x).getChildren().add(triangle));
+         try{
              sleep(1000);
          }catch (InterruptedException e) {
              e.printStackTrace();
@@ -71,7 +89,7 @@ public class FlyingFigure extends Figure implements MovingWay {
          this.wait();
      } catch (InterruptedException e) {
          e.printStackTrace();
-     }
+     }*/
 
  /*    for(int i = startSpot; i < endSpot; i++) {
          final int x = i;

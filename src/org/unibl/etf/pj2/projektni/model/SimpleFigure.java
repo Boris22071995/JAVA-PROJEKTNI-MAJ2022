@@ -57,7 +57,25 @@ public class SimpleFigure extends Figure implements MovingWay {
 
     @Override
     public synchronized void run() {
-        while(startSpot <= endSpot) {
+        while(startSpot < endSpot) {
+            final int x = startSpot;
+            Platform.runLater(()->paneList.get(x).getChildren().add(circle));
+            try{
+                System.out.println("RADI OBICNA FIGURA...");
+                sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            startSpot++;
+        }
+        if(startSpot == endSpot) {
+            try{
+                System.out.println("OBICNA CEKA OVDJE...");
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }}
+      /*  while(startSpot <= endSpot) {
             final int x = startSpot;
             Platform.runLater(()->paneList.get(x).getChildren().add(circle));
             if(startSpot == endSpot)

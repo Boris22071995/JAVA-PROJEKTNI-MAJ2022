@@ -190,15 +190,15 @@ public class Controller implements Initializable {
     @FXML
     public void zapocni(javafx.event.ActionEvent ae) throws InterruptedException {
             pd.start();
-
-            figures.get(0).setStartSpot(0);
-            figures.get(0).setEndSpot(6);
-            figures.get(1).setStartSpot(0);
-            figures.get(1).setEndSpot(8);
-            figures.get(2).setStartSpot(0);
-            figures.get(2).setEndSpot(18);
-            figures.get(3).setStartSpot(0);
-            figures.get(3).setEndSpot(2);
+//
+//            figures.get(0).setStartSpot(0);
+//            figures.get(0).setEndSpot(6);
+//            figures.get(1).setStartSpot(0);
+//            figures.get(1).setEndSpot(8);
+//            figures.get(2).setStartSpot(0);
+//            figures.get(2).setEndSpot(18);
+//            figures.get(3).setStartSpot(0);
+//            figures.get(3).setEndSpot(2);
             Game startGame  =new Game(figures);
             startGame.start();
 

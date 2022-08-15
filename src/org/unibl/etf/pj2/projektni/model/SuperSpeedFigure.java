@@ -59,6 +59,25 @@ public class SuperSpeedFigure extends Figure implements MovingWay {
           final int x = startSpot;
           Platform.runLater(()->paneList.get(x).getChildren().add(rectangle));
           try{
+              System.out.println("RADI SUPER BRZA FIGURA...");
+              sleep(1000);
+          } catch (InterruptedException e) {
+              e.printStackTrace();
+          }
+          startSpot++;
+      }
+      if(startSpot == endSpot) {
+          try{
+              System.out.println("SUPER BRZA CEKA OVDJE...");
+              wait();
+          } catch (InterruptedException e) {
+              e.printStackTrace();
+          }
+      }
+ /*     while(startSpot < endSpot) {
+          final int x = startSpot;
+          Platform.runLater(()->paneList.get(x).getChildren().add(rectangle));
+          try{
               sleep(1000);
           }catch (InterruptedException e) {
               e.printStackTrace();
@@ -70,18 +89,7 @@ public class SuperSpeedFigure extends Figure implements MovingWay {
           this.wait();
       } catch (InterruptedException e) {
           e.printStackTrace();
-      }
-    /*  for(int i = startSpot; i < endSpot; i++) {
-          final int x = i;
-          Platform.runLater(()->paneList.get(x).getChildren().add(rectangle));
-          try{
-              sleep(1000);
-          }catch (InterruptedException e) {
-              e.printStackTrace();
-          }
-      }
-      startSpot = endSpot + 1;
-      this.setIsDone(true);*/
+      }*/
   }
     public Pane[][] getOrginalPanes(){return this.orginalPanes;}
 }
