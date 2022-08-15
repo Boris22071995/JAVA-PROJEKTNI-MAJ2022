@@ -5,21 +5,24 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class Player {
+public class Player extends Thread{
 
+    AtomicInteger positionOfPlayer = new AtomicInteger();
     String name;
     String colour;
     List<Figure> figure = new ArrayList<>();
     Pane[][] orginalPane;
     int matrixDimension;
 
-    public Player(String name, String colour, Pane[][] panes, int matrixDimension) {
+    public Player(String name, String colour, Pane[][] panes, int matrixDimension,int positionOfPlayer) {
         this.name = name;
         this.colour = colour;
         this.orginalPane = panes;
         this.matrixDimension = matrixDimension;
         dodajFigure();
+        this.positionOfPlayer.set(positionOfPlayer);
     }
     public List<Figure> getFigure() {
         return figure;
@@ -45,9 +48,16 @@ public class Player {
             }
         }
     }
-    public String getName() {
+    public String getNames() {
         return name;
     }
     public String getColour() {return colour;}
+    @Override
+    public void run() {
+            Figure figureForPlay = figure.remove(0);
+            while(true) {
+
+            }
+    }
 
 }

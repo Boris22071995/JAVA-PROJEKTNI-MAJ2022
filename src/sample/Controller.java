@@ -190,17 +190,6 @@ public class Controller implements Initializable {
     @FXML
     public void zapocni(javafx.event.ActionEvent ae) throws InterruptedException {
             pd.start();
-//
-//            figures.get(0).setStartSpot(0);
-//            figures.get(0).setEndSpot(6);
-//            figures.get(1).setStartSpot(0);
-//            figures.get(1).setEndSpot(8);
-//            figures.get(2).setStartSpot(0);
-//            figures.get(2).setEndSpot(18);
-//            figures.get(3).setStartSpot(0);
-//            figures.get(3).setEndSpot(2);
-            Game startGame  =new Game(figures);
-            startGame.start();
 
    }
     public void podesavanjeImena() {
@@ -211,8 +200,8 @@ public class Controller implements Initializable {
             ime4Label.setVisible(false);
             bojaPrvogIgraca = "zuta";
             bojaDrugogIgraca = "zelena";
-            player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice);
-            player2 = new Player(ime2, bojaDrugogIgraca, panes,dimenzijaMatrice);
+            player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,1);
+            player2 = new Player(ime2, bojaDrugogIgraca, panes,dimenzijaMatrice,2);
        }
        else if(brojIgraca == 3) {
            ime1Label.setText(ime1);
@@ -225,9 +214,9 @@ public class Controller implements Initializable {
            bojaPrvogIgraca = "crvena";
            bojaDrugogIgraca = "zuta";
            bojaTrecegIgraca = "zelena";
-           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice);
-           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice);
-           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice);
+           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,1);
+           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,2);
+           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,3);
        }
        else {
            ime1Label.setText(ime1);
@@ -238,10 +227,10 @@ public class Controller implements Initializable {
            bojaDrugogIgraca = "zuta";
            bojaTrecegIgraca = "zelena";
            bojaCetvrtogIgraca = "plava";
-           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice);
-           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice);
-           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice);
-           player4 = new Player(ime4, bojaCetvrtogIgraca, panes, dimenzijaMatrice);
+           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,1);
+           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,2);
+           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,3);
+           player4 = new Player(ime4, bojaCetvrtogIgraca, panes, dimenzijaMatrice,4);
 
        }
     }
@@ -256,7 +245,7 @@ public class Controller implements Initializable {
                 figureList2 = player2.getFigure();
 
                 for(int i = 0; i < 4; i++) {
-                    Label l = new Label(player1.getName()+ ": " + figureList1.get(i).move());
+                    Label l = new Label(player1.getNames()+ ": " + figureList1.get(i).move());
                     l.setTextFill(Color.YELLOW);
                     l.setOnMouseClicked(mouseEvent -> {
                         System.out.println("Mahrina je car");
@@ -264,7 +253,7 @@ public class Controller implements Initializable {
                     labels.add(l);
                 }
                 for(int i = 0; i < 4; i++) {
-                    Label l = new Label(player2.getName()+ ": " + figureList2.get(i).move());
+                    Label l = new Label(player2.getNames()+ ": " + figureList2.get(i).move());
                     l.setTextFill(Color.GREEN);
                     l.setOnMouseClicked(mouseEvent -> {
                         System.out.println("Mahrina je car");
@@ -284,7 +273,7 @@ public class Controller implements Initializable {
                 figureList2 = player2.getFigure();
                 figureList3 = player3.getFigure();
                 for(int i = 0; i < 4; i++) {
-                    Label l = new Label(player1.getName()+ ": " + figureList1.get(i).move());
+                    Label l = new Label(player1.getNames()+ ": " + figureList1.get(i).move());
                     l.setTextFill(Color.RED);
                     l.setOnMouseClicked(mouseEvent -> {
                         System.out.println("Mahrina je car");
@@ -292,7 +281,7 @@ public class Controller implements Initializable {
                     labels.add(l);
                 }
                 for(int i = 0; i < 4; i++) {
-                    Label l = new Label(player2.getName()+ ": " + figureList2.get(i).move());
+                    Label l = new Label(player2.getNames()+ ": " + figureList2.get(i).move());
                     l.setTextFill(Color.YELLOW);
                     l.setOnMouseClicked(mouseEvent -> {
                         System.out.println("Mahrina je car");
@@ -300,7 +289,7 @@ public class Controller implements Initializable {
                     labels.add(l);
                 }
                 for(int i = 0; i < 4; i++) {
-                    Label l = new Label(player3.getName() + ": " + figureList3.get(i).move());
+                    Label l = new Label(player3.getNames() + ": " + figureList3.get(i).move());
                     l.setTextFill(Color.GREEN);
                     l.setOnMouseClicked(mouseEvent -> {
                         System.out.println("Mahrina je car");
@@ -320,7 +309,7 @@ public class Controller implements Initializable {
                 figureList3 = player3.getFigure();
                 figureList4 = player4.getFigure();
                 for(int i = 0; i < 4; i++) {
-                    Label l = new Label( player1.getName() + ": " + figureList1.get(i).move());
+                    Label l = new Label( player1.getNames() + ": " + figureList1.get(i).move());
                     l.setTextFill(Color.RED);
                     l.setOnMouseClicked(mouseEvent -> {
                         System.out.println("Mahrina je car");
@@ -328,7 +317,7 @@ public class Controller implements Initializable {
                     labels.add(l);
                 }
                 for(int i = 0; i < 4; i++) {
-                    Label l = new Label(player2.getName() + ": " + figureList2.get(i).move());
+                    Label l = new Label(player2.getNames() + ": " + figureList2.get(i).move());
                     l.setTextFill(Color.YELLOW);
                     l.setOnMouseClicked(mouseEvent -> {
                         System.out.println("Mahrina je car");
@@ -336,7 +325,7 @@ public class Controller implements Initializable {
                     labels.add(l);
                 }
                 for(int i = 0; i < 4; i++) {
-                    Label l = new Label(player3.getName() + ": " + figureList3.get(i).move());
+                    Label l = new Label(player3.getNames() + ": " + figureList3.get(i).move());
                     l.setTextFill(Color.GREEN);
                     l.setOnMouseClicked(mouseEvent -> {
                         System.out.println("Mahrina je car");
@@ -344,7 +333,7 @@ public class Controller implements Initializable {
                     labels.add(l);
                 }
                 for(int i = 0; i < 4; i++) {
-                    Label l = new Label(player4.getName() + ": " + figureList4.get(i).move());
+                    Label l = new Label(player4.getNames() + ": " + figureList4.get(i).move());
                     l.setTextFill(Color.BLUE);
                     l.setOnMouseClicked(mouseEvent -> {
                         System.out.println("Mahrina je car");

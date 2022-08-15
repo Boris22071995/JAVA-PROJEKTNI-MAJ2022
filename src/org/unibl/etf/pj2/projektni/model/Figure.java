@@ -3,7 +3,7 @@ package org.unibl.etf.pj2.projektni.model;
 import javafx.scene.layout.Pane;
 import org.unibl.etf.pj2.projektni.interfaces.MovingWay;
 
-public abstract class Figure extends Thread implements MovingWay {
+public abstract class Figure implements MovingWay {
 
     String colour;
     Pane[][] orginalPanes;
@@ -48,8 +48,6 @@ public abstract class Figure extends Thread implements MovingWay {
     public String move() {
         return "Figura";
     }
-    @Override
-    public abstract void run();
     public void setIsDone(Boolean value) {
         isDone = value;
     }

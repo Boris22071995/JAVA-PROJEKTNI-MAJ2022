@@ -37,59 +37,5 @@ public class SuperSpeedFigure extends Figure implements MovingWay {
     public String move() {
         return "Super brza figura";
     }
-  /*  @Override
-    public void run() {
-        MovingPath mp = new MovingPath(orginalPanes, matrixDimension);
-        if(matrixDimension %2 == 0) mp.addToListEvenNumber();
-        else mp.addToListOddNumber();
-        paneList = mp.getPaneList();
-        for(int i = 0; i < paneList.size(); i++) {
-            final int x = i;
-            Platform.runLater(() -> paneList.get(x).getChildren().add(rectangle));
-            try{
-                sleep(1000);
-            }catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }*/
-  @Override
-  public synchronized void run() {
-      while(startSpot < endSpot) {
-          final int x = startSpot;
-          Platform.runLater(()->paneList.get(x).getChildren().add(rectangle));
-          try{
-              System.out.println("RADI SUPER BRZA FIGURA...");
-              sleep(1000);
-          } catch (InterruptedException e) {
-              e.printStackTrace();
-          }
-          startSpot++;
-      }
-      if(startSpot == endSpot) {
-          try{
-              System.out.println("SUPER BRZA CEKA OVDJE...");
-              wait();
-          } catch (InterruptedException e) {
-              e.printStackTrace();
-          }
-      }
- /*     while(startSpot < endSpot) {
-          final int x = startSpot;
-          Platform.runLater(()->paneList.get(x).getChildren().add(rectangle));
-          try{
-              sleep(1000);
-          }catch (InterruptedException e) {
-              e.printStackTrace();
-          }
-          startSpot++;
-      }
-      try {
-          System.out.println("SUPER, " + this.getEndSpot());
-          this.wait();
-      } catch (InterruptedException e) {
-          e.printStackTrace();
-      }*/
-  }
     public Pane[][] getOrginalPanes(){return this.orginalPanes;}
 }
