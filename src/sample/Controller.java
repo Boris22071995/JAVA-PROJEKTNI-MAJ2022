@@ -190,6 +190,12 @@ public class Controller implements Initializable {
     @FXML
     public void zapocni(javafx.event.ActionEvent ae) throws InterruptedException {
             pd.start();
+            List<Player> igraci = new ArrayList<Player>();
+            igraci.add(player1);
+            igraci.add(player2);
+            igraci.add(player3);
+            igraci.add(player4);
+            for(int i = 0; i < igraci.size(); i++) igraci.get(i).start();
 
    }
     public void podesavanjeImena() {
@@ -200,8 +206,8 @@ public class Controller implements Initializable {
             ime4Label.setVisible(false);
             bojaPrvogIgraca = "zuta";
             bojaDrugogIgraca = "zelena";
-            player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,1);
-            player2 = new Player(ime2, bojaDrugogIgraca, panes,dimenzijaMatrice,2);
+            player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice);
+            player2 = new Player(ime2, bojaDrugogIgraca, panes,dimenzijaMatrice);
        }
        else if(brojIgraca == 3) {
            ime1Label.setText(ime1);
@@ -214,9 +220,9 @@ public class Controller implements Initializable {
            bojaPrvogIgraca = "crvena";
            bojaDrugogIgraca = "zuta";
            bojaTrecegIgraca = "zelena";
-           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,1);
-           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,2);
-           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,3);
+           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice);
+           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice);
+           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice);
        }
        else {
            ime1Label.setText(ime1);
@@ -227,10 +233,10 @@ public class Controller implements Initializable {
            bojaDrugogIgraca = "zuta";
            bojaTrecegIgraca = "zelena";
            bojaCetvrtogIgraca = "plava";
-           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,1);
-           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,2);
-           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,3);
-           player4 = new Player(ime4, bojaCetvrtogIgraca, panes, dimenzijaMatrice,4);
+           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice);
+           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice);
+           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice);
+           player4 = new Player(ime4, bojaCetvrtogIgraca, panes, dimenzijaMatrice);
 
        }
     }

@@ -39,4 +39,7 @@ public class SimpleFigure extends Figure implements MovingWay {
         return "Obicna figura";
     }
     public Pane[][] getOrginalPanes(){return this.orginalPanes;}
+    public List<Pane> getPaneList() {
+        return this.paneList;
+    }
 }

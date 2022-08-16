@@ -1,5 +1,6 @@
 package org.unibl.etf.pj2.projektni.model;
 
+import javafx.application.Platform;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
@@ -9,20 +10,28 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Player extends Thread{
 
-    AtomicInteger positionOfPlayer = new AtomicInteger();
+    static public final AtomicInteger indexToPrint = new AtomicInteger(0);
+    static private int threadNumber = 0;
+    final private int index;
+
     String name;
     String colour;
+    int stop = 0;
     List<Figure> figure = new ArrayList<>();
     Pane[][] orginalPane;
     int matrixDimension;
 
-    public Player(String name, String colour, Pane[][] panes, int matrixDimension,int positionOfPlayer) {
+    public Player(String name, String colour, Pane[][] panes, int matrixDimension) {
         this.name = name;
         this.colour = colour;
         this.orginalPane = panes;
         this.matrixDimension = matrixDimension;
+        index = threadNumber++;
         dodajFigure();
-        this.positionOfPlayer.set(positionOfPlayer);
+
+    }
+    private int nextIndex() {
+        return (index + 1) % threadNumber;
     }
     public List<Figure> getFigure() {
         return figure;
@@ -54,10 +63,31 @@ public class Player extends Thread{
     public String getColour() {return colour;}
     @Override
     public void run() {
-            Figure figureForPlay = figure.remove(0);
-            while(true) {
+        Figure f = figure.remove(0);
+        while(true) {
+            synchronized (indexToPrint) {
+                while(indexToPrint.get()!=index){
+                    try {
+                        indexToPrint.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println(name+" " + f.move());
+                try {
+                    Thread.sleep(
+                            3000
+                    );
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                figure.add(f);
+                f=figure.remove(0);
+                indexToPrint.set(nextIndex());
+                indexToPrint.notifyAll();
 
             }
+        }
     }
 
 }
