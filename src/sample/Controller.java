@@ -193,8 +193,8 @@ public class Controller implements Initializable {
             List<Player> igraci = new ArrayList<Player>();
             igraci.add(player1);
             igraci.add(player2);
-            igraci.add(player3);
-            igraci.add(player4);
+       //     igraci.add(player3);
+       //     igraci.add(player4);
             for(int i = 0; i < igraci.size(); i++) igraci.get(i).start();
 
    }

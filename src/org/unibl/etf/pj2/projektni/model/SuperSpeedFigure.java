@@ -38,4 +38,7 @@ public class SuperSpeedFigure extends Figure implements MovingWay {
         return "Super brza figura";
     }
     public Pane[][] getOrginalPanes(){return this.orginalPanes;}
+    public Rectangle getRectangle() {
+        return this.rectangle;
+    }
 }

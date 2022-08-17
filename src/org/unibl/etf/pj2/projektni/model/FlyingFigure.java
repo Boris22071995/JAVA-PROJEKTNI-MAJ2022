@@ -39,4 +39,7 @@ public class FlyingFigure extends Figure implements MovingWay {
         return "Lebdeca figura";
     }
     public Pane[][] getOrginalPanes(){return this.orginalPanes;}
+    public Polygon getTriangle() {
+        return this.triangle;
+    }
 }

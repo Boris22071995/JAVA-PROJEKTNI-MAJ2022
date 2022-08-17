@@ -42,4 +42,7 @@ public class SimpleFigure extends Figure implements MovingWay {
     public List<Pane> getPaneList() {
         return this.paneList;
     }
+    public Circle getCircle() {
+        return this.circle;
+    }
 }

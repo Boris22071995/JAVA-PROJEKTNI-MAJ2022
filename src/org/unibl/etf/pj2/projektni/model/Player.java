@@ -13,6 +13,7 @@ public class Player extends Thread{
     static public final AtomicInteger indexToPrint = new AtomicInteger(0);
     static private int threadNumber = 0;
     final private int index;
+    static int numberOfFiguresThatEnd = 0;
 
     String name;
     String colour;
@@ -20,6 +21,8 @@ public class Player extends Thread{
     List<Figure> figure = new ArrayList<>();
     Pane[][] orginalPane;
     int matrixDimension;
+    MovingPath mp;
+    List<Pane> paneList;
 
     public Player(String name, String colour, Pane[][] panes, int matrixDimension) {
         this.name = name;
@@ -28,6 +31,10 @@ public class Player extends Thread{
         this.matrixDimension = matrixDimension;
         index = threadNumber++;
         dodajFigure();
+        this.mp = new MovingPath(orginalPane, matrixDimension);
+        if(matrixDimension % 2 == 0) mp.addToListEvenNumber();
+        else mp.addToListOddNumber();
+        paneList = mp.getPaneList();
 
     }
     private int nextIndex() {
@@ -73,18 +80,77 @@ public class Player extends Thread{
                         e.printStackTrace();
                     }
                 }
-                System.out.println(name+" " + f.move());
-                try {
-                    Thread.sleep(
-                            3000
-                    );
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                if(f.getStartSpot()!=paneList.size()) {
+                if("Obicna figura".equals(f.move())) {
+                    SimpleFigure sf = (SimpleFigure) f;
+                    for (int i = f.getStartSpot(); i < f.getEndSpot(); i++) {
+                        final int x = i;
+                        Platform.runLater(()->paneList.get(x).getChildren().add(sf.getCircle()));
+                        try{
+                            sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    try{
+                        f.setStartSpot(f.getEndSpot());
+                        f.setEndSpot(f.getEndSpot()+4);
+                        sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
+                else if("Lebdeca figura".equals(f.move())) {
+                    FlyingFigure ff = (FlyingFigure) f;
+                    for (int i = f.getStartSpot(); i < f.getEndSpot(); i++) {
+                        final int x = i;
+                        Platform.runLater(()->paneList.get(x).getChildren().add(ff.getTriangle()));
+                        try{
+                            sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    try{
+                        f.setStartSpot(f.getEndSpot());
+                        f.setEndSpot(f.getEndSpot()+4);
+                        sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else if("Super brza figura".equals(f.move())) {
+                    SuperSpeedFigure ssf = (SuperSpeedFigure) f;
+                    for (int i = f.getStartSpot(); i < f.getEndSpot(); i++) {
+                        final int x = i;
+                        Platform.runLater(()->paneList.get(x).getChildren().add(ssf.getRectangle()));
+                        try{
+                            sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    try{
+                        f.setStartSpot(f.getEndSpot());
+                        f.setEndSpot(f.getEndSpot()+4);
+                        sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }}
+                else{
+                    numberOfFiguresThatEnd++;
+                }
+                if(numberOfFiguresThatEnd==16) {
+                    System.out.println("KRAJ IGRE!");
+                }
+              //  System.out.println(name+" " + f.move());
+
                 figure.add(f);
                 f=figure.remove(0);
                 indexToPrint.set(nextIndex());
-                indexToPrint.notifyAll();
+                       indexToPrint.notifyAll();
 
             }
         }
