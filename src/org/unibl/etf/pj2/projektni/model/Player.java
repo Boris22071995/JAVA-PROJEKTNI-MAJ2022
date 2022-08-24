@@ -155,5 +155,8 @@ public class Player extends Thread{
             }
         }
     }
+    public List<Pane> getPaneList() {
+        return this.paneList;
+    }
 
 }

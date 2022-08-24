@@ -83,6 +83,11 @@ public class Controller implements Initializable {
    ArrayList<Figure> sveFigure = new ArrayList<>();
     PlayingDeck pd;
     List<Figure> figures;
+
+    //Test
+    List<Pane> tempsss = new ArrayList<>();
+
+
     int brojac = 0;
    public Controller(int dimenzijaMatrice, int brojIgraca, String ime1, String ime2) throws IOException {
        this.dimenzijaMatrice = dimenzijaMatrice;
@@ -123,7 +128,17 @@ public class Controller implements Initializable {
         timerLabel.setText("");
 
         napraviMatricu();
+        System.out.println("BBBBBBB" + tempsss.size());
+        for(int i = 0;i < tempsss.size();i++) {
+            tempsss.get(i).setStyle("-fx-border-color: black; -fx-background-color:rgba(255, 255, 255, 0.87);");
+        }
         podesavanjeImena();
+        List<Pane> temp = new ArrayList<>();
+        temp = player1.getPaneList();
+        System.out.println("AAAAAAA" + temp.size());
+        for(int i = 0; i < temp.size();i++) {
+            temp.get(i).setStyle("-fx-border-color: black; -fx-background-color: red");
+        }
         File file = new File("karte/6.png");
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
@@ -146,6 +161,7 @@ public class Controller implements Initializable {
             for(int j = 0;j < dimenzijaMatrice; j++) {
                 panes[i][j] = new Pane();
                 gridPane.add(panes[i][j],i,j);
+                tempsss.add(panes[i][j]);
                 if(dimenzijaMatrice == 7) {
                 panes[i][j].setMinWidth(22);
                 panes[i][j].setMinHeight(22);
@@ -154,17 +170,18 @@ public class Controller implements Initializable {
                     panes[i][j].setMinHeight(20);
                 }
 
-                panes[i][j].setStyle("-fx-border-color: black; "); //-fx-background-color:rgba(255, 255, 255, 0.87);
+                panes[i][j].setStyle("-fx-border-color: black;"); //-fx-background-color:rgba(255, 255, 255, 0.87);
             }
-        for(int i = 0; i < dimenzijaMatrice; i++)
+   /*     for(int i = 0; i < dimenzijaMatrice; i++)
             for(int j = 0; j <dimenzijaMatrice; j++)
                 panes[i][j].setStyle("-fx-border-color: black; ");
-        gridPane.setAlignment(Pos.CENTER_RIGHT);
+        gridPane.setAlignment(Pos.CENTER_RIGHT);*/
 
         for(int i = 0; i < dimenzijaMatrice; i++)
             for(int j = 0; j < dimenzijaMatrice; j++)
             {
                 Label tmp = labele.remove(0);
+                tmp.setMaxWidth(Double.MAX_VALUE);
                 tmp.setAlignment(Pos.CENTER);
                 gridPane.add(tmp,j,i);
             }
