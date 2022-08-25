@@ -137,7 +137,7 @@ public class Controller implements Initializable {
         temp = player1.getPaneList();
         System.out.println("AAAAAAA" + temp.size());
         for(int i = 0; i < temp.size();i++) {
-            temp.get(i).setStyle("-fx-border-color: black; -fx-background-color: red");
+            temp.get(i).setStyle("-fx-border-color: black; -fx-background-color:rgba(255, 10, 255, 0.7)"); //lightred 255,99,71,0.5 light blude 0, 129, 255, 0.3
         }
         File file = new File("karte/6.png");
         Image image = new Image(file.toURI().toString());
