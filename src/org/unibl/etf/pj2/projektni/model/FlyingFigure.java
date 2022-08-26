@@ -23,6 +23,7 @@ public class FlyingFigure extends Figure implements MovingWay {
                 .setAll(25.0, 10.0,
                         35.0, 35.0,
                         15.0, 35.0);
+        createTriangle();
         switch (boja) {
             case "crvena" -> triangle.setFill(Color.RED);
             case "plava" -> triangle.setFill(Color.BLUE);
@@ -41,5 +42,17 @@ public class FlyingFigure extends Figure implements MovingWay {
     public Pane[][] getOrginalPanes(){return this.orginalPanes;}
     public Polygon getTriangle() {
         return this.triangle;
+    }
+    public void createTriangle() {
+        if(matrixDimension == 7 || matrixDimension == 8) {
+            triangle.setLayoutX(-4);
+            triangle.setLayoutY(-4);
+        }else if(matrixDimension == 9) {
+            triangle.setLayoutX(-6);
+            triangle.setLayoutY(-6);
+        }else {
+            triangle.setLayoutX(-8);
+            triangle.setLayoutY(-8);
+        }
     }
 }

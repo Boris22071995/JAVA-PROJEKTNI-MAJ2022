@@ -20,11 +20,7 @@ public class SimpleFigure extends Figure implements MovingWay {
         super(boja,panes);
         this.startSpot = 0;
         this.matrixDimension = matrixDimension;
-        this.circle.setRadius(10);
-     //   circle.setCenterX(20);
-     //   circle.setCenterY(20);
-        circle.setLayoutX(21);
-        circle.setLayoutY(21);
+        createCircle();
         switch (boja) {
             case "crvena" -> this.circle.setFill(Color.RED);
             case "plava" -> this.circle.setFill(Color.BLUE);
@@ -46,5 +42,23 @@ public class SimpleFigure extends Figure implements MovingWay {
     }
     public Circle getCircle() {
         return this.circle;
+    }
+    public void createCircle() {
+        if(matrixDimension == 7 || matrixDimension == 8) {
+            circle.setRadius(14);
+            circle.setLayoutX(21);
+            circle.setLayoutY(21);
+        }else if(matrixDimension == 9) {
+            circle.setRadius(12);
+            circle.setLayoutX(19);
+            circle.setLayoutY(19);
+
+        }else {
+            circle.setRadius(10);
+            circle.setLayoutX(17);
+            circle.setLayoutY(17);
+        }
+
+
     }
 }
