@@ -21,8 +21,10 @@ public class SimpleFigure extends Figure implements MovingWay {
         this.startSpot = 0;
         this.matrixDimension = matrixDimension;
         this.circle.setRadius(10);
-        circle.setCenterX(20);
-        circle.setCenterY(20);
+     //   circle.setCenterX(20);
+     //   circle.setCenterY(20);
+        circle.setLayoutX(21);
+        circle.setLayoutY(21);
         switch (boja) {
             case "crvena" -> this.circle.setFill(Color.RED);
             case "plava" -> this.circle.setFill(Color.BLUE);

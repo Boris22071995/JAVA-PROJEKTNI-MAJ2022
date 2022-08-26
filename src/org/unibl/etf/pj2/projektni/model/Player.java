@@ -1,6 +1,7 @@
 package org.unibl.etf.pj2.projektni.model;
 
 import javafx.application.Platform;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
@@ -23,8 +24,14 @@ public class Player extends Thread{
     int matrixDimension;
     MovingPath mp;
     List<Pane> paneList;
+    PlayingDeck playingDeck;
+    private final Consumer consumer;
+    ImageView imageView;
 
-    public Player(String name, String colour, Pane[][] panes, int matrixDimension) {
+
+    public Player(String name, String colour, Pane[][] panes, int matrixDimension,PlayingDeck playingDeck,ImageView imageView) {
+        this.imageView = imageView;
+        this.playingDeck = playingDeck;
         this.name = name;
         this.colour = colour;
         this.orginalPane = panes;
@@ -36,6 +43,11 @@ public class Player extends Thread{
         else mp.addToListOddNumber();
         paneList = mp.getPaneList();
 
+
+        PlayingDeckForGet pdfg = new PlayingDeckForGet(playingDeck);
+        Producer producer = new Producer(pdfg);
+        consumer = new Consumer(pdfg,imageView);
+        producer.start();
     }
     private int nextIndex() {
         return (index + 1) % threadNumber;
@@ -71,6 +83,7 @@ public class Player extends Thread{
     @Override
     public void run() {
         Figure f = figure.remove(0);
+       // PlayingCard pc = consumer.getCard();
         while(true) {
             synchronized (indexToPrint) {
                 while(indexToPrint.get()!=index){
@@ -80,9 +93,18 @@ public class Player extends Thread{
                         e.printStackTrace();
                     }
                 }
+                PlayingCard pc = consumer.getCard();
+                int pomjeraj = pc.getNumber();
                 if(f.getStartSpot()!=paneList.size()) {
                 if("Obicna figura".equals(f.move())) {
                     SimpleFigure sf = (SimpleFigure) f;
+                    if(pomjeraj!=5) {
+                    f.setStartSpot(f.getEndSpot());
+                    f.setEndSpot(f.getEndSpot() + pomjeraj);
+                    }else {
+                        f.setStartSpot(f.getEndSpot());
+                        f.setEndSpot(f.getEndSpot());
+                    }
                     for (int i = f.getStartSpot(); i < f.getEndSpot(); i++) {
                         final int x = i;
                         Platform.runLater(()->paneList.get(x).getChildren().add(sf.getCircle()));
@@ -92,16 +114,16 @@ public class Player extends Thread{
                             e.printStackTrace();
                         }
                     }
-                    try{
-                        f.setStartSpot(f.getEndSpot());
-                        f.setEndSpot(f.getEndSpot()+4);
-                        sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
                 }
                 else if("Lebdeca figura".equals(f.move())) {
                     FlyingFigure ff = (FlyingFigure) f;
+                    if(pomjeraj!=5) {
+                        f.setStartSpot(f.getEndSpot());
+                        f.setEndSpot(f.getEndSpot() + pomjeraj);
+                    }else {
+                        f.setStartSpot(f.getEndSpot());
+                        f.setEndSpot(f.getEndSpot());
+                    }
                     for (int i = f.getStartSpot(); i < f.getEndSpot(); i++) {
                         final int x = i;
                         Platform.runLater(()->paneList.get(x).getChildren().add(ff.getTriangle()));
@@ -111,16 +133,16 @@ public class Player extends Thread{
                             e.printStackTrace();
                         }
                     }
-                    try{
-                        f.setStartSpot(f.getEndSpot());
-                        f.setEndSpot(f.getEndSpot()+4);
-                        sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
                 }
                 else if("Super brza figura".equals(f.move())) {
                     SuperSpeedFigure ssf = (SuperSpeedFigure) f;
+                    if(pomjeraj!=5) {
+                        f.setStartSpot(f.getEndSpot());
+                        f.setEndSpot(f.getEndSpot() + pomjeraj * 2);
+                    }else {
+                        f.setStartSpot(f.getEndSpot());
+                        f.setEndSpot(f.getEndSpot());
+                    }
                     for (int i = f.getStartSpot(); i < f.getEndSpot(); i++) {
                         final int x = i;
                         Platform.runLater(()->paneList.get(x).getChildren().add(ssf.getRectangle()));
@@ -129,13 +151,6 @@ public class Player extends Thread{
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                    }
-                    try{
-                        f.setStartSpot(f.getEndSpot());
-                        f.setEndSpot(f.getEndSpot()+4);
-                        sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
                     }
 
                 }}

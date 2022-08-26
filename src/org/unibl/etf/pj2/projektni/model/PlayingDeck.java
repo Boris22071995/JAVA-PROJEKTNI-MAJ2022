@@ -11,15 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class PlayingDeck extends Thread{
+public class PlayingDeck{
     PlayingCard[] cards = new PlayingCard[52];
     ImageView imageView;
     List<String> stringList= new ArrayList<String>();
     Label meaningOfCard;
-
-    public PlayingDeck() {
-        super();
-    }
+    List<PlayingCard> deck = new ArrayList<>();
 
     /*
      File file = new File("karte/1.png");
@@ -28,9 +25,7 @@ public class PlayingDeck extends Thread{
         imageView.setImage(image);
      */
 
-    public PlayingDeck(ImageView imageView, Label meaningOfCard) {
-        this.imageView = imageView;
-        this.meaningOfCard = meaningOfCard;
+    public PlayingDeck() {
         int br = 0;
         for(int i = 0; i < 40; i+=4)
             for(int j = 0; j < 4; j++) {
@@ -40,8 +35,11 @@ public class PlayingDeck extends Thread{
             cards[i]  = new PlayingCard(5,"karte/5.png","Specijalna karta, figura prelazi zadati broj polja.");
         shuffel();
         addStrings();
+        for(int i = 0; i < cards.length; i++) {
+            PlayingCard pc = cards[i];
+            deck.add(pc);
+        }
     }
-
     public void shuffel() {
         int prviBroj;
         int drugiBroj;
@@ -58,50 +56,15 @@ public class PlayingDeck extends Thread{
             cards[drugiBroj] = card1;
         }
     }
-
     public void addStrings() {
         for(int i = 0; i < 52; i++) {
             stringList.add(cards[i].getImagePath());
         }
     }
 
-    @Override
-    public void run() {
-        int br = 0;
-        while(true) {
-            if(br < 52) {
-            final int x = br;
-            String putanja = stringList.remove(0);
-            File file = new File(putanja);
-            stringList.add(putanja);
-            Image image = new Image(file.toURI().toString());
-            Platform.runLater(()->imageView.setImage(image));
-            String tmp = meaningOfCardForLabel(putanja);
-            Platform.runLater(()->meaningOfCard.setText(tmp));
-
-            br++;
-            try{
-                sleep(2000);
-            }catch (InterruptedException e) {
-                e.printStackTrace();
-            } }
-            else br = 0;
-        }
-
-
+    public PlayingCard getCard() {
+        PlayingCard pc = deck.remove(0);
+        deck.add(pc);
+        return pc;
     }
-
-    public String meaningOfCardForLabel(String putanja) {
-        if(putanja.equals("karte/1.png"))
-            return "Figura prelazi jedno polje.";
-        else if(putanja.equals("karte/2.png"))
-            return "Figrua prelazi dva polja.";
-        else if(putanja.equals("karte/3.png"))
-            return "Figura prelazi tri polja.";
-        else if(putanja.equals("karte/4.png"))
-            return "Figura prelazi cetiri polja.";
-        else
-            return "Figura prelazi n polja";
-    }
-
 }

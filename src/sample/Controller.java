@@ -86,6 +86,7 @@ public class Controller implements Initializable {
 
     //Test
     List<Pane> tempsss = new ArrayList<>();
+    private final PlayingDeck playingDeck;
 
 
     int brojac = 0;
@@ -94,6 +95,7 @@ public class Controller implements Initializable {
        this.brojIgraca = brojIgraca;
        this.ime1 = ime1;
        this.ime2 = ime2;
+       this.playingDeck = new PlayingDeck();
    }
    public Controller(int dimenzijaMatrice, int brojIgraca, String ime1, String ime2, String ime3) throws IOException {
        this.dimenzijaMatrice = dimenzijaMatrice;
@@ -101,6 +103,7 @@ public class Controller implements Initializable {
        this.ime1 = ime1;
        this.ime2 = ime2;
        this.ime3 = ime3;
+       this.playingDeck = new PlayingDeck();
    }
    public Controller(int dimenzijaMatrice, int brojIgraca, String ime1, String ime2, String ime3, String ime4) throws IOException {
        this.dimenzijaMatrice = dimenzijaMatrice;
@@ -109,6 +112,8 @@ public class Controller implements Initializable {
        this.ime2 = ime2;
        this.ime3 = ime3;
        this.ime4 = ime4;
+       this.playingDeck = new PlayingDeck();
+
    }
 
     @Override
@@ -137,14 +142,12 @@ public class Controller implements Initializable {
         temp = player1.getPaneList();
         System.out.println("AAAAAAA" + temp.size());
         for(int i = 0; i < temp.size();i++) {
-            temp.get(i).setStyle("-fx-border-color: black; -fx-background-color:rgba(255, 10, 255, 0.7)"); //lightred 255,99,71,0.5 light blude 0, 129, 255, 0.3
+            temp.get(i).setStyle("-fx-border-color: black; -fx-background-color:rgba(0, 129, 255, 0.3)"); //lightred 255,99,71,0.5 light blude 0, 129, 255, 0.3
         }
         File file = new File("karte/6.png");
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
         createLabelForFigures();
-
-         pd = new PlayingDeck(imageView, meaningOfCard);
          figures =   player1.getFigure();
 
 
@@ -206,7 +209,6 @@ public class Controller implements Initializable {
 
     @FXML
     public void zapocni(javafx.event.ActionEvent ae) throws InterruptedException {
-            pd.start();
             List<Player> igraci = new ArrayList<Player>();
             igraci.add(player1);
             igraci.add(player2);
@@ -223,8 +225,8 @@ public class Controller implements Initializable {
             ime4Label.setVisible(false);
             bojaPrvogIgraca = "zuta";
             bojaDrugogIgraca = "zelena";
-            player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice);
-            player2 = new Player(ime2, bojaDrugogIgraca, panes,dimenzijaMatrice);
+            player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView);
+            player2 = new Player(ime2, bojaDrugogIgraca, panes,dimenzijaMatrice,playingDeck,imageView);
        }
        else if(brojIgraca == 3) {
            ime1Label.setText(ime1);
@@ -237,9 +239,9 @@ public class Controller implements Initializable {
            bojaPrvogIgraca = "crvena";
            bojaDrugogIgraca = "zuta";
            bojaTrecegIgraca = "zelena";
-           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice);
-           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice);
-           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice);
+           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView);
+           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView);
+           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView);
        }
        else {
            ime1Label.setText(ime1);
@@ -250,10 +252,10 @@ public class Controller implements Initializable {
            bojaDrugogIgraca = "zuta";
            bojaTrecegIgraca = "zelena";
            bojaCetvrtogIgraca = "plava";
-           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice);
-           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice);
-           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice);
-           player4 = new Player(ime4, bojaCetvrtogIgraca, panes, dimenzijaMatrice);
+           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView);
+           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView);
+           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView);
+           player4 = new Player(ime4, bojaCetvrtogIgraca, panes, dimenzijaMatrice,playingDeck,imageView);
 
        }
     }
