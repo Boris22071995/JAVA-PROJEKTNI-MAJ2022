@@ -11,7 +11,7 @@ public class Producer extends Thread{
             while (true) {
                 try {
                     pd.addCard();
-                    sleep(1000);
+                    sleep(700);
                 }catch (InterruptedException e) {
                     e.printStackTrace();
                 }

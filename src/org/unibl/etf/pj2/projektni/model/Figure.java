@@ -3,6 +3,8 @@ package org.unibl.etf.pj2.projektni.model;
 import javafx.scene.layout.Pane;
 import org.unibl.etf.pj2.projektni.interfaces.MovingWay;
 
+import javax.swing.text.StyledEditorKit;
+
 public abstract class Figure implements MovingWay {
 
     String colour;
@@ -11,6 +13,7 @@ public abstract class Figure implements MovingWay {
     int endSpot;
     int count;
     Boolean isDone = false;
+    Boolean isActive = false;
 
     public Figure() {
         super();
@@ -53,5 +56,11 @@ public abstract class Figure implements MovingWay {
     }
     public Boolean getIsDone() {
         return isDone;
+    }
+    public void setIsActive(Boolean value) {
+        isActive = value;
+    }
+    public Boolean getIsActive(){
+        return this.isActive;
     }
 }

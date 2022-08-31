@@ -13,6 +13,11 @@ public class PlayingDeckForGet {
     public void addCard() {
         PlayingCard pc = playingDeck.getCard();
         cards.offer(pc);
+        try {
+            Thread.sleep(800);
+        }catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
     public PlayingCard readCard() {
         PlayingCard pc = null;

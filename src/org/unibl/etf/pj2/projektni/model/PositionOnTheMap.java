@@ -1,0 +1,59 @@
+package org.unibl.etf.pj2.projektni.model;
+
+import javafx.scene.layout.Pane;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class PositionOnTheMap {
+    List<FigureOnMap> figuresOnMap = new ArrayList<>();
+
+    public PositionOnTheMap() {
+        super();
+    }
+    public List<FigureOnMap> getFiguresOnMap() {
+        return this.figuresOnMap;
+    }
+    public void addOnMap(Player player, Pane position, Figure figure) {
+            FigureOnMap fom = new FigureOnMap(player,position,figure);
+            figuresOnMap.add(fom);
+
+
+        //System.out.println("DODANO U LISTU"+figuresOnMap.size());
+    }
+    public void removeFromMap(Player player, Figure figure) {
+        if(figuresOnMap.size()!=0) {
+        for(int i = 0; i < figuresOnMap.size(); i++)
+            if(figuresOnMap.get(i).figure==figure && figuresOnMap.get(i).player==player){
+                figuresOnMap.remove(i);
+
+            }}
+     //   System.out.println("OBRISANO IZ LISTE" + figuresOnMap.size());
+    }
+    public boolean checkForAvalibalitiOfPosition(Pane position) {
+        if(figuresOnMap.size()!=0) {
+        for(int i = 0; i < figuresOnMap.size(); i++)
+            if(figuresOnMap.get(i).position == position)
+
+                return false;
+        }
+        return true;
+
+    }
+    public void ispisi() {
+        System.out.println("RADIII " + figuresOnMap.size());
+    }
+
+
+    private static class FigureOnMap {
+        Player player;
+        Pane position;
+        Figure figure;
+        public FigureOnMap(Player player, Pane pane, Figure figure ) {
+            this.player = player;
+            this.position = pane;
+            this.figure = figure;
+        }
+    }
+}
+

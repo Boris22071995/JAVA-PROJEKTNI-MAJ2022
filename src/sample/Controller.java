@@ -83,6 +83,7 @@ public class Controller implements Initializable {
    ArrayList<Figure> sveFigure = new ArrayList<>();
     PlayingDeck pd;
     List<Figure> figures;
+    PositionOnTheMap positionOnTheMap = new PositionOnTheMap();
 
     //Test
     List<Pane> tempsss = new ArrayList<>();
@@ -212,8 +213,8 @@ public class Controller implements Initializable {
             List<Player> igraci = new ArrayList<Player>();
             igraci.add(player1);
             igraci.add(player2);
-       //     igraci.add(player3);
-       //     igraci.add(player4);
+          //  igraci.add(player3);
+          // igraci.add(player4);
             for(int i = 0; i < igraci.size(); i++) igraci.get(i).start();
 
    }
@@ -225,8 +226,8 @@ public class Controller implements Initializable {
             ime4Label.setVisible(false);
             bojaPrvogIgraca = "zuta";
             bojaDrugogIgraca = "zelena";
-            player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView);
-            player2 = new Player(ime2, bojaDrugogIgraca, panes,dimenzijaMatrice,playingDeck,imageView);
+            player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap);
+            player2 = new Player(ime2, bojaDrugogIgraca, panes,dimenzijaMatrice,playingDeck,imageView,positionOnTheMap);
        }
        else if(brojIgraca == 3) {
            ime1Label.setText(ime1);
@@ -239,9 +240,9 @@ public class Controller implements Initializable {
            bojaPrvogIgraca = "crvena";
            bojaDrugogIgraca = "zuta";
            bojaTrecegIgraca = "zelena";
-           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView);
-           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView);
-           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView);
+           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap);
+           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap);
+           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap);
        }
        else {
            ime1Label.setText(ime1);
@@ -252,10 +253,10 @@ public class Controller implements Initializable {
            bojaDrugogIgraca = "zuta";
            bojaTrecegIgraca = "zelena";
            bojaCetvrtogIgraca = "plava";
-           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView);
-           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView);
-           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView);
-           player4 = new Player(ime4, bojaCetvrtogIgraca, panes, dimenzijaMatrice,playingDeck,imageView);
+           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap);
+           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap);
+           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap);
+           player4 = new Player(ime4, bojaCetvrtogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap);
 
        }
     }
