@@ -14,6 +14,7 @@ public abstract class Figure implements MovingWay {
     int count;
     Boolean isDone = false;
     Boolean isActive = false;
+    int bonusPositions = 0;
 
     public Figure() {
         super();
@@ -63,4 +64,12 @@ public abstract class Figure implements MovingWay {
     public Boolean getIsActive(){
         return this.isActive;
     }
+    public void setBonusPositions(int number) {
+        this.bonusPositions += number;
+    }
+    public int getBonusPositions(){
+        return this.bonusPositions;
+    }
+    public void resetBonusPositions() { this.bonusPositions = 0; }
+
 }

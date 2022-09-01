@@ -89,6 +89,8 @@ public class Controller implements Initializable {
     List<Pane> tempsss = new ArrayList<>();
     private final PlayingDeck playingDeck;
 
+    GhostFigure ghost;
+
 
     int brojac = 0;
    public Controller(int dimenzijaMatrice, int brojIgraca, String ime1, String ime2) throws IOException {
@@ -149,8 +151,7 @@ public class Controller implements Initializable {
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
         createLabelForFigures();
-         figures =   player1.getFigure();
-
+        figures =   player1.getFigure();
 
     }
     public void napraviMatricu()
@@ -219,6 +220,11 @@ public class Controller implements Initializable {
 
    }
     public void podesavanjeImena() {
+       GhostFigure ghostFigure;
+       MovingPath mp =  new MovingPath(panes, dimenzijaMatrice);
+        if(dimenzijaMatrice % 2 == 0) mp.addToListEvenNumber();
+        else mp.addToListOddNumber();
+        ghostFigure = new GhostFigure(mp.getPaneList(),dimenzijaMatrice);
        if(brojIgraca == 2) {
             ime2Label.setText(ime1);
             ime3Label.setText(ime2);
@@ -226,8 +232,8 @@ public class Controller implements Initializable {
             ime4Label.setVisible(false);
             bojaPrvogIgraca = "zuta";
             bojaDrugogIgraca = "zelena";
-            player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap);
-            player2 = new Player(ime2, bojaDrugogIgraca, panes,dimenzijaMatrice,playingDeck,imageView,positionOnTheMap);
+            player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure);
+            player2 = new Player(ime2, bojaDrugogIgraca, panes,dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure);
        }
        else if(brojIgraca == 3) {
            ime1Label.setText(ime1);
@@ -240,9 +246,9 @@ public class Controller implements Initializable {
            bojaPrvogIgraca = "crvena";
            bojaDrugogIgraca = "zuta";
            bojaTrecegIgraca = "zelena";
-           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap);
-           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap);
-           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap);
+           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure);
+           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure);
+           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,3,ghostFigure);
        }
        else {
            ime1Label.setText(ime1);
@@ -253,10 +259,10 @@ public class Controller implements Initializable {
            bojaDrugogIgraca = "zuta";
            bojaTrecegIgraca = "zelena";
            bojaCetvrtogIgraca = "plava";
-           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap);
-           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap);
-           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap);
-           player4 = new Player(ime4, bojaCetvrtogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap);
+           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure);
+           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure);
+           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,3,ghostFigure);
+           player4 = new Player(ime4, bojaCetvrtogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,4,ghostFigure);
 
        }
     }
