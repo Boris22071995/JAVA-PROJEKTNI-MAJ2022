@@ -110,12 +110,14 @@ public class Player extends Thread{
                    }
                    if(numberOfFiguresThatAreDone <= 4){
                        System.out.println("BROJ FIGURA KOJE SU ZAVRSILE " + numberOfFiguresThatAreDone);
-                   positionOnTheMap.removeFromMap(this,f);
+
                    PlayingCard pc = consumer.getCard();
                    int pomjeraj = pc.getNumber();
                    if("Obicna figura".equals(f.move())){
+
                        SimpleFigure sf = (SimpleFigure) f;
                        if(pomjeraj!=5) {
+                           positionOnTheMap.removeFromMap(this,f);
                            f.setStartSpot(f.getEndSpot());
                            if((f.getEndSpot() + pomjeraj + f.getBonusPositions()) <= paneList.size()){
                            f.setEndSpot(f.getEndSpot() + pomjeraj + f.getBonusPositions());}
@@ -159,11 +161,13 @@ public class Player extends Thread{
                            positionOnTheMap.addOnMap(this,paneList.get(f.getEndSpot() - 1),f);
 
                    }else {
-                       System.out.println("RUPEE");
+                           Holes holes = new Holes(25,positionOnTheMap,mp,paneList,this);
+                           holes.processHoles();
                    }}
                    else if("Lebdeca figura".equals(f.move())) {
                        FlyingFigure ff = (FlyingFigure) f;
                        if(pomjeraj!=5) {
+                           positionOnTheMap.removeFromMap(this,f);
                            f.setStartSpot(f.getEndSpot());
                            if((f.getEndSpot() + pomjeraj + f.getBonusPositions()) <= paneList.size()){
                                f.setEndSpot(f.getEndSpot() + pomjeraj + f.getBonusPositions());}
@@ -206,11 +210,14 @@ public class Player extends Thread{
                            positionOnTheMap.addOnMap(this,paneList.get(f.getEndSpot() - 1),f);
 
                    }else {
-                       System.out.println("RUPEE");
+                           Holes holes = new Holes(5,positionOnTheMap,mp,paneList,this);
+                           holes.processHoles();
                    }}
                    else if("Super brza figura".equals(f.move())){
+
                        SuperSpeedFigure ssf = (SuperSpeedFigure) f;
                        if(pomjeraj!=5) {
+                           positionOnTheMap.removeFromMap(this,f);
                            f.setStartSpot(f.getEndSpot());
                            if((f.getEndSpot() + (pomjeraj * 2) + f.getBonusPositions()) <= paneList.size()){
                                f.setEndSpot(f.getEndSpot() + (pomjeraj * 2) + f.getBonusPositions());}
@@ -253,7 +260,8 @@ public class Player extends Thread{
                            positionOnTheMap.addOnMap(this,paneList.get(f.getEndSpot() - 1),f);
 
                    }else {
-                       System.out.println("RUPEE");
+                       Holes holes = new Holes(5,positionOnTheMap,mp,paneList,this);
+                       holes.processHoles();
                    }}
                    indexToPrint.set(nextIndex());
                    indexToPrint.notifyAll();

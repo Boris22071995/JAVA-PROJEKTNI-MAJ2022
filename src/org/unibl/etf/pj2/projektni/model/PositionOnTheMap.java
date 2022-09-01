@@ -34,7 +34,6 @@ public class PositionOnTheMap {
         if(figuresOnMap.size()!=0) {
         for(int i = 0; i < figuresOnMap.size(); i++)
             if(figuresOnMap.get(i).position == position)
-
                 return false;
         }
         return true;
@@ -42,6 +41,13 @@ public class PositionOnTheMap {
     }
     public void ispisi() {
         System.out.println("RADIII " + figuresOnMap.size());
+    }
+    public Figure getFigureFromMap(int position) {
+        return figuresOnMap.get(position).getFigure();
+    }
+
+    public Pane getPositionFromMap(int position) {
+        return figuresOnMap.get(position).getPosition();
     }
 
 
@@ -53,6 +59,12 @@ public class PositionOnTheMap {
             this.player = player;
             this.position = pane;
             this.figure = figure;
+        }
+        public Figure getFigure() {
+            return this.figure;
+        }
+        public Pane getPosition() {
+            return this.position;
         }
     }
 }
