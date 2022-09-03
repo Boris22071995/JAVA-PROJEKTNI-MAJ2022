@@ -1,6 +1,8 @@
 package org.unibl.etf.pj2.projektni.model;
 
 import javafx.application.Platform;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
@@ -33,8 +35,16 @@ public class Player extends Thread{
     int positionOfPlayer;
     GhostFigure ghostFigure;
     boolean isGhostStarted = false;
+    ArrayList<Label> labels;
+    List<Integer> numbers;
+    List<Integer> processedNumbers;
+    Label meaningOfCard;
 
-    public Player(String name, String colour, Pane[][] panes, int matrixDimension,PlayingDeck playingDeck,ImageView imageView, PositionOnTheMap positionOnTheMap, int positionOfPlayer, GhostFigure ghostFigure) {
+
+
+    public Player(String name, String colour, Pane[][] panes, int matrixDimension,PlayingDeck playingDeck,ImageView imageView, PositionOnTheMap positionOnTheMap, int positionOfPlayer, GhostFigure ghostFigure, ArrayList<Label> labels, Label meaningOfCard) {
+        this.meaningOfCard = meaningOfCard;
+        this.labels = labels;
         this.positionOfPlayer = positionOfPlayer;
         this.imageView = imageView;
         this.positionOnTheMap = positionOnTheMap;
@@ -45,10 +55,11 @@ public class Player extends Thread{
         this.matrixDimension = matrixDimension;
         index = threadNumber++;
         dodajFigure();
-        this.mp = new MovingPath(orginalPane, matrixDimension);
+        this.mp = new MovingPath(orginalPane, matrixDimension, labels);
         if(matrixDimension % 2 == 0) mp.addToListEvenNumber();
         else mp.addToListOddNumber();
         paneList = mp.getPaneList();
+        this.numbers = mp.getNumbers();
         this.ghostFigure = ghostFigure;
         PlayingDeckForGet pdfg = new PlayingDeckForGet(playingDeck);
         Producer producer = new Producer(pdfg);
@@ -121,7 +132,9 @@ public class Player extends Thread{
                            f.setStartSpot(f.getEndSpot());
                            if((f.getEndSpot() + pomjeraj + f.getBonusPositions()) <= paneList.size()){
                            f.setEndSpot(f.getEndSpot() + pomjeraj + f.getBonusPositions());}
+
                            else f.setEndSpot(paneList.size());
+                           Platform.runLater(()->meaningOfCard.setText(this.toString()));
                             f.resetBonusPositions();
                        for (int i = f.getStartSpot(); i < f.getEndSpot(); i++) {
                            final int x = i;
@@ -172,6 +185,7 @@ public class Player extends Thread{
                            if((f.getEndSpot() + pomjeraj + f.getBonusPositions()) <= paneList.size()){
                                f.setEndSpot(f.getEndSpot() + pomjeraj + f.getBonusPositions());}
                            else f.setEndSpot(paneList.size());
+                           Platform.runLater(()->meaningOfCard.setText(this.toString()));
                            f.resetBonusPositions();
 
                        for (int i = f.getStartSpot(); i < f.getEndSpot(); i++) {
@@ -222,6 +236,7 @@ public class Player extends Thread{
                            if((f.getEndSpot() + (pomjeraj * 2) + f.getBonusPositions()) <= paneList.size()){
                                f.setEndSpot(f.getEndSpot() + (pomjeraj * 2) + f.getBonusPositions());}
                            else f.setEndSpot(paneList.size());
+                           Platform.runLater(()->meaningOfCard.setText(this.toString()));
                            f.resetBonusPositions();
 
                        for (int i = f.getStartSpot(); i < f.getEndSpot(); i++) {
@@ -278,4 +293,11 @@ public class Player extends Thread{
     public List<Pane> getPaneList() {
         return this.paneList;
     }
+    @Override
+    public String toString() {
+        return  "Na potezu je igrač " + this.name + "." + "\n" + "Pomijera se figura " +
+                    numberOfFiguresThatAreDone + " ( " + figure.get(0).move() + " )." + "\n" + "Prelazi " + (figure.get(0).getEndSpot() - figure.get(0).getStartSpot()) + ", od pozicije " + numbers.get(figure.get(0).getStartSpot()) +
+                    " do pozicije " + numbers.get(figure.get(0).getEndSpot() - 1) + ". \n" + "Uključujući bonus od " + figure.get(0).getBonusPositions() + " polja.";
+    }
+
 }

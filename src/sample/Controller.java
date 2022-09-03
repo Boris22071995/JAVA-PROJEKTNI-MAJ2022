@@ -1,8 +1,10 @@
 package sample;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -79,8 +81,8 @@ public class Controller implements Initializable {
     String ime2;
     String ime3;
     String ime4;
-   ArrayList<Label> labele = new ArrayList<>();
-   ArrayList<Figure> sveFigure = new ArrayList<>();
+    ArrayList<Label> labele = new ArrayList<>();
+    ArrayList<Figure> sveFigure = new ArrayList<>();
     PlayingDeck pd;
     List<Figure> figures;
     PositionOnTheMap positionOnTheMap = new PositionOnTheMap();
@@ -136,14 +138,12 @@ public class Controller implements Initializable {
         timerLabel.setText("");
 
         napraviMatricu();
-        System.out.println("BBBBBBB" + tempsss.size());
         for(int i = 0;i < tempsss.size();i++) {
             tempsss.get(i).setStyle("-fx-border-color: black; -fx-background-color:rgba(255, 255, 255, 0.87);");
         }
         podesavanjeImena();
         List<Pane> temp = new ArrayList<>();
         temp = player1.getPaneList();
-        System.out.println("AAAAAAA" + temp.size());
         for(int i = 0; i < temp.size();i++) {
             temp.get(i).setStyle("-fx-border-color: black; -fx-background-color:rgba(0, 129, 255, 0.3)"); //lightred 255,99,71,0.5 light blude 0, 129, 255, 0.3
         }
@@ -151,11 +151,11 @@ public class Controller implements Initializable {
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
         createLabelForFigures();
+        meaningOfCard.setWrapText(true);
         figures =   player1.getFigure();
 
     }
-    public void napraviMatricu()
-    {
+    public void napraviMatricu() {
         panes = new Pane[dimenzijaMatrice][dimenzijaMatrice];
         for(int i = 1; i <= dimenzijaMatrice * dimenzijaMatrice; i++) {
             Label temp = new Label();
@@ -177,10 +177,6 @@ public class Controller implements Initializable {
 
                 panes[i][j].setStyle("-fx-border-color: black;"); //-fx-background-color:rgba(255, 255, 255, 0.87);
             }
-   /*     for(int i = 0; i < dimenzijaMatrice; i++)
-            for(int j = 0; j <dimenzijaMatrice; j++)
-                panes[i][j].setStyle("-fx-border-color: black; ");
-        gridPane.setAlignment(Pos.CENTER_RIGHT);*/
 
         for(int i = 0; i < dimenzijaMatrice; i++)
             for(int j = 0; j < dimenzijaMatrice; j++)
@@ -208,20 +204,16 @@ public class Controller implements Initializable {
             gridPane.setPrefSize(340, 340);
         }
     }
-
     @FXML
     public void zapocni(javafx.event.ActionEvent ae) throws InterruptedException {
             List<Player> igraci = new ArrayList<Player>();
             igraci.add(player1);
             igraci.add(player2);
-          //  igraci.add(player3);
-          // igraci.add(player4);
             for(int i = 0; i < igraci.size(); i++) igraci.get(i).start();
-
    }
     public void podesavanjeImena() {
        GhostFigure ghostFigure;
-       MovingPath mp =  new MovingPath(panes, dimenzijaMatrice);
+       MovingPath mp =  new MovingPath(panes, dimenzijaMatrice, labele);
         if(dimenzijaMatrice % 2 == 0) mp.addToListEvenNumber();
         else mp.addToListOddNumber();
         ghostFigure = new GhostFigure(mp.getPaneList(),dimenzijaMatrice);
@@ -232,8 +224,8 @@ public class Controller implements Initializable {
             ime4Label.setVisible(false);
             bojaPrvogIgraca = "zuta";
             bojaDrugogIgraca = "zelena";
-            player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure);
-            player2 = new Player(ime2, bojaDrugogIgraca, panes,dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure);
+            player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard);
+            player2 = new Player(ime2, bojaDrugogIgraca, panes,dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard);
        }
        else if(brojIgraca == 3) {
            ime1Label.setText(ime1);
@@ -246,9 +238,9 @@ public class Controller implements Initializable {
            bojaPrvogIgraca = "crvena";
            bojaDrugogIgraca = "zuta";
            bojaTrecegIgraca = "zelena";
-           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure);
-           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure);
-           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,3,ghostFigure);
+           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard);
+           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard);
+           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,3,ghostFigure, labele, meaningOfCard);
        }
        else {
            ime1Label.setText(ime1);
@@ -259,10 +251,10 @@ public class Controller implements Initializable {
            bojaDrugogIgraca = "zuta";
            bojaTrecegIgraca = "zelena";
            bojaCetvrtogIgraca = "plava";
-           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure);
-           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure);
-           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,3,ghostFigure);
-           player4 = new Player(ime4, bojaCetvrtogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,4,ghostFigure);
+           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard);
+           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard);
+           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,3,ghostFigure, labele, meaningOfCard);
+           player4 = new Player(ime4, bojaCetvrtogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,4,ghostFigure, labele, meaningOfCard);
 
        }
     }

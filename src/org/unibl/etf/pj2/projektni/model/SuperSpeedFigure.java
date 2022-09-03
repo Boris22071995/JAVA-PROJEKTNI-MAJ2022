@@ -25,10 +25,7 @@ public class SuperSpeedFigure extends Figure implements MovingWay {
             case "zelena" -> rectangle.setFill(Color.GREEN);
             default -> rectangle.setFill(Color.YELLOW);
         }
-         this.mp = new MovingPath(orginalPanes, matrixDimension);
-        if(matrixDimension %2 == 0) mp.addToListEvenNumber();
-        else mp.addToListOddNumber();
-        paneList = mp.getPaneList();
+
     }
     @Override
     public String move() {

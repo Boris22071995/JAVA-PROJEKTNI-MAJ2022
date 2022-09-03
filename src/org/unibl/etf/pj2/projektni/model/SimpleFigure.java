@@ -27,10 +27,7 @@ public class SimpleFigure extends Figure implements MovingWay {
             case "zelena" -> this.circle.setFill(Color.GREEN);
             default -> circle.setFill(Color.YELLOW);
         }
-        this.mp = new MovingPath(orginalPanes, matrixDimension);
-        if(matrixDimension % 2 == 0) mp.addToListEvenNumber();
-        else mp.addToListOddNumber();
-        paneList = mp.getPaneList();
+
     }
     @Override
     public String move() {
