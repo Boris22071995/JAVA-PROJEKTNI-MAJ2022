@@ -39,10 +39,12 @@ public class Player extends Thread{
     List<Integer> numbers;
     List<Integer> processedNumbers;
     Label meaningOfCard;
+    Label timeLabel;
 
 
 
-    public Player(String name, String colour, Pane[][] panes, int matrixDimension,PlayingDeck playingDeck,ImageView imageView, PositionOnTheMap positionOnTheMap, int positionOfPlayer, GhostFigure ghostFigure, ArrayList<Label> labels, Label meaningOfCard) {
+    public Player(String name, String colour, Pane[][] panes, int matrixDimension,PlayingDeck playingDeck,ImageView imageView, PositionOnTheMap positionOnTheMap, int positionOfPlayer, GhostFigure ghostFigure, ArrayList<Label> labels, Label meaningOfCard, Label timeLabel) {
+        this.timeLabel = timeLabel;
         this.meaningOfCard = meaningOfCard;
         this.labels = labels;
         this.positionOfPlayer = positionOfPlayer;
@@ -102,6 +104,8 @@ public class Player extends Thread{
             if(positionOfPlayer == 1 && isGhostStarted == false) {
                 ghostFigure.start();
                 isGhostStarted = true;
+                MyTimer myTimer = new MyTimer(this.timeLabel);
+                myTimer.start();
             }
            while(true){
                Figure f = figure.get(0);

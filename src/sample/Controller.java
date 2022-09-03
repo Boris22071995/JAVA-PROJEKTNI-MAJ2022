@@ -224,8 +224,8 @@ public class Controller implements Initializable {
             ime4Label.setVisible(false);
             bojaPrvogIgraca = "zuta";
             bojaDrugogIgraca = "zelena";
-            player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard);
-            player2 = new Player(ime2, bojaDrugogIgraca, panes,dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard);
+            player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel);
+            player2 = new Player(ime2, bojaDrugogIgraca, panes,dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard, timerLabel);
        }
        else if(brojIgraca == 3) {
            ime1Label.setText(ime1);
@@ -238,9 +238,9 @@ public class Controller implements Initializable {
            bojaPrvogIgraca = "crvena";
            bojaDrugogIgraca = "zuta";
            bojaTrecegIgraca = "zelena";
-           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard);
-           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard);
-           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,3,ghostFigure, labele, meaningOfCard);
+           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel);
+           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard, timerLabel);
+           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,3,ghostFigure, labele, meaningOfCard, timerLabel);
        }
        else {
            ime1Label.setText(ime1);
@@ -251,10 +251,10 @@ public class Controller implements Initializable {
            bojaDrugogIgraca = "zuta";
            bojaTrecegIgraca = "zelena";
            bojaCetvrtogIgraca = "plava";
-           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard);
-           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard);
-           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,3,ghostFigure, labele, meaningOfCard);
-           player4 = new Player(ime4, bojaCetvrtogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,4,ghostFigure, labele, meaningOfCard);
+           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel);
+           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard, timerLabel);
+           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,3,ghostFigure, labele, meaningOfCard, timerLabel);
+           player4 = new Player(ime4, bojaCetvrtogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,4,ghostFigure, labele, meaningOfCard, timerLabel);
 
        }
     }
