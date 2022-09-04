@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="577.0" prefWidth="764.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="577.0" prefWidth="764.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane fx:id="pane7" prefHeight="66.0" prefWidth="764.0">
          <children>
@@ -71,7 +71,7 @@
       </Pane>
       <Pane fx:id="pane6" layoutX="567.0" layoutY="488.0" prefHeight="82.0" prefWidth="176.0">
          <children>
-            <Label layoutX="74.0" layoutY="14.0" prefHeight="17.0" prefWidth="35.0" text="Fajlovi" />
+            <Button fx:id="files" layoutX="32.0" layoutY="14.0" mnemonicParsing="false" onAction="#listOfFiles" prefHeight="54.0" prefWidth="112.0" text="Prikaz liste fajlova sa rezultatima" textAlignment="CENTER" wrapText="true" />
          </children>
       </Pane>
    </children>

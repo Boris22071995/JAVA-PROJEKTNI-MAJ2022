@@ -63,6 +63,8 @@ public class Controller implements Initializable {
     ImageView imageView;
     @FXML
     Label meaningOfCard = new Label();
+    @FXML
+    Button files;
 
     String bojaPrvogIgraca;
     String bojaDrugogIgraca;
@@ -434,6 +436,15 @@ public class Controller implements Initializable {
         Parent root = loader.load();
         Stage primaryStage = new Stage();
         primaryStage.setTitle("Pređen put");
+        primaryStage.setScene(new Scene(root, 368, 400));
+        primaryStage.show();
+    }
+    @FXML
+    public void listOfFiles(javafx.event.ActionEvent ae) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ListOfFiles.fxml"));
+        Parent root = loader.load();
+        Stage primaryStage = new Stage();
+        primaryStage.setTitle("Fajlovi");
         primaryStage.setScene(new Scene(root, 368, 400));
         primaryStage.show();
     }
