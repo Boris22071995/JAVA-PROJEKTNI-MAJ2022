@@ -144,17 +144,20 @@ public class Player extends Thread{
                            final int x = i;
                            if(x == f.getEndSpot() - 1) {
                                if(positionOnTheMap.checkForAvalibalitiOfPosition(paneList.get(x)) == false){
+                                   f.addProcessedPositions();
                                    f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x + 1)));
                                    Platform.runLater(()->paneList.get(x + 1).getChildren().add(sf.getCircle()));
                                    flag = true;
 
                                }else {
                                    Platform.runLater(() -> paneList.get(x).getChildren().add(sf.getCircle()));
+                                   f.addProcessedPositions();
                                    f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
                                }
                            }else{
                                if(positionOnTheMap.checkForAvalibalitiOfPosition(paneList.get(x))== true) {
                                    f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
+                                   f.addProcessedPositions();
                                    Platform.runLater(()->paneList.get(x).getChildren().add(sf.getCircle()));
                                }
                            }
@@ -197,16 +200,19 @@ public class Player extends Thread{
                            if(x == f.getEndSpot() - 1) {
                                if(positionOnTheMap.checkForAvalibalitiOfPosition(paneList.get(x))== false){
                                    f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x + 1)));
+                                   f.addProcessedPositions();
                                    Platform.runLater(()->paneList.get(x + 1).getChildren().add(ff.getTriangle()));
                                    flag = true;
                                }else {
                                    f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
                                    Platform.runLater(() -> paneList.get(x).getChildren().add(ff.getTriangle()));
+                                   f.addProcessedPositions();
                                }
                            }else{
                                if(positionOnTheMap.checkForAvalibalitiOfPosition(paneList.get(x))== true) {
                                    f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
                                    Platform.runLater(()->paneList.get(x).getChildren().add(ff.getTriangle()));
+                                   f.addProcessedPositions();
                                }
                            }
                            try{
@@ -247,16 +253,19 @@ public class Player extends Thread{
                            final int x = i;
                            if(x == f.getEndSpot() - 1) {
                                if(positionOnTheMap.checkForAvalibalitiOfPosition(paneList.get(x))== false){
+                                   f.addProcessedPositions();
                                    f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x + 1)));
                                    Platform.runLater(()->paneList.get(x + 1).getChildren().add(ssf.getRectangle()));
                                    flag = true;
                                }else {
                                    f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
+                                   f.addProcessedPositions();
                                    Platform.runLater(() -> paneList.get(x).getChildren().add(ssf.getRectangle()));
                                }
                            }else{
                                if(positionOnTheMap.checkForAvalibalitiOfPosition(paneList.get(x))== true) {
                                    f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
+                                   f.addProcessedPositions();
                                    Platform.runLater(()->paneList.get(x).getChildren().add(ssf.getRectangle()));
                                }
                            }

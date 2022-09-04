@@ -2,9 +2,12 @@ package sample;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -13,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import org.unibl.etf.pj2.projektni.model.*;
 
 import java.io.File;
@@ -258,7 +262,7 @@ public class Controller implements Initializable {
 
        }
     }
-    public void createLabelForFigures() {
+    public void createLabelForFigures()  {
         List<Figure> figureList1;
         List<Figure> figureList2;
         List<Figure> figureList3;
@@ -271,16 +275,27 @@ public class Controller implements Initializable {
                 for(int i = 0; i < 4; i++) {
                     Label l = new Label(player1.getNames()+ ": " + figureList1.get(i).move());
                     l.setTextFill(Color.YELLOW);
+                    final int x = i;
                     l.setOnMouseClicked(mouseEvent -> {
-                        System.out.println("Mahrina je car");
+                        try {
+                            doOnClick(player1,figureList1.get(x));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     });
                     labels.add(l);
                 }
                 for(int i = 0; i < 4; i++) {
                     Label l = new Label(player2.getNames()+ ": " + figureList2.get(i).move());
                     l.setTextFill(Color.GREEN);
+                    final int x = i;
                     l.setOnMouseClicked(mouseEvent -> {
-                        System.out.println("Mahrina je car");
+
+                        try {
+                            doOnClick(player2,figureList2.get(x));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     });
                     labels.add(l);
                 }
@@ -299,24 +314,41 @@ public class Controller implements Initializable {
                 for(int i = 0; i < 4; i++) {
                     Label l = new Label(player1.getNames()+ ": " + figureList1.get(i).move());
                     l.setTextFill(Color.RED);
+                    final int x = i;
                     l.setOnMouseClicked(mouseEvent -> {
-                        System.out.println("Mahrina je car");
+                        try {
+                            doOnClick(player1,figureList1.get(x));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     });
                     labels.add(l);
                 }
                 for(int i = 0; i < 4; i++) {
                     Label l = new Label(player2.getNames()+ ": " + figureList2.get(i).move());
                     l.setTextFill(Color.YELLOW);
+                    final int x = i;
                     l.setOnMouseClicked(mouseEvent -> {
-                        System.out.println("Mahrina je car");
+                        try {
+                            doOnClick(player2,figureList2.get(x));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     });
                     labels.add(l);
                 }
                 for(int i = 0; i < 4; i++) {
                     Label l = new Label(player3.getNames() + ": " + figureList3.get(i).move());
                     l.setTextFill(Color.GREEN);
+                    final int x = i;
+
                     l.setOnMouseClicked(mouseEvent -> {
-                        System.out.println("Mahrina je car");
+
+                        try {
+                            doOnClick(player3,figureList3.get(x));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     });
                     labels.add(l);
                 }
@@ -335,32 +367,52 @@ public class Controller implements Initializable {
                 for(int i = 0; i < 4; i++) {
                     Label l = new Label( player1.getNames() + ": " + figureList1.get(i).move());
                     l.setTextFill(Color.RED);
+                    final int x = i;
                     l.setOnMouseClicked(mouseEvent -> {
-                        System.out.println("Mahrina je car");
+                        try {
+                            doOnClick(player1,figureList1.get(x));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     });
                     labels.add(l);
                 }
                 for(int i = 0; i < 4; i++) {
                     Label l = new Label(player2.getNames() + ": " + figureList2.get(i).move());
                     l.setTextFill(Color.YELLOW);
+                    final int x = i;
                     l.setOnMouseClicked(mouseEvent -> {
-                        System.out.println("Mahrina je car");
+                        try {
+                            doOnClick(player2,figureList2.get(x));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     });
                     labels.add(l);
                 }
                 for(int i = 0; i < 4; i++) {
                     Label l = new Label(player3.getNames() + ": " + figureList3.get(i).move());
                     l.setTextFill(Color.GREEN);
+                    final int x = i;
                     l.setOnMouseClicked(mouseEvent -> {
-                        System.out.println("Mahrina je car");
+                        try {
+                            doOnClick(player3,figureList3.get(x));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     });
                     labels.add(l);
                 }
                 for(int i = 0; i < 4; i++) {
                     Label l = new Label(player4.getNames() + ": " + figureList4.get(i).move());
                     l.setTextFill(Color.BLUE);
+                    final int x = i;
                     l.setOnMouseClicked(mouseEvent -> {
-                        System.out.println("Mahrina je car");
+                        try {
+                            doOnClick(player4,figureList4.get(x));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     });
                     labels.add(l);
                 }
@@ -374,6 +426,16 @@ public class Controller implements Initializable {
 
             }
 
+    }
+    public void doOnClick(Player player, Figure figure) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("CrossedPath.fxml"));
+       // Parent root = FXMLLoader.load(getClass().getResource("CrossedPath.fxml"));
+        loader.setController(new CrossedPathController(player,figure,dimenzijaMatrice));
+        Parent root = loader.load();
+        Stage primaryStage = new Stage();
+        primaryStage.setTitle("Pređen put");
+        primaryStage.setScene(new Scene(root, 368, 400));
+        primaryStage.show();
     }
 
 }
