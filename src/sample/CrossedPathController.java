@@ -52,8 +52,10 @@ public class CrossedPathController implements Initializable {
         else
             mp.addToListOddNumber();
         paneList = mp.getPaneList();
-        for(int i = 0; i < figure.getNumberOfProcessedPositions(); i++) {
-            paneList.get(i).setStyle("-fx-border-color: black; -fx-background-color:rgba(0, 129, 255, 0.3)");
+        if(figure.getNumberOfProcessedPositions()!=0) {
+            for (int i = 0; i <= figure.getNumberOfProcessedPositions(); i++) {
+                paneList.get(i).setStyle("-fx-border-color: black; -fx-background-color:rgba(0, 129, 255, 0.3)");
+            }
         }
     }
     public void napraviMatricu() {

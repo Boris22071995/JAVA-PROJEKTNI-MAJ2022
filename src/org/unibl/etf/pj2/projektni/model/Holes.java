@@ -14,26 +14,52 @@ public class Holes {
     Random rand = new Random();
     List<Pane> listOfHoles = new ArrayList<>();
     List<Pane> paneList;
+    List<Player> listOfPlayers = new ArrayList<>();
     Player player;
-    public Holes(int numberOfHoles, PositionOnTheMap potm, MovingPath mp, List<Pane> paneList, Player player) {
+    public Holes(int numberOfHoles, MovingPath mp, List<Pane> paneList) {
         this.numberOfHoles = numberOfHoles;
-        this.potm = potm;
         this.mp = mp;
         this.paneList = paneList;
-        this.player = player;
+    }
+    public void addPlayer(Player player) {
+        if(!listOfPlayers.contains(player)) listOfPlayers.add(player);
+
     }
 
+    public boolean checkPosition(int temp) {
+        boolean flag = false;
+        for(int i = 0; i < listOfHoles.size(); i++) {
+            if(listOfHoles.get(i) == mp.getPaneList().get(temp)) {
+                flag = true;
+            }
+        }
+        return flag;
+
+    }
     public void processHoles() {
         int temp = 0;
-        for(int i = 0; i < numberOfHoles; i++) {
+        while(listOfHoles.size()!=numberOfHoles) {
             temp = rand.nextInt(mp.getPaneList().size());
-            listOfHoles.add(mp.getPaneList().get(temp));
+            if(!checkPosition(temp)) {
+                listOfHoles.add(mp.getPaneList().get(temp));
+            }
+
         }
+
         for(int i = 0; i < listOfHoles.size(); i++)
           listOfHoles.get(i).setStyle("-fx-background-color: black;");
-          for(int j = 0; j < potm.getFiguresOnMap().size(); j++) {
-              Figure f = potm.getFigureFromMap(j);
-              Pane position = potm.getPositionFromMap(j);
+            int num = potm.getFiguresOnMap().size();
+          for(int j = 0; j < num; j++) {
+              Figure f = potm.getFigureFromMap(0);
+              for(int i = 0; i < listOfPlayers.size(); i++) {
+                  List<Figure> listTemp = listOfPlayers.get(i).getFigure();
+                  for(int k = 0; k < 4; k++) {
+                      if(f == listTemp.get(k)){
+                          this.player = listOfPlayers.get(i);
+                      }
+                  }
+              }
+              Pane position = potm.getPositionFromMap(0);
               for(int i = 0; i < listOfHoles.size(); i++) {
                   if(listOfHoles.get(i) == position) {
                       if("Obicna figura".equals(f.move())){
@@ -64,7 +90,8 @@ public class Holes {
                               if(paneList.get(z) == position){
                                   final int x = z;
                                   Platform.runLater(()->paneList.get(x).getChildren().remove(ff.getTriangle()));
-
+                                  potm.removeFromMap(player,f);
+                                  potm.addOnMap(player,position,f);
                               }
                           }
                       }
@@ -81,6 +108,7 @@ public class Holes {
           }
         for(int i = 0; i < listOfHoles.size(); i++)
             listOfHoles.get(i).setStyle("-fx-border-color: black; -fx-background-color:rgba(0, 129, 255, 0.3)");
+        System.out.println("OVDJE SMO U RUPI " + potm.getFiguresOnMap().size()); //
         for(int i = 0; i < potm.getFiguresOnMap().size(); i++) {
             Figure figure = potm.getFigureFromMap(i);
             Pane position2 = potm.getPositionFromMap(i);
@@ -115,6 +143,9 @@ public class Holes {
               }
 
            */
+    }
+    public void setPositionOnTheMap(PositionOnTheMap position) {
+        this.potm = position;
     }
 
 

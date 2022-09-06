@@ -16,6 +16,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.unibl.etf.pj2.projektni.model.*;
 
@@ -96,9 +99,10 @@ public class Controller implements Initializable {
     //Test
     List<Pane> tempsss = new ArrayList<>();
     private final PlayingDeck playingDeck;
-
+    List<Player> listOfPlayers = new ArrayList<>();
+    MovingPath mp;
     GhostFigure ghost;
-
+    Holes holes;
 
     int brojac = 0;
    public Controller(int dimenzijaMatrice, int brojIgraca, String ime1, String ime2) throws IOException {
@@ -107,6 +111,7 @@ public class Controller implements Initializable {
        this.ime1 = ime1;
        this.ime2 = ime2;
        this.playingDeck = new PlayingDeck();
+
    }
    public Controller(int dimenzijaMatrice, int brojIgraca, String ime1, String ime2, String ime3) throws IOException {
        this.dimenzijaMatrice = dimenzijaMatrice;
@@ -124,7 +129,6 @@ public class Controller implements Initializable {
        this.ime3 = ime3;
        this.ime4 = ime4;
        this.playingDeck = new PlayingDeck();
-
    }
 
     @Override
@@ -144,6 +148,10 @@ public class Controller implements Initializable {
         timerLabel.setText("");
 
         napraviMatricu();
+        mp = new MovingPath(panes,dimenzijaMatrice,labele);
+        if(dimenzijaMatrice % 2 == 0) mp.addToListEvenNumber();
+        else mp.addToListOddNumber();
+        holes = new Holes(25,mp,mp.getPaneList());
         for(int i = 0;i < tempsss.size();i++) {
             tempsss.get(i).setStyle("-fx-border-color: black; -fx-background-color:rgba(255, 255, 255, 0.87);");
         }
@@ -156,9 +164,13 @@ public class Controller implements Initializable {
         File file = new File("karte/6.png");
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
-        createLabelForFigures();
+       // createLabelForFigures();
+        createPathForFigure();
         meaningOfCard.setWrapText(true);
         figures =   player1.getFigure();
+
+
+
 
     }
     public void napraviMatricu() {
@@ -219,9 +231,9 @@ public class Controller implements Initializable {
    }
     public void podesavanjeImena() {
        GhostFigure ghostFigure;
-       MovingPath mp =  new MovingPath(panes, dimenzijaMatrice, labele);
-        if(dimenzijaMatrice % 2 == 0) mp.addToListEvenNumber();
-        else mp.addToListOddNumber();
+     //   mp =  new MovingPath(panes, dimenzijaMatrice, labele);
+      //  if(dimenzijaMatrice % 2 == 0) mp.addToListEvenNumber();
+    //    else mp.addToListOddNumber();
         ghostFigure = new GhostFigure(mp.getPaneList(),dimenzijaMatrice);
        if(brojIgraca == 2) {
             ime2Label.setText(ime1);
@@ -230,8 +242,10 @@ public class Controller implements Initializable {
             ime4Label.setVisible(false);
             bojaPrvogIgraca = "zuta";
             bojaDrugogIgraca = "zelena";
-            player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel);
-            player2 = new Player(ime2, bojaDrugogIgraca, panes,dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard, timerLabel);
+            player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel, holes);
+            player2 = new Player(ime2, bojaDrugogIgraca, panes,dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard, timerLabel, holes);
+            listOfPlayers.add(player1);
+            listOfPlayers.add(player2);
        }
        else if(brojIgraca == 3) {
            ime1Label.setText(ime1);
@@ -244,9 +258,12 @@ public class Controller implements Initializable {
            bojaPrvogIgraca = "crvena";
            bojaDrugogIgraca = "zuta";
            bojaTrecegIgraca = "zelena";
-           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel);
-           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard, timerLabel);
-           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,3,ghostFigure, labele, meaningOfCard, timerLabel);
+           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel, holes);
+           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard, timerLabel, holes);
+           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,3,ghostFigure, labele, meaningOfCard, timerLabel, holes);
+           listOfPlayers.add(player1);
+           listOfPlayers.add(player2);
+           listOfPlayers.add(player3);
        }
        else {
            ime1Label.setText(ime1);
@@ -257,181 +274,60 @@ public class Controller implements Initializable {
            bojaDrugogIgraca = "zuta";
            bojaTrecegIgraca = "zelena";
            bojaCetvrtogIgraca = "plava";
-           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel);
-           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard, timerLabel);
-           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,3,ghostFigure, labele, meaningOfCard, timerLabel);
-           player4 = new Player(ime4, bojaCetvrtogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,4,ghostFigure, labele, meaningOfCard, timerLabel);
+           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel, holes);
+           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard, timerLabel, holes);
+           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,3,ghostFigure, labele, meaningOfCard, timerLabel, holes);
+           player4 = new Player(ime4, bojaCetvrtogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,4,ghostFigure, labele, meaningOfCard, timerLabel, holes);
+           listOfPlayers.add(player1);
+           listOfPlayers.add(player2);
+           listOfPlayers.add(player3);
+           listOfPlayers.add(player4);
 
        }
     }
-    public void createLabelForFigures()  {
-        List<Figure> figureList1;
-        List<Figure> figureList2;
-        List<Figure> figureList3;
-        List<Figure> figureList4;
-        List<Label> labels = new ArrayList<Label>();
-            if(brojIgraca == 2) {
-                figureList1 = player1.getFigure();
-                figureList2 = player2.getFigure();
-
-                for(int i = 0; i < 4; i++) {
-                    Label l = new Label(player1.getNames()+ ": " + figureList1.get(i).move());
-                    l.setTextFill(Color.YELLOW);
-                    final int x = i;
-                    l.setOnMouseClicked(mouseEvent -> {
+    public void createPathForFigure() {
+        List<Figure> figureList = new ArrayList<>();
+        for(int i = 0; i < listOfPlayers.size(); i++) {
+            figureList.addAll(listOfPlayers.get(i).getFigure());
+        }
+        int temp = 0;
+        for(int i = 0; i < listOfPlayers.size(); i++) {
+            for(int j = 0; j < 4; j++) {
+                Figure f = figureList.remove(0);
+                Label label = new Label();
+                final int pl = i;
+                label.setText(listOfPlayers.get(i).getNames()+ ": " + f.move());
+                paintLabel(listOfPlayers.get(i), label);
+                label.setLayoutX(5);
+                label.setLayoutY((temp++)*20);
+                pane3.getChildren().add(label);
+                label.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
                         try {
-                            doOnClick(player1,figureList1.get(x));
+                            doOnClick(listOfPlayers.get(pl),f);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                    });
-                    labels.add(l);
-                }
-                for(int i = 0; i < 4; i++) {
-                    Label l = new Label(player2.getNames()+ ": " + figureList2.get(i).move());
-                    l.setTextFill(Color.GREEN);
-                    final int x = i;
-                    l.setOnMouseClicked(mouseEvent -> {
-
-                        try {
-                            doOnClick(player2,figureList2.get(x));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
-                    labels.add(l);
-                }
-                for(int i = 0; i < labels.size(); i++) {
-                    Label tmp = labels.get(i);
-                    tmp.setLayoutX(5);
-                    tmp.setLayoutY(i*20);
-                    pane3.getChildren().add(tmp);
-                }
+                    }
+                });
 
             }
-            else if(brojIgraca == 3) {
-                figureList1 = player1.getFigure();
-                figureList2 = player2.getFigure();
-                figureList3 = player3.getFigure();
-                for(int i = 0; i < 4; i++) {
-                    Label l = new Label(player1.getNames()+ ": " + figureList1.get(i).move());
-                    l.setTextFill(Color.RED);
-                    final int x = i;
-                    l.setOnMouseClicked(mouseEvent -> {
-                        try {
-                            doOnClick(player1,figureList1.get(x));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
-                    labels.add(l);
-                }
-                for(int i = 0; i < 4; i++) {
-                    Label l = new Label(player2.getNames()+ ": " + figureList2.get(i).move());
-                    l.setTextFill(Color.YELLOW);
-                    final int x = i;
-                    l.setOnMouseClicked(mouseEvent -> {
-                        try {
-                            doOnClick(player2,figureList2.get(x));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
-                    labels.add(l);
-                }
-                for(int i = 0; i < 4; i++) {
-                    Label l = new Label(player3.getNames() + ": " + figureList3.get(i).move());
-                    l.setTextFill(Color.GREEN);
-                    final int x = i;
-
-                    l.setOnMouseClicked(mouseEvent -> {
-
-                        try {
-                            doOnClick(player3,figureList3.get(x));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
-                    labels.add(l);
-                }
-                for(int i = 0; i < labels.size(); i++) {
-                    Label tmp = labels.get(i);
-                    tmp.setLayoutX(5);
-                    tmp.setLayoutY(i*20);
-                    pane3.getChildren().add(tmp);
-                }
-            }
-            else {
-                figureList1 = player1.getFigure();
-                figureList2 = player2.getFigure();
-                figureList3 = player3.getFigure();
-                figureList4 = player4.getFigure();
-                for(int i = 0; i < 4; i++) {
-                    Label l = new Label( player1.getNames() + ": " + figureList1.get(i).move());
-                    l.setTextFill(Color.RED);
-                    final int x = i;
-                    l.setOnMouseClicked(mouseEvent -> {
-                        try {
-                            doOnClick(player1,figureList1.get(x));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
-                    labels.add(l);
-                }
-                for(int i = 0; i < 4; i++) {
-                    Label l = new Label(player2.getNames() + ": " + figureList2.get(i).move());
-                    l.setTextFill(Color.YELLOW);
-                    final int x = i;
-                    l.setOnMouseClicked(mouseEvent -> {
-                        try {
-                            doOnClick(player2,figureList2.get(x));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
-                    labels.add(l);
-                }
-                for(int i = 0; i < 4; i++) {
-                    Label l = new Label(player3.getNames() + ": " + figureList3.get(i).move());
-                    l.setTextFill(Color.GREEN);
-                    final int x = i;
-                    l.setOnMouseClicked(mouseEvent -> {
-                        try {
-                            doOnClick(player3,figureList3.get(x));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
-                    labels.add(l);
-                }
-                for(int i = 0; i < 4; i++) {
-                    Label l = new Label(player4.getNames() + ": " + figureList4.get(i).move());
-                    l.setTextFill(Color.BLUE);
-                    final int x = i;
-                    l.setOnMouseClicked(mouseEvent -> {
-                        try {
-                            doOnClick(player4,figureList4.get(x));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
-                    labels.add(l);
-                }
-                for(int i = 0; i < labels.size(); i++) {
-                    Label tmp = labels.get(i);
-                    tmp.setLayoutX(5);
-                    tmp.setLayoutY(i*20);
-                    pane3.getChildren().add(tmp);
-                }
-
-
-            }
-
+        }
+    }
+    public void paintLabel(Player player, Label l) {
+        if("crvena".equals(player.getColour())) {
+            l.setTextFill(Color.RED);
+        }else if("plava".equals(player.getColour())){
+            l.setTextFill(Color.BLUE);
+        }else if("zelena".equals(player.getColour())) {
+            l.setTextFill(Color.GREEN);
+        }else {
+            l.setTextFill(Color.YELLOW);
+        }
     }
     public void doOnClick(Player player, Figure figure) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("CrossedPath.fxml"));
-       // Parent root = FXMLLoader.load(getClass().getResource("CrossedPath.fxml"));
         loader.setController(new CrossedPathController(player,figure,dimenzijaMatrice));
         Parent root = loader.load();
         Stage primaryStage = new Stage();

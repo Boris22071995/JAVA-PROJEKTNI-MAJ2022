@@ -17,37 +17,37 @@ public class GhostFigure extends Thread{
         this.path = path;
         this.matrixDimension = matrixDimension;
     }
-
     @Override
     public void run() {
-        while (true) {
-            positionsOfBonuses.clear();
+        while(true) {
             Random rand = new Random();
-            numberOfPositions = rand.nextInt(path.size()) ;
-            for(int i = 0; i < numberOfPositions; i++) {
-                    bonus = rand.nextInt(matrixDimension - 2 + 1) + 2;
-                    position = rand.nextInt(path.size());
-                    Pane pane = path.get(position);
-                    positionsOfBonuses.add(new BonusPosition(pane, bonus));
+            bonus = rand.nextInt(matrixDimension - 2 + 1) + 2;
+            position = rand.nextInt(path.size());
+            if(positionsOfBonuses.size() <= path.size()) {
+                positionsOfBonuses.add(new BonusPosition(path.get(position), bonus));
             }
             try{
+                System.out.println("BROJ BONUS POLJA JE " + positionsOfBonuses.size() + " POZICIJA " + positionsOfBonuses.get(0).getPosition() + " BOnUS + " + positionsOfBonuses.get(0).getBonus());
                 sleep(5000);
             }catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
+
     public int checkForBonus(Pane pane) {
         int bonus = 0;
+
         for(int i = 0; i < positionsOfBonuses.size(); i++) {
             if(positionsOfBonuses.get(i).getPosition() == pane)
+            {
                 bonus = positionsOfBonuses.get(i).getBonus();
                 positionsOfBonuses.remove(i);
+            }
         }
-        System.out.println("POKUPLJEN BONUS SA POLJA " + pane + " BONUS JE " + bonus);
+
         return bonus;
     }
-
     private static class BonusPosition {
         Pane position;
         int bonus;

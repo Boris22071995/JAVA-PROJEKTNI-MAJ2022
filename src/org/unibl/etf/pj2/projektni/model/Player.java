@@ -40,10 +40,12 @@ public class Player extends Thread{
     List<Integer> processedNumbers;
     Label meaningOfCard;
     Label timeLabel;
+    Holes holes;
 
 
 
-    public Player(String name, String colour, Pane[][] panes, int matrixDimension,PlayingDeck playingDeck,ImageView imageView, PositionOnTheMap positionOnTheMap, int positionOfPlayer, GhostFigure ghostFigure, ArrayList<Label> labels, Label meaningOfCard, Label timeLabel) {
+    public Player(String name, String colour, Pane[][] panes, int matrixDimension,PlayingDeck playingDeck,ImageView imageView, PositionOnTheMap positionOnTheMap, int positionOfPlayer, GhostFigure ghostFigure, ArrayList<Label> labels, Label meaningOfCard, Label timeLabel, Holes holes) {
+        this.holes = holes;
         this.timeLabel = timeLabel;
         this.meaningOfCard = meaningOfCard;
         this.labels = labels;
@@ -67,6 +69,8 @@ public class Player extends Thread{
         Producer producer = new Producer(pdfg);
         consumer = new Consumer(pdfg,imageView);
         producer.start();
+        this.holes = holes;
+        this.holes.addPlayer(this);
     }
     private int nextIndex() {
         return (index + 1) % threadNumber;
@@ -101,7 +105,9 @@ public class Player extends Thread{
     public String getColour() {return colour;}
    @Override
    public synchronized void run() {
+
             if(positionOfPlayer == 1 && isGhostStarted == false) {
+                ghostFigure.isDaemon();
                 ghostFigure.start();
                 isGhostStarted = true;
                 MyTimer myTimer = new MyTimer(this.timeLabel);
@@ -181,7 +187,7 @@ public class Player extends Thread{
                            positionOnTheMap.addOnMap(this,paneList.get(f.getEndSpot() - 1),f);
 
                    }else {
-                           Holes holes = new Holes(25,positionOnTheMap,mp,paneList,this);
+                           holes.setPositionOnTheMap(positionOnTheMap);
                            holes.processHoles();
                    }}
                    else if("Lebdeca figura".equals(f.move())) {
@@ -234,7 +240,8 @@ public class Player extends Thread{
                            positionOnTheMap.addOnMap(this,paneList.get(f.getEndSpot() - 1),f);
 
                    }else {
-                           Holes holes = new Holes(5,positionOnTheMap,mp,paneList,this);
+                           holes.setPositionOnTheMap(positionOnTheMap);
+
                            holes.processHoles();
                    }}
                    else if("Super brza figura".equals(f.move())){
@@ -288,7 +295,8 @@ public class Player extends Thread{
                            positionOnTheMap.addOnMap(this,paneList.get(f.getEndSpot() - 1),f);
 
                    }else {
-                       Holes holes = new Holes(5,positionOnTheMap,mp,paneList,this);
+                           holes.setPositionOnTheMap(positionOnTheMap);
+
                        holes.processHoles();
                    }}
                    indexToPrint.set(nextIndex());
