@@ -23,9 +23,7 @@ public class Holes {
     }
     public void addPlayer(Player player) {
         if(!listOfPlayers.contains(player)) listOfPlayers.add(player);
-
     }
-
     public boolean checkPosition(int temp) {
         boolean flag = false;
         for(int i = 0; i < listOfHoles.size(); i++) {
@@ -38,6 +36,7 @@ public class Holes {
     }
     public void processHoles() {
         int temp = 0;
+        listOfHoles.clear();
         while(listOfHoles.size()!=numberOfHoles) {
             temp = rand.nextInt(mp.getPaneList().size());
             if(!checkPosition(temp)) {

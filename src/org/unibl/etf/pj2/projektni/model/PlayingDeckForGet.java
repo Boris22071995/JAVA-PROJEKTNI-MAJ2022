@@ -8,17 +8,12 @@ public class PlayingDeckForGet {
     public PlayingDeckForGet(PlayingDeck playingDeck) {
         this.playingDeck = playingDeck;
     }
-
-
-    public void addCard() {
+    public synchronized void addCard() {
            PlayingCard pc = playingDeck.getCard();
-           try{
-               Thread.sleep(1000);
+
                cards.offer(pc);
 
-           }catch (InterruptedException ie) {
-               ie.printStackTrace();
-           }
+
 
     }
     public PlayingCard readCard() {

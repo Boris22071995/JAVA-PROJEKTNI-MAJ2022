@@ -7,7 +7,7 @@ public class Producer extends Thread{
             this.pd = pd;
         }
 
-        public void run() {
+        public synchronized void run() {
             while (true) {
                 try {
                     pd.addCard();

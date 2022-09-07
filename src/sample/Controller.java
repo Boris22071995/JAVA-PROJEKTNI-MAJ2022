@@ -22,11 +22,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.unibl.etf.pj2.projektni.model.*;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -95,7 +95,7 @@ public class Controller implements Initializable {
     PlayingDeck pd;
     List<Figure> figures;
     PositionOnTheMap positionOnTheMap = new PositionOnTheMap();
-
+    static int numberOfPlayers;
     //Test
     List<Pane> tempsss = new ArrayList<>();
     private final PlayingDeck playingDeck;
@@ -103,6 +103,8 @@ public class Controller implements Initializable {
     MovingPath mp;
     GhostFigure ghost;
     Holes holes;
+    ResultProcessing resultProcessing = new ResultProcessing();
+
 
     int brojac = 0;
    public Controller(int dimenzijaMatrice, int brojIgraca, String ime1, String ime2) throws IOException {
@@ -111,6 +113,7 @@ public class Controller implements Initializable {
        this.ime1 = ime1;
        this.ime2 = ime2;
        this.playingDeck = new PlayingDeck();
+       numberOfPlayers = brojIgraca;
 
    }
    public Controller(int dimenzijaMatrice, int brojIgraca, String ime1, String ime2, String ime3) throws IOException {
@@ -120,6 +123,7 @@ public class Controller implements Initializable {
        this.ime2 = ime2;
        this.ime3 = ime3;
        this.playingDeck = new PlayingDeck();
+       numberOfPlayers = brojIgraca;
    }
    public Controller(int dimenzijaMatrice, int brojIgraca, String ime1, String ime2, String ime3, String ime4) throws IOException {
        this.dimenzijaMatrice = dimenzijaMatrice;
@@ -129,6 +133,10 @@ public class Controller implements Initializable {
        this.ime3 = ime3;
        this.ime4 = ime4;
        this.playingDeck = new PlayingDeck();
+       numberOfPlayers = brojIgraca;
+   }
+   public static int getNumberOfPlayers() {
+       return  numberOfPlayers;
    }
 
     @Override
@@ -151,7 +159,13 @@ public class Controller implements Initializable {
         mp = new MovingPath(panes,dimenzijaMatrice,labele);
         if(dimenzijaMatrice % 2 == 0) mp.addToListEvenNumber();
         else mp.addToListOddNumber();
-        holes = new Holes(25,mp,mp.getPaneList());
+        int number = 0;
+        try {
+            number = readFileWithNumberOfHoles();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        holes = new Holes(number,mp,mp.getPaneList());
         for(int i = 0;i < tempsss.size();i++) {
             tempsss.get(i).setStyle("-fx-border-color: black; -fx-background-color:rgba(255, 255, 255, 0.87);");
         }
@@ -164,11 +178,9 @@ public class Controller implements Initializable {
         File file = new File("karte/6.png");
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
-       // createLabelForFigures();
         createPathForFigure();
         meaningOfCard.setWrapText(true);
         figures =   player1.getFigure();
-
 
 
 
@@ -231,9 +243,6 @@ public class Controller implements Initializable {
    }
     public void podesavanjeImena() {
        GhostFigure ghostFigure;
-     //   mp =  new MovingPath(panes, dimenzijaMatrice, labele);
-      //  if(dimenzijaMatrice % 2 == 0) mp.addToListEvenNumber();
-    //    else mp.addToListOddNumber();
         ghostFigure = new GhostFigure(mp.getPaneList(),dimenzijaMatrice);
        if(brojIgraca == 2) {
             ime2Label.setText(ime1);
@@ -242,8 +251,8 @@ public class Controller implements Initializable {
             ime4Label.setVisible(false);
             bojaPrvogIgraca = "zuta";
             bojaDrugogIgraca = "zelena";
-            player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel, holes);
-            player2 = new Player(ime2, bojaDrugogIgraca, panes,dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard, timerLabel, holes);
+            player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing);
+            player2 = new Player(ime2, bojaDrugogIgraca, panes,dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing);
             listOfPlayers.add(player1);
             listOfPlayers.add(player2);
        }
@@ -258,9 +267,9 @@ public class Controller implements Initializable {
            bojaPrvogIgraca = "crvena";
            bojaDrugogIgraca = "zuta";
            bojaTrecegIgraca = "zelena";
-           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel, holes);
-           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard, timerLabel, holes);
-           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,3,ghostFigure, labele, meaningOfCard, timerLabel, holes);
+           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing);
+           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing);
+           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,3,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing);
            listOfPlayers.add(player1);
            listOfPlayers.add(player2);
            listOfPlayers.add(player3);
@@ -274,10 +283,10 @@ public class Controller implements Initializable {
            bojaDrugogIgraca = "zuta";
            bojaTrecegIgraca = "zelena";
            bojaCetvrtogIgraca = "plava";
-           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel, holes);
-           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard, timerLabel, holes);
-           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,3,ghostFigure, labele, meaningOfCard, timerLabel, holes);
-           player4 = new Player(ime4, bojaCetvrtogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,4,ghostFigure, labele, meaningOfCard, timerLabel, holes);
+           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing);
+           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing);
+           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,3,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing);
+           player4 = new Player(ime4, bojaCetvrtogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,4,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing);
            listOfPlayers.add(player1);
            listOfPlayers.add(player2);
            listOfPlayers.add(player3);
@@ -343,6 +352,16 @@ public class Controller implements Initializable {
         primaryStage.setTitle("Fajlovi");
         primaryStage.setScene(new Scene(root, 368, 400));
         primaryStage.show();
+    }
+
+    public int readFileWithNumberOfHoles() throws IOException {
+        String path = System.getProperty("user.dir") + File.separator + "brojRupa.txt";
+        File file = new File(path);
+        FileInputStream fis = new FileInputStream(file);
+        BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+        String str = br.readLine();
+        int number = Integer.parseInt(str);
+        return number;
     }
 
 }

@@ -5,7 +5,13 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import sample.Controller;
 
+import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -17,6 +23,8 @@ public class Player extends Thread{
     static private int threadNumber = 0;
     final private int index;
     static int numberOfFiguresThatEnd = 0;
+    static int numberOfPlayersThatAreDone;
+
 
     String name;
     String colour;
@@ -41,10 +49,12 @@ public class Player extends Thread{
     Label meaningOfCard;
     Label timeLabel;
     Holes holes;
+    ResultProcessing resultProcessing;
 
 
-
-    public Player(String name, String colour, Pane[][] panes, int matrixDimension,PlayingDeck playingDeck,ImageView imageView, PositionOnTheMap positionOnTheMap, int positionOfPlayer, GhostFigure ghostFigure, ArrayList<Label> labels, Label meaningOfCard, Label timeLabel, Holes holes) {
+    public Player(String name, String colour, Pane[][] panes, int matrixDimension,PlayingDeck playingDeck,ImageView imageView, PositionOnTheMap positionOnTheMap, int positionOfPlayer, GhostFigure ghostFigure, ArrayList<Label> labels, Label meaningOfCard, Label timeLabel, Holes holes,ResultProcessing rs) {
+        this.resultProcessing = rs;
+        resultProcessing.addPlayerToList(this);
         this.holes = holes;
         this.timeLabel = timeLabel;
         this.meaningOfCard = meaningOfCard;
@@ -130,8 +140,17 @@ public class Player extends Thread{
                        f = figure.get(0);
                        numberOfFiguresThatAreDone++;
                    }
+                   if(numberOfPlayersThatAreDone == Controller.getNumberOfPlayers()) {
+                       System.out.println("SVI IGRACI SU ZAVRSILI");
+                        resultProcessing.processing();
+                   }
+
+
+
+
                    if(numberOfFiguresThatAreDone <= 4){
-                       System.out.println("BROJ FIGURA KOJE SU ZAVRSILE " + numberOfFiguresThatAreDone);
+                       //System.out.println("BROJ FIGURA KOJE SU ZAVRSILE " + numberOfFiguresThatAreDone);
+
 
                    PlayingCard pc = consumer.getCard();
                    int pomjeraj = pc.getNumber();
@@ -304,7 +323,12 @@ public class Player extends Thread{
                    indexToPrint.notifyAll();
                }
                    else{
-                       System.out.println("SVE FIGURE ZA IGACA " + this.name + " ZAVRSILE");
+                 //      System.out.println("SVE FIGURE ZA IGACA " + this.name + " ZAVRSILE");
+                     //  int p = new File(System.getProperty("user.dir") + File.separator + "rezultati").list().length;
+                     //  System.out.println("broj fajlova " + p);
+                       if(numberOfPlayersThatAreDone!=Controller.getNumberOfPlayers()) {
+                           numberOfPlayersThatAreDone++;
+                       }
                        indexToPrint.set(nextIndex());
                        indexToPrint.notifyAll();
                    }
