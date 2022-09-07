@@ -102,7 +102,7 @@ public class Holes {
 
           }
           try{
-              Thread.sleep(1000);
+              Thread.sleep(500);
           }catch (InterruptedException ie) {
               ie.printStackTrace();
           }

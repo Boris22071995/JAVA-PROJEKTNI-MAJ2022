@@ -114,13 +114,7 @@ public class Player extends Thread{
                 myTimer.start();
             }
            while(true){
-               Figure f = figure.get(0);
-               if (f.getIsDone()) {
-                   Figure temp = figure.remove(0);
-                   figure.add(temp);
-                   f = figure.get(0);
-                   numberOfFiguresThatAreDone++;
-               }
+
                synchronized (indexToPrint) {
                    while(indexToPrint.get()!=index){
                        try {
@@ -128,6 +122,13 @@ public class Player extends Thread{
                        } catch (InterruptedException e) {
                            e.printStackTrace();
                        }
+                   }
+                   Figure f = figure.get(0);
+                   if (f.getIsDone()) {
+                       Figure temp = figure.remove(0);
+                       figure.add(temp);
+                       f = figure.get(0);
+                       numberOfFiguresThatAreDone++;
                    }
                    if(numberOfFiguresThatAreDone <= 4){
                        System.out.println("BROJ FIGURA KOJE SU ZAVRSILE " + numberOfFiguresThatAreDone);

@@ -13,20 +13,8 @@ public class Consumer extends Thread{
         this.pd = pd;
         this.imageView = imageView;
     }
-  /*  public void run() {
-        while (true) {
-            try {
-                PlayingCard pc = pd.readCard();
-                File file = new File(pc.getImagePath());
-                Image image = new Image(file.toURI().toString());
-                imageView.setImage(image);
-                sleep(1500);
-            }catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }*/
-    public PlayingCard getCard() {
+
+    public synchronized PlayingCard getCard() {
         PlayingCard pc = pd.readCard();
         File file = new File(pc.getImagePath());
         Image image = new Image(file.toURI().toString());
