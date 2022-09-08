@@ -50,9 +50,11 @@ public class Player extends Thread{
     Label timeLabel;
     Holes holes;
     ResultProcessing resultProcessing;
+    MyTimer myTimer;
 
 
-    public Player(String name, String colour, Pane[][] panes, int matrixDimension,PlayingDeck playingDeck,ImageView imageView, PositionOnTheMap positionOnTheMap, int positionOfPlayer, GhostFigure ghostFigure, ArrayList<Label> labels, Label meaningOfCard, Label timeLabel, Holes holes,ResultProcessing rs) {
+    public Player(String name, String colour, Pane[][] panes, int matrixDimension,PlayingDeck playingDeck,ImageView imageView, PositionOnTheMap positionOnTheMap, int positionOfPlayer, GhostFigure ghostFigure, ArrayList<Label> labels, Label meaningOfCard, Label timeLabel, Holes holes,ResultProcessing rs,MyTimer timer) {
+        this.myTimer = timer;
         this.resultProcessing = rs;
         resultProcessing.addPlayerToList(this);
         this.holes = holes;
@@ -120,7 +122,7 @@ public class Player extends Thread{
                 ghostFigure.isDaemon();
                 ghostFigure.start();
                 isGhostStarted = true;
-                MyTimer myTimer = new MyTimer(this.timeLabel);
+              //  myTimer = new MyTimer(this.timeLabel);
                 myTimer.start();
             }
            while(true){
@@ -142,6 +144,7 @@ public class Player extends Thread{
                    }
                    if(numberOfPlayersThatAreDone == Controller.getNumberOfPlayers()) {
                        System.out.println("SVI IGRACI SU ZAVRSILI");
+                       resultProcessing.setTimeOfPlay(myTimer.getSecond());
                         resultProcessing.processing();
                    }
 
@@ -162,15 +165,15 @@ public class Player extends Thread{
                            f.setStartSpot(f.getEndSpot());
                            if((f.getEndSpot() + pomjeraj + f.getBonusPositions()) <= paneList.size()){
                            f.setEndSpot(f.getEndSpot() + pomjeraj + f.getBonusPositions());}
-
                            else f.setEndSpot(paneList.size());
                            Platform.runLater(()->meaningOfCard.setText(this.toString()));
-                            f.resetBonusPositions();
+                           f.resetBonusPositions();
                        for (int i = f.getStartSpot(); i < f.getEndSpot(); i++) {
                            final int x = i;
                            if(x == f.getEndSpot() - 1) {
                                if(positionOnTheMap.checkForAvalibalitiOfPosition(paneList.get(x)) == false){
                                    f.addProcessedPositions();
+                                   f.addPosition(paneList.get(x+1));
                                    f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x + 1)));
                                    Platform.runLater(()->paneList.get(x + 1).getChildren().add(sf.getCircle()));
                                    flag = true;
@@ -179,11 +182,13 @@ public class Player extends Thread{
                                    Platform.runLater(() -> paneList.get(x).getChildren().add(sf.getCircle()));
                                    f.addProcessedPositions();
                                    f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
+                                   f.addPosition(paneList.get(x));
                                }
                            }else{
                                if(positionOnTheMap.checkForAvalibalitiOfPosition(paneList.get(x))== true) {
                                    f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
                                    f.addProcessedPositions();
+                                   f.addPosition(paneList.get(x));
                                    Platform.runLater(()->paneList.get(x).getChildren().add(sf.getCircle()));
                                }
                            }
@@ -217,6 +222,8 @@ public class Player extends Thread{
                            f.setStartSpot(f.getEndSpot());
                            if((f.getEndSpot() + pomjeraj + f.getBonusPositions()) <= paneList.size()){
                                f.setEndSpot(f.getEndSpot() + pomjeraj + f.getBonusPositions());}
+
+
                            else f.setEndSpot(paneList.size());
                            Platform.runLater(()->meaningOfCard.setText(this.toString()));
                            f.resetBonusPositions();
@@ -227,18 +234,22 @@ public class Player extends Thread{
                                if(positionOnTheMap.checkForAvalibalitiOfPosition(paneList.get(x))== false){
                                    f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x + 1)));
                                    f.addProcessedPositions();
+                                   f.addPosition(paneList.get(x+1));
                                    Platform.runLater(()->paneList.get(x + 1).getChildren().add(ff.getTriangle()));
                                    flag = true;
                                }else {
                                    f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
                                    Platform.runLater(() -> paneList.get(x).getChildren().add(ff.getTriangle()));
                                    f.addProcessedPositions();
+                                   f.addPosition(paneList.get(x));
                                }
                            }else{
                                if(positionOnTheMap.checkForAvalibalitiOfPosition(paneList.get(x))== true) {
                                    f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
                                    Platform.runLater(()->paneList.get(x).getChildren().add(ff.getTriangle()));
                                    f.addProcessedPositions();
+                                   f.addPosition(paneList.get(x));
+
                                }
                            }
                            try{
@@ -283,16 +294,20 @@ public class Player extends Thread{
                                    f.addProcessedPositions();
                                    f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x + 1)));
                                    Platform.runLater(()->paneList.get(x + 1).getChildren().add(ssf.getRectangle()));
+                                   f.addPosition(paneList.get(x+1));
                                    flag = true;
                                }else {
                                    f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
                                    f.addProcessedPositions();
+                                   f.addPosition(paneList.get(x));
                                    Platform.runLater(() -> paneList.get(x).getChildren().add(ssf.getRectangle()));
                                }
                            }else{
                                if(positionOnTheMap.checkForAvalibalitiOfPosition(paneList.get(x))== true) {
                                    f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
                                    f.addProcessedPositions();
+                                   f.addPosition(paneList.get(x));
+
                                    Platform.runLater(()->paneList.get(x).getChildren().add(ssf.getRectangle()));
                                }
                            }

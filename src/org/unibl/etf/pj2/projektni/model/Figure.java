@@ -4,6 +4,8 @@ import javafx.scene.layout.Pane;
 import org.unibl.etf.pj2.projektni.interfaces.MovingWay;
 
 import javax.swing.text.StyledEditorKit;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Figure implements MovingWay {
 
@@ -16,6 +18,7 @@ public abstract class Figure implements MovingWay {
     Boolean isActive = false;
     int bonusPositions = 0;
     int numberOfProcessedPositions = 0;
+    List<Pane> processedPath = new ArrayList<>();
 
     public Figure() {
         super();
@@ -77,6 +80,12 @@ public abstract class Figure implements MovingWay {
     }
     public int getNumberOfProcessedPositions() {
         return this.numberOfProcessedPositions;
+    }
+    public void addPosition(Pane pane) {
+        processedPath.add(pane);
+    }
+    public List<Pane> getProcessedPath() {
+        return this.processedPath;
     }
 
 }

@@ -25,5 +25,8 @@ public class MyTimer extends Thread{
             }
         }
     }
+    public int getSecond() {
+        return this.second;
+    }
 
 }
