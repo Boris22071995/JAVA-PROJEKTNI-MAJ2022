@@ -24,7 +24,7 @@ public class Player extends Thread{
     final private int index;
     static int numberOfFiguresThatEnd = 0;
     static int numberOfPlayersThatAreDone;
-
+    public static boolean pause = false;
 
     String name;
     String colour;
@@ -116,7 +116,7 @@ public class Player extends Thread{
     }
     public String getColour() {return colour;}
    @Override
-   public synchronized void run() {
+    public synchronized void run() {
 
             if(positionOfPlayer == 1 && isGhostStarted == false) {
                 ghostFigure.isDaemon();
@@ -135,6 +135,7 @@ public class Player extends Thread{
                            e.printStackTrace();
                        }
                    }
+                   if(pause == false) {
                    Figure f = figure.get(0);
                    if (f.getIsDone()) {
                        Figure temp = figure.remove(0);
@@ -169,6 +170,7 @@ public class Player extends Thread{
                            Platform.runLater(()->meaningOfCard.setText(this.toString()));
                            f.resetBonusPositions();
                        for (int i = f.getStartSpot(); i < f.getEndSpot(); i++) {
+                            if(pause == false) {
                            final int x = i;
                            if(x == f.getEndSpot() - 1) {
                                if(positionOnTheMap.checkForAvalibalitiOfPosition(paneList.get(x)) == false){
@@ -197,6 +199,13 @@ public class Player extends Thread{
                            } catch (InterruptedException e) {
                                e.printStackTrace();
                            }
+                       }else {
+                                try {
+                                    indexToPrint.wait();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
                        }
                        if(flag == true) {
                            f.setEndSpot(f.getEndSpot() + 1);
@@ -229,6 +238,7 @@ public class Player extends Thread{
                            f.resetBonusPositions();
 
                        for (int i = f.getStartSpot(); i < f.getEndSpot(); i++) {
+                           if (pause == false) {
                            final int x = i;
                            if(x == f.getEndSpot() - 1) {
                                if(positionOnTheMap.checkForAvalibalitiOfPosition(paneList.get(x))== false){
@@ -257,7 +267,15 @@ public class Player extends Thread{
                            } catch (InterruptedException e) {
                                e.printStackTrace();
                            }
+                       } else {
+                               try {
+                                   indexToPrint.wait();
+                               } catch (InterruptedException e) {
+                                   e.printStackTrace();
+                               }
+                           }
                        }
+
                            if(flag == true) {
                                f.setEndSpot(f.getEndSpot() + 1);
                                flag = false;
@@ -288,6 +306,7 @@ public class Player extends Thread{
                            f.resetBonusPositions();
 
                        for (int i = f.getStartSpot(); i < f.getEndSpot(); i++) {
+                           if (pause == false) {
                            final int x = i;
                            if(x == f.getEndSpot() - 1) {
                                if(positionOnTheMap.checkForAvalibalitiOfPosition(paneList.get(x))== false){
@@ -315,6 +334,13 @@ public class Player extends Thread{
                                sleep(1000);
                            } catch (InterruptedException e) {
                                e.printStackTrace();
+                           }
+                       }else {
+                               try {
+                                   indexToPrint.wait();
+                               } catch (InterruptedException e) {
+                                   e.printStackTrace();
+                               }
                            }
                        }
                            if(flag == true) {
@@ -347,10 +373,13 @@ public class Player extends Thread{
                        indexToPrint.set(nextIndex());
                        indexToPrint.notifyAll();
                    }
-           }
+           }else {
+                  //    indexToPrint.set(nextIndex());
+                       indexToPrint.notifyAll();
+                   }
+               }
        }
    }
-
     public List<Pane> getPaneList() {
         return this.paneList;
     }
@@ -360,5 +389,6 @@ public class Player extends Thread{
                     numberOfFiguresThatAreDone + " ( " + figure.get(0).move() + " )." + "\n" + "Prelazi " + (figure.get(0).getEndSpot() - figure.get(0).getStartSpot()) + ", od pozicije " + numbers.get(figure.get(0).getStartSpot()) +
                     " do pozicije " + numbers.get(figure.get(0).getEndSpot() - 1) + ". \n" + "Uključujući bonus od " + figure.get(0).getBonusPositions() + " polja.";
     }
+
 
 }

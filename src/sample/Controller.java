@@ -74,6 +74,10 @@ public class Controller implements Initializable {
     String bojaTrecegIgraca;
     String bojaCetvrtogIgraca;
 
+    boolean firstRun = false;
+    boolean pause = false;
+
+
     Player player1;
     Player player2;
     Player player3;
@@ -239,9 +243,22 @@ public class Controller implements Initializable {
     @FXML
     public void zapocni(javafx.event.ActionEvent ae) throws InterruptedException {
             List<Player> igraci = new ArrayList<Player>();
-            igraci.add(player1);
-            igraci.add(player2);
-            for(int i = 0; i < igraci.size(); i++) igraci.get(i).start();
+            if(firstRun == false) {
+                igraci.add(player1);
+                igraci.add(player2);
+                for (int i = 0; i < igraci.size(); i++) igraci.get(i).start();
+                firstRun = true;
+            }else {
+            if(pause == false && firstRun == true) {
+                Player.pause = true;
+                pause = true;
+            }else {
+                Player.pause = false;
+                pause = false;
+
+            } }
+
+
    }
     public void podesavanjeImena() {
        GhostFigure ghostFigure;
