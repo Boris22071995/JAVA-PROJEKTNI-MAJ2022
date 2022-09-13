@@ -1,0 +1,11 @@
+Igrač 1 - Sara
+	Figura 1(Super brza figura, zuta) - pređeni put (4-12-20-28-34-40-46-38-30-22-16-10-11-19-27-33-39-31-23-17-18) - stigla do cilja (NE) 
+	Figura 2(Lebdeca figura, zuta) - pređeni put (4-12-20-28-34-40-46-38-30-22-16-10-11-19-27-33-39-31-23-17-18-26-32-24-25) - stigla do cilja (DA) 
+	Figura 3(Super brza figura, zuta) - pređeni put (4-12-20-28-34-40-46-38) - stigla do cilja (NE) 
+	Figura 4(Obicna figura, zuta) - pređeni put (4-12-20-28-34-40-46-38-30-22-16-10-11-19-27-33-39-31-23-17-18-26-32-24-25) - stigla do cilja (DA) 
+Igrač 2 - zvaljica
+	Figura 1(Obicna figura, zelena) - pređeni put (NE) 
+	Figura 2(Lebdeca figura, zelena) - pređeni put (NE) 
+	Figura 3(Lebdeca figura, zelena) - pređeni put (4-12-20-28-34-40-46-38-30-22-16-10-11-19-27-33-39-31-23-17-18-26-32-24) - stigla do cilja (NE) 
+	Figura 4(Lebdeca figura, zelena) - pređeni put (4-12-20-28-34-40-46-38-30-22-16-10-11-19-27-33-39-31-23-17-18-26-32-24-25) - stigla do cilja (DA) 
+Ukupno vrijeme trajanje igre: 160

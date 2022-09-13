@@ -70,16 +70,17 @@ public class Player extends Thread{
         this.orginalPane = panes;
         this.matrixDimension = matrixDimension;
         index = threadNumber++;
-        dodajFigure();
         this.mp = new MovingPath(orginalPane, matrixDimension, labels);
         if(matrixDimension % 2 == 0) mp.addToListEvenNumber();
         else mp.addToListOddNumber();
+
         paneList = mp.getPaneList();
         this.numbers = mp.getNumbers();
         this.ghostFigure = ghostFigure;
         PlayingDeckForGet pdfg = new PlayingDeckForGet(playingDeck);
         Producer producer = new Producer(pdfg);
         consumer = new Consumer(pdfg,imageView);
+        dodajFigure();
         producer.start();
         this.holes = holes;
         this.holes.addPlayer(this);
@@ -98,15 +99,15 @@ public class Player extends Thread{
         for(int i = 0; i < 4; i++) {
             int br = rand.nextInt(3);
             if(br == 0) {
-                SimpleFigure of = new SimpleFigure(colour, orginalPane, matrixDimension);
+                SimpleFigure of = new SimpleFigure(colour, orginalPane, matrixDimension, mp, positionOnTheMap, ghostFigure);
                 figure.add(of);
             }
             else if(br == 1) {
-                FlyingFigure lf = new FlyingFigure(colour, orginalPane, matrixDimension);
+                FlyingFigure lf = new FlyingFigure(colour, orginalPane, matrixDimension, mp, positionOnTheMap, ghostFigure);
                 figure.add(lf);
             }
             else {
-                SuperSpeedFigure sbf = new SuperSpeedFigure(colour, orginalPane, matrixDimension);
+                SuperSpeedFigure sbf = new SuperSpeedFigure(colour, orginalPane, matrixDimension, mp, positionOnTheMap, ghostFigure);
                 figure.add(sbf);
             }
         }
@@ -115,6 +116,80 @@ public class Player extends Thread{
         return name;
     }
     public String getColour() {return colour;}
+    @Override
+    public synchronized void run() {
+        if(positionOfPlayer == 1 && isGhostStarted == false) {
+            ghostFigure.isDaemon();
+            ghostFigure.start();
+            isGhostStarted = true;
+
+            myTimer.start();
+        }
+        while(true) {
+            synchronized (indexToPrint) {
+                while(indexToPrint.get()!=index){
+                    try {
+                        indexToPrint.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                Figure f = figure.get(0);
+                if (f.getIsDone()) {
+                    Figure temp = figure.remove(0);
+                    figure.add(temp);
+                    f = figure.get(0);
+                    numberOfFiguresThatAreDone++;
+                }
+                if(numberOfPlayersThatAreDone == Controller.getNumberOfPlayers()) {
+                    System.out.println("SVI IGRACI SU ZAVRSILI");
+                    resultProcessing.setTimeOfPlay(myTimer.getSecond());
+                    resultProcessing.processing();
+                }
+                if(numberOfFiguresThatAreDone <= 4){
+                    PlayingCard pc = consumer.getCard();
+                    int pomjeraj = pc.getNumber();
+                    if(pomjeraj!=5) {
+                        positionOnTheMap.removeFromMap(this,f);
+                        f.setStartSpot(f.getEndSpot());
+                        if("Super brza figura".equals(f.move())) {
+                            if((f.getEndSpot() + (pomjeraj * 2) + f.getBonusPositions()) <= paneList.size()) {
+                                f.setEndSpot(f.getEndSpot() + (pomjeraj * 2) + f.getBonusPositions());
+                            }
+                            else {
+                                f.setEndSpot(paneList.size());
+                            }
+                        } else {
+                            if((f.getEndSpot() + pomjeraj + f.getBonusPositions()) <= paneList.size()){
+                                f.setEndSpot(f.getEndSpot() + pomjeraj + f.getBonusPositions());
+                            } else {
+                                f.setEndSpot(paneList.size());
+                            }
+                        }
+                        printOnScreen(f.getBonusPositions());
+                        f.resetBonusPositions();
+                        f.drawFigure();
+                        if(f.getEndSpot()<paneList.size())
+                            positionOnTheMap.addOnMap(this,paneList.get(f.getEndSpot() - 1),f);
+                    } else {
+                        holes.setPositionOnTheMap(positionOnTheMap);
+                        holes.processHoles();
+                    }
+                    indexToPrint.set(nextIndex());
+                    indexToPrint.notifyAll();
+                } else {
+                    if(numberOfPlayersThatAreDone!=Controller.getNumberOfPlayers()) {
+                        numberOfPlayersThatAreDone++;
+                    }
+                    indexToPrint.set(nextIndex());
+                    indexToPrint.notifyAll();
+                }
+            }
+        }
+
+    }
+/*
+
    @Override
     public synchronized void run() {
 
@@ -379,7 +454,7 @@ public class Player extends Thread{
                    }
                }
        }
-   }
+   }*/
     public List<Pane> getPaneList() {
         return this.paneList;
     }
@@ -387,8 +462,11 @@ public class Player extends Thread{
     public String toString() {
         return  "Na potezu je igrač " + this.name + "." + "\n" + "Pomijera se figura " +
                     numberOfFiguresThatAreDone + " ( " + figure.get(0).move() + " )." + "\n" + "Prelazi " + (figure.get(0).getEndSpot() - figure.get(0).getStartSpot()) + ", od pozicije " + numbers.get(figure.get(0).getStartSpot()) +
-                    " do pozicije " + numbers.get(figure.get(0).getEndSpot() - 1) + ". \n" + "Uključujući bonus od " + figure.get(0).getBonusPositions() + " polja.";
+                    " do pozicije " + numbers.get(figure.get(0).getEndSpot() - 1) + ". \n" + "Uključujući bonus od ";
     }
-
+    public void printOnScreen(int bonus) {
+        String text = this.toString() + bonus + " polja.";
+        Platform.runLater(()->meaningOfCard.setText(text));
+    }
 
 }

@@ -13,8 +13,11 @@ public class FlyingFigure extends Figure implements MovingWay {
     int matrixDimension;
     List<Pane> paneList;
     MovingPath mp;
+    PositionOnTheMap potm;
+    GhostFigure ghostFigure;
+    boolean flag = false;
 
-    public FlyingFigure(String boja, Pane[][] panes, int matrixDimension) {
+    public FlyingFigure(String boja, Pane[][] panes, int matrixDimension, MovingPath mp, PositionOnTheMap potm, GhostFigure ghost) {
         super(boja, panes);
         this.startSpot = 0;
         this.matrixDimension = matrixDimension;
@@ -30,12 +33,60 @@ public class FlyingFigure extends Figure implements MovingWay {
             case "zelena" -> triangle.setFill(Color.GREEN);
             default -> triangle.setFill(Color.YELLOW);
         }
+        this.mp = mp;
+        paneList = mp.getPaneList();
+        this.potm = potm;
+        this.ghostFigure = ghost;
 
     }
     @Override
     public String move() {
         return "Lebdeca figura";
     }
+
+    @Override
+    public void drawFigure() {
+        for(int i = getStartSpot(); i < getEndSpot(); i++) {
+            final int x = i;
+            if(x == getEndSpot() - 1) {
+                if(potm.checkForAvalibalitiOfPosition(paneList.get(x)) == false) {
+                    addProcessedPositions();
+                    addPosition(paneList.get(x+1));
+                    setBonusPositions(ghostFigure.checkForBonus(paneList.get(x + 1)));
+                    Platform.runLater(()->paneList.get(x + 1).getChildren().add(getTriangle()));
+                    flag = true;
+                }else {
+                    Platform.runLater(() -> paneList.get(x).getChildren().add(getTriangle()));
+                    addProcessedPositions();
+                    setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
+                    addPosition(paneList.get(x));
+                }
+            }else {
+                if(potm.checkForAvalibalitiOfPosition(paneList.get(x))== true) {
+                    setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
+                    addProcessedPositions();
+                    addPosition(paneList.get(x));
+                    Platform.runLater(()->paneList.get(x).getChildren().add(getTriangle()));
+                }
+            }
+            try{
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        if(flag == true) {
+            setEndSpot(getEndSpot() + 1);
+            flag = false;
+        }
+        if(getEndSpot() >= paneList.size()){
+            final int x = getEndSpot() - 1;
+            Platform.runLater(()->paneList.get(x).getChildren().remove(getTriangle()));
+            isDone = true;
+        }
+
+    }
+
     public Pane[][] getOrginalPanes(){return this.orginalPanes;}
     public Polygon getTriangle() {
         return this.triangle;

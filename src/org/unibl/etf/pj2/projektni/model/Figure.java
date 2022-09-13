@@ -3,7 +3,6 @@ package org.unibl.etf.pj2.projektni.model;
 import javafx.scene.layout.Pane;
 import org.unibl.etf.pj2.projektni.interfaces.MovingWay;
 
-import javax.swing.text.StyledEditorKit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,5 +86,6 @@ public abstract class Figure implements MovingWay {
     public List<Pane> getProcessedPath() {
         return this.processedPath;
     }
+    public abstract void drawFigure();
 
 }
