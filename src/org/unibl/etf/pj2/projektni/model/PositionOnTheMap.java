@@ -17,8 +17,6 @@ public class PositionOnTheMap {
     public void addOnMap(Player player, Pane position, Figure figure) {
             FigureOnMap fom = new FigureOnMap(player,position,figure);
             figuresOnMap.add(fom);
-
-
         //System.out.println("DODANO U LISTU"+figuresOnMap.size());
     }
     public void removeFromMap(Player player, Figure figure) {
@@ -26,7 +24,6 @@ public class PositionOnTheMap {
         for(int i = 0; i < figuresOnMap.size(); i++)
             if(figuresOnMap.get(i).figure==figure && figuresOnMap.get(i).player==player){
                 figuresOnMap.remove(i);
-
             }}
      //   System.out.println("OBRISANO IZ LISTE" + figuresOnMap.size());
     }

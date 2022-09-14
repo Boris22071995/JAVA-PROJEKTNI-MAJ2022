@@ -262,7 +262,7 @@ public class Controller implements Initializable {
 
    }
     public void podesavanjeImena() {
-       GhostFigure ghostFigure;
+        GhostFigure ghostFigure;
         ghostFigure = new GhostFigure(mp.getPaneList(),dimenzijaMatrice);
        if(brojIgraca == 2) {
             ime2Label.setText(ime1);

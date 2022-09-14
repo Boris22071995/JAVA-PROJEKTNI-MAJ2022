@@ -23,8 +23,9 @@ public class GhostFigure extends Thread{
             Random rand = new Random();
             bonus = rand.nextInt(matrixDimension - 2 + 1) + 2;
             position = rand.nextInt(path.size());
+            int realPosition = getPositionforReal(position);
             if(positionsOfBonuses.size() <= path.size()) {
-                positionsOfBonuses.add(new BonusPosition(path.get(position), bonus));
+                positionsOfBonuses.add(new BonusPosition(path.get(realPosition), bonus));
             }
             try{
                 System.out.println("BROJ BONUS POLJA JE " + positionsOfBonuses.size() + " POZICIJA " + positionsOfBonuses.get(0).getPosition() + " BOnUS + " + positionsOfBonuses.get(0).getBonus());
@@ -37,7 +38,6 @@ public class GhostFigure extends Thread{
 
     public int checkForBonus(Pane pane) {
         int bonus = 0;
-
         for(int i = 0; i < positionsOfBonuses.size(); i++) {
             if(positionsOfBonuses.get(i).getPosition() == pane)
             {
@@ -45,9 +45,23 @@ public class GhostFigure extends Thread{
                 positionsOfBonuses.remove(i);
             }
         }
-
         return bonus;
     }
+    public int getPositionforReal(int position) {
+        int temp = position;
+            while (isPositionFree(temp++) != true && temp < path.size()) ;
+        return temp;
+    }
+    public boolean isPositionFree(int position) {
+        Pane pane = path.get(position);
+        for(int i = 0; i < positionsOfBonuses.size(); i++) {
+            if(positionsOfBonuses.get(i).getPosition() == pane)
+                return false;
+        }
+        return true;
+    }
+
+
     private static class BonusPosition {
         Pane position;
         int bonus;
