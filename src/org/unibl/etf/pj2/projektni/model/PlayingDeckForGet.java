@@ -10,11 +10,11 @@ public class PlayingDeckForGet {
     }
     public synchronized void addCard() {
            PlayingCard pc = playingDeck.getCard();
-
+           try {
                cards.offer(pc);
-
-
-
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
     }
     public PlayingCard readCard() {
         PlayingCard pc = null;

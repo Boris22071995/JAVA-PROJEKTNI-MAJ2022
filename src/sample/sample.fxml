@@ -17,10 +17,16 @@
    <children>
       <Pane fx:id="pane7" prefHeight="66.0" prefWidth="764.0">
          <children>
-            <Label fx:id="label" layoutX="28.0" layoutY="12.0" prefHeight="42.0" prefWidth="193.0" text="Label" textFill="#2707df" />
+            <Label fx:id="label" layoutX="28.0" layoutY="12.0" prefHeight="42.0" prefWidth="193.0" text="Label" textFill="#2707df">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
             <Pane fx:id="pane1" layoutX="270.0" layoutY="6.0" prefHeight="54.0" prefWidth="237.0">
                <children>
-                  <Label fx:id="label2" prefHeight="54.0" prefWidth="237.0" text="Label" textAlignment="CENTER" textFill="#e21053" />
+                  <Label fx:id="label2" prefHeight="54.0" prefWidth="237.0" text="Label" textAlignment="CENTER" textFill="#e21053">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font></Label>
                </children>
             </Pane>
             <Button fx:id="pokreni" layoutX="656.0" layoutY="21.0" mnemonicParsing="false" onAction="#zapocni" prefHeight="25.0" prefWidth="86.0" text="Pokreni" />
@@ -28,10 +34,22 @@
       </Pane>
       <Pane fx:id="pane2" layoutX="14.0" layoutY="75.0" prefHeight="42.0" prefWidth="730.0">
          <children>
-            <Label fx:id="ime1Label" layoutX="143.0" layoutY="13.0" prefHeight="17.0" prefWidth="63.0" text="Igrac1" textFill="#e8030b" />
-            <Label fx:id="ime2Label" layoutX="295.0" layoutY="11.0" prefHeight="17.0" prefWidth="55.0" text="igrac2" textFill="#e2fa05" />
-            <Label fx:id="ime3Label" layoutX="443.0" layoutY="13.0" prefHeight="17.0" prefWidth="55.0" text="igrac3" textFill="#05da30" />
-            <Label fx:id="ime4Label" layoutX="605.0" layoutY="13.0" prefHeight="17.0" prefWidth="63.0" text="igrac4" textFill="#0808ea" />
+            <Label fx:id="ime1Label" layoutX="143.0" layoutY="13.0" prefHeight="17.0" prefWidth="63.0" text="Igrac1" textFill="#e8030b">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="ime2Label" layoutX="295.0" layoutY="11.0" prefHeight="17.0" prefWidth="55.0" text="igrac2" textFill="#e2fa05">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="ime3Label" layoutX="443.0" layoutY="13.0" prefHeight="17.0" prefWidth="55.0" text="igrac3" textFill="#05da30">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="ime4Label" layoutX="605.0" layoutY="13.0" prefHeight="17.0" prefWidth="63.0" text="igrac4" textFill="#0808ea">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
          </children>
       </Pane>
       <Pane fx:id="pane3" layoutX="14.0" layoutY="129.0" prefHeight="442.0" prefWidth="166.0">
@@ -88,14 +106,23 @@
       </GridPane>
       <Pane fx:id="pane5" layoutX="567.0" layoutY="129.0" prefHeight="282.0" prefWidth="176.0">
          <children>
-            <Label layoutX="48.0" layoutY="14.0" prefHeight="17.0" prefWidth="79.0" text="Trenutna karta" textFill="#150bd5" />
+            <Label layoutX="48.0" layoutY="14.0" prefHeight="17.0" prefWidth="86.0" text="Trenutna karta" textFill="#150bd5">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
             <ImageView fx:id="imageView" fitHeight="223.0" fitWidth="148.0" layoutX="18.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </Pane>
-      <Label fx:id="timerLabel" layoutX="583.0" layoutY="446.0" prefHeight="18.0" prefWidth="166.0" text="Vrijeme trajanje igre: 10s" textFill="#02f22e" />
+      <Label fx:id="timerLabel" layoutX="583.0" layoutY="446.0" prefHeight="18.0" prefWidth="166.0" text="Vrijeme trajanje igre: 0s" textFill="#02f22e">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font></Label>
       <Pane fx:id="pane4" layoutX="200.0" layoutY="489.0" prefHeight="82.0" prefWidth="339.0">
          <children>
-            <Label fx:id="meaningOfCard" prefHeight="90.0" prefWidth="358.0" text="Opis znacenja karte:" />
+            <Label fx:id="meaningOfCard" prefHeight="82.0" prefWidth="339.0" text="Opis znacenja karte:" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Arial Bold Italic" size="13.0" />
+               </font></Label>
          </children>
       </Pane>
       <Pane fx:id="pane6" layoutX="567.0" layoutY="488.0" prefHeight="82.0" prefWidth="176.0">

@@ -19,6 +19,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import org.unibl.etf.pj2.projektni.model.*;
 
@@ -186,9 +188,8 @@ public class Controller implements Initializable {
         imageView.setImage(image);
         createPathForFigure();
         meaningOfCard.setWrapText(true);
-        figures =   player1.getFigure();
-
-
+        int p = new File(System.getProperty("user.dir") + File.separator + "rezultati").list().length;
+        label.setText("Trenutni broj odigranih igara: " + p);
 
     }
     public void napraviMatricu() {
@@ -328,6 +329,7 @@ public class Controller implements Initializable {
                 paintLabel(listOfPlayers.get(i), label);
                 label.setLayoutX(5);
                 label.setLayoutY((temp++)*20);
+                label.setFont(Font.font("System", FontWeight.BOLD,12));
                 pane3.getChildren().add(label);
                 label.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
@@ -372,7 +374,6 @@ public class Controller implements Initializable {
         primaryStage.setScene(new Scene(root, 368, 400));
         primaryStage.show();
     }
-
     public int readFileWithNumberOfHoles() throws IOException {
         String path = System.getProperty("user.dir") + File.separator + "brojRupa.txt";
         File file = new File(path);

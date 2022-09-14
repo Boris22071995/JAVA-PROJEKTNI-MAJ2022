@@ -51,10 +51,10 @@ public class SimpleFigure extends Figure implements MovingWay {
                     Platform.runLater(()->paneList.get(x + 1).getChildren().add(getCircle()));
                     flag = true;
                 }else {
-                    Platform.runLater(() -> paneList.get(x).getChildren().add(getCircle()));
                     addProcessedPositions();
                     setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
                     addPosition(paneList.get(x));
+                    Platform.runLater(() -> paneList.get(x).getChildren().add(getCircle()));
                 }
             }else {
                 if(potm.checkForAvalibalitiOfPosition(paneList.get(x))== true) {

@@ -51,10 +51,10 @@ public class SuperSpeedFigure extends Figure implements MovingWay {
                     Platform.runLater(()->paneList.get(x + 1).getChildren().add(getRectangle()));
                     flag = true;
                 }else {
-                    Platform.runLater(() -> paneList.get(x).getChildren().add(getRectangle()));
                     addProcessedPositions();
                     setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
                     addPosition(paneList.get(x));
+                    Platform.runLater(() -> paneList.get(x).getChildren().add(getRectangle()));
                 }
             }else {
                 if(potm.checkForAvalibalitiOfPosition(paneList.get(x))== true) {

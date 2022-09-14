@@ -56,10 +56,10 @@ public class FlyingFigure extends Figure implements MovingWay {
                     Platform.runLater(()->paneList.get(x + 1).getChildren().add(getTriangle()));
                     flag = true;
                 }else {
-                    Platform.runLater(() -> paneList.get(x).getChildren().add(getTriangle()));
                     addProcessedPositions();
                     setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
                     addPosition(paneList.get(x));
+                    Platform.runLater(() -> paneList.get(x).getChildren().add(getTriangle()));
                 }
             }else {
                 if(potm.checkForAvalibalitiOfPosition(paneList.get(x))== true) {

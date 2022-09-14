@@ -1,6 +1,7 @@
 package org.unibl.etf.pj2.projektni.model;
 
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -466,6 +467,8 @@ public class Player extends Thread{
     }
     public void printOnScreen(int bonus) {
         String text = this.toString() + bonus + " polja.";
+        meaningOfCard.setMaxWidth(Double.MAX_VALUE);
+        meaningOfCard.setAlignment(Pos.CENTER);
         Platform.runLater(()->meaningOfCard.setText(text));
     }
 
