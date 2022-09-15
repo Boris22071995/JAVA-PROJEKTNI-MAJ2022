@@ -331,7 +331,14 @@ public class Controller implements Initializable {
                 label.setLayoutY((temp++)*20);
                 label.setFont(Font.font("System", FontWeight.BOLD,12));
                 pane3.getChildren().add(label);
-                label.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                label.setOnMouseClicked((MouseEvent event)->{
+                    try {
+                        doOnClick(listOfPlayers.get(pl),f);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+       /*         label.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
                         try {
@@ -340,7 +347,7 @@ public class Controller implements Initializable {
                             e.printStackTrace();
                         }
                     }
-                });
+                });*/
 
             }
         }

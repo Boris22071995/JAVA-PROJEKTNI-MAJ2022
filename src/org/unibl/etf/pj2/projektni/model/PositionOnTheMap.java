@@ -42,12 +42,9 @@ public class PositionOnTheMap {
     public Figure getFigureFromMap(int position) {
         return figuresOnMap.get(position).getFigure();
     }
-
     public Pane getPositionFromMap(int position) {
         return figuresOnMap.get(position).getPosition();
     }
-
-
     private static class FigureOnMap {
         Player player;
         Pane position;

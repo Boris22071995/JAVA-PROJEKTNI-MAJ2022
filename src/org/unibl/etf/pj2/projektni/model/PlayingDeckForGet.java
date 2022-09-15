@@ -8,15 +8,12 @@ public class PlayingDeckForGet {
     public PlayingDeckForGet(PlayingDeck playingDeck) {
         this.playingDeck = playingDeck;
     }
-    public synchronized void addCard() {
+    public void addCard() {
            PlayingCard pc = playingDeck.getCard();
-           try {
                cards.offer(pc);
-           } catch (Exception e) {
-               e.printStackTrace();
-           }
+
     }
-    public PlayingCard readCard() {
+    public synchronized PlayingCard readCard() {
         PlayingCard pc = null;
         try {
             pc = cards.take();

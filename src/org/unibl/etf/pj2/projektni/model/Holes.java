@@ -8,6 +8,7 @@ import java.util.Random;
 
 public class Holes {
     int numberOfHoles;
+    List<Figure> figuresToRemove = new ArrayList<>();
     PositionOnTheMap potm;
     MovingPath mp;
     Random rand = new Random();
@@ -37,7 +38,7 @@ public class Holes {
         List<Figure> listOfFlyingFigure = new ArrayList<>();
         listOfHoles.clear();
         while(listOfHoles.size()!=numberOfHoles) {
-            temp = rand.nextInt(mp.getPaneList().size());
+            temp = rand.nextInt(mp.getPaneList().size() - 1);
             if(!checkPosition(temp)) {
                 listOfHoles.add(mp.getPaneList().get(temp));
             }
@@ -68,7 +69,8 @@ public class Holes {
                               if(paneList.get(z) == position){
                                   final int x = z;
                                   Platform.runLater(()->paneList.get(x).getChildren().remove(sf.getCircle()));
-                                  potm.removeFromMap(player,f);
+                                //  potm.removeFromMap(player,f);
+                                  figuresToRemove.add(f);
                                   f.isDone = true;
                               }
                           }
@@ -79,7 +81,8 @@ public class Holes {
                               if(paneList.get(z) == position){
                                   final int x = z;
                                   Platform.runLater(()->paneList.get(x).getChildren().remove(ssf.getRectangle()));
-                                  potm.removeFromMap(player,f);
+                                 // potm.removeFromMap(player,f);
+                                  figuresToRemove.add(f);
                                   f.isDone = true;
                               }
                           }
@@ -91,8 +94,8 @@ public class Holes {
                                   final int x = z;
                                   Platform.runLater(()->paneList.get(x).getChildren().remove(ff.getTriangle()));
                                   listOfFlyingFigure.add(f);
-                                  potm.removeFromMap(player,f);
-                                  potm.addOnMap(player,position,f);
+                                 potm.removeFromMap(player,f);
+                                 potm.addOnMap(player,position,f);
                               }
                           }
                       }
@@ -100,6 +103,17 @@ public class Holes {
               }
 
 
+          }
+          for(int i = 0; i < figuresToRemove.size(); i++) {
+              Figure f = figuresToRemove.get(i);
+              Player temporaryPlayer = null;
+              for(int k = 0; k < listOfPlayers.size();k++) {
+                  List<Figure> temporaryListOfFigure = listOfPlayers.get(k).getFigure();
+                  for(int z = 0; z < 4; z++) {
+                      if(temporaryListOfFigure.get(z) == f) temporaryPlayer = listOfPlayers.get(k);
+                  }
+              }
+              potm.removeFromMap(temporaryPlayer,f);
           }
           try{
               Thread.sleep(500);
@@ -127,6 +141,7 @@ public class Holes {
                 }
             }
         }
+
 
           /*
              for(int i = 0; i < listOfHoles.size(); i++)

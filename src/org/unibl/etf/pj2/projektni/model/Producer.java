@@ -7,11 +7,12 @@ public class Producer extends Thread{
             this.pd = pd;
         }
 
+        @Override
         public synchronized void run() {
             while (true) {
                 try {
                     pd.addCard();
-                    sleep(1000);
+                    sleep(1100);
                 }catch (InterruptedException e) {
                     e.printStackTrace();
                 }

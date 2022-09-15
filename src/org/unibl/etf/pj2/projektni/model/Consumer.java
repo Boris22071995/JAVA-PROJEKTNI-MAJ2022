@@ -6,8 +6,8 @@ import javafx.scene.image.ImageView;
 
 import java.io.File;
 
-public class Consumer extends Thread{
-    PlayingDeckForGet pd;
+public class Consumer {
+   static PlayingDeckForGet pd;
     ImageView imageView;
     public Consumer(PlayingDeckForGet pd, ImageView imageView) {
         this.pd = pd;
@@ -15,7 +15,8 @@ public class Consumer extends Thread{
     }
 
     public synchronized PlayingCard getCard() {
-        PlayingCard pc = pd.readCard();
+        PlayingCard pc;
+        pc = pd.readCard();
         File file = new File(pc.getImagePath());
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
@@ -23,9 +24,4 @@ public class Consumer extends Thread{
 
     }
 }
-  /*
-     File file = new File("karte/1.png");
-        Image image = new Image(file.toURI().toString());
-        //imageView = new ImageView(image);
-        imageView.setImage(image);
-     */
+

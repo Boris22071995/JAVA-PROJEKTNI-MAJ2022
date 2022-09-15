@@ -1,6 +1,12 @@
 package org.unibl.etf.pj2.projektni.model;
 
+import javafx.application.Platform;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +19,7 @@ public class GhostFigure extends Thread{
     int matrixDimension;
     int bonus;
     int position;
+    List<LabelForBonuses> labels = new ArrayList<>();
     public GhostFigure(List<Pane> path, int matrixDimension) {
         this.path = path;
         this.matrixDimension = matrixDimension;
@@ -22,10 +29,16 @@ public class GhostFigure extends Thread{
         while(true) {
             Random rand = new Random();
             bonus = rand.nextInt(matrixDimension - 2 + 1) + 2;
-            position = rand.nextInt(path.size());
+            position = rand.nextInt(path.size() - 1);
             int realPosition = getPositionforReal(position);
             if(positionsOfBonuses.size() <= path.size()) {
                 positionsOfBonuses.add(new BonusPosition(path.get(realPosition), bonus));
+                labels.add(new LabelForBonuses(path.get(realPosition),bonus));
+                LabelForBonuses temp = labels.get(labels.size()-1);
+                Platform.runLater(()->{
+                    path.get(realPosition).getChildren().add(temp.getLabel());
+                });
+
             }
             try{
                 System.out.println("BROJ BONUS POLJA JE " + positionsOfBonuses.size() + " POZICIJA " + positionsOfBonuses.get(0).getPosition() + " BOnUS + " + positionsOfBonuses.get(0).getBonus());
@@ -35,7 +48,6 @@ public class GhostFigure extends Thread{
             }
         }
     }
-
     public int checkForBonus(Pane pane) {
         int bonus = 0;
         for(int i = 0; i < positionsOfBonuses.size(); i++) {
@@ -43,25 +55,41 @@ public class GhostFigure extends Thread{
             {
                 bonus = positionsOfBonuses.get(i).getBonus();
                 positionsOfBonuses.remove(i);
+                LabelForBonuses lfb = null;
+                for(int j = 0; j < labels.size(); j++) {
+                    if(labels.get(j).getPosition() == pane) {
+                        lfb = labels.remove(j);
+                    }
+                }
+                final LabelForBonuses tmp = lfb;
+                Platform.runLater(()->{
+                    pane.getChildren().remove(tmp.getLabel());
+                });
             }
         }
         return bonus;
     }
     public int getPositionforReal(int position) {
         int temp = position;
-            while (isPositionFree(temp++) != true && temp < path.size()) ;
-        return temp;
+            while (isPositionFree(temp) != true && temp < path.size()){temp++;} ;
+            if(temp<path.size()) {
+                return temp;
+            }else {
+                temp = path.size() - 1;
+                return temp;
+            }
+
     }
     public boolean isPositionFree(int position) {
-        Pane pane = path.get(position);
-        for(int i = 0; i < positionsOfBonuses.size(); i++) {
-            if(positionsOfBonuses.get(i).getPosition() == pane)
-                return false;
-        }
-        return true;
+        if(position < path.size()) {
+            Pane pane = path.get(position);
+            for (int i = 0; i < positionsOfBonuses.size(); i++) {
+                if (positionsOfBonuses.get(i).getPosition() == pane)
+                    return false;
+            }
+            return true;
+        }else return false;
     }
-
-
     private static class BonusPosition {
         Pane position;
         int bonus;
@@ -71,6 +99,43 @@ public class GhostFigure extends Thread{
         public BonusPosition(Pane position, int bonus) {
             this.bonus = bonus;
             this.position = position;
+        }
+
+        public Pane getPosition() {
+            return position;
+        }
+
+        public void setPosition(Pane position) {
+            this.position = position;
+        }
+
+        public int getBonus() {
+            return bonus;
+        }
+
+        public void setBonus(int bonus) {
+            this.bonus = bonus;
+        }
+    }
+    private static class LabelForBonuses {
+        Label label;
+        Pane position;
+        int bonus;
+        public LabelForBonuses(Pane position, int bonus) {
+            this.position = position;
+            this.bonus = bonus;
+            this.label = new Label();
+            label.setText("+"+bonus);
+            label.setFont(Font.font("System", FontWeight.BOLD,10));
+            label.setTextFill(Color.RED);
+        }
+
+        public Label getLabel() {
+            return label;
+        }
+
+        public void setLabel(Label label) {
+            this.label = label;
         }
 
         public Pane getPosition() {

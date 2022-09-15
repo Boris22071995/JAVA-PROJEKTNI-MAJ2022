@@ -53,7 +53,7 @@ public class CrossedPathController implements Initializable {
             mp.addToListOddNumber();
         paneList = mp.getPaneList();
         if(figure.getNumberOfProcessedPositions()!=0) {
-            for (int i = 0; i <= figure.getNumberOfProcessedPositions(); i++) {
+            for (int i = 0; i < figure.getProcessedPath().size(); i++) {
                 paneList.get(i).setStyle("-fx-border-color: black; -fx-background-color:rgba(0, 129, 255, 0.3)");
             }
         }

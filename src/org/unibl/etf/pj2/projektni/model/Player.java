@@ -123,7 +123,6 @@ public class Player extends Thread{
             ghostFigure.isDaemon();
             ghostFigure.start();
             isGhostStarted = true;
-
             myTimer.start();
         }
         while(true) {

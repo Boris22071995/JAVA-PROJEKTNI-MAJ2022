@@ -3,12 +3,16 @@ package sample;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import org.unibl.etf.pj2.projektni.files.FileRead;
 import org.unibl.etf.pj2.projektni.files.FileVisit;
 
@@ -58,10 +62,14 @@ public class ListOfFilesController implements Initializable {
                 String nameOfFile = tableView.getSelectionModel().getSelectedItem().getNameOfFile();
 
                 try{
-//                    Runtime runtime = Runtime.getRuntime();
-//                    Process process = runtime.exec(path + File.separator + nameOfFile);
-                    Desktop desktop =  Desktop.getDesktop();
-                    desktop.open(new File(path + File.separator + nameOfFile));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("ContentOfFile.fxml"));
+                    loader.setController(new ContentOfFileController(path + File.separator + nameOfFile));
+                    Parent root = loader.load();
+                    Stage primaryStage = new Stage();
+                    primaryStage.setTitle( nameOfFile);
+                    primaryStage.setScene(new Scene(root, 368, 400));
+                    primaryStage.show();
+                   // desktop.open(new File(path + File.separator + nameOfFile));
                 }catch (IOException e) {
                     e.printStackTrace();
                 }
