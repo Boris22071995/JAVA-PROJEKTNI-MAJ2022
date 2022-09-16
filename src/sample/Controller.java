@@ -249,13 +249,19 @@ public class Controller implements Initializable {
                 igraci.add(player2);
                 for (int i = 0; i < igraci.size(); i++) igraci.get(i).start();
                 firstRun = true;
+                pokreni.setText("Zaustavi");
+
+
             }else {
             if(pause == false && firstRun == true) {
-                Player.pause = true;
+                Figure.pause = true;
                 pause = true;
+                pokreni.setText("Pokreni");
             }else {
-                Player.pause = false;
+                Figure.pause = false;
+                Player.indexToPrint.notify();
                 pause = false;
+                pokreni.setText("Zaustavi");
 
             } }
 

@@ -40,12 +40,23 @@ public class SuperSpeedFigure extends Figure implements MovingWay {
     }
 
     @Override
-    public void drawFigure() {
+    public synchronized void drawFigure()  {
         for(int i = getStartSpot(); i < getEndSpot(); i++) {
+
+            if(pause == true) {
+                synchronized (Player.indexToPrint){
+                try{
+                Player.indexToPrint.wait();
+                }catch (InterruptedException ie) {
+                    ie.printStackTrace();
+                }}
+
+            }else {
             final int x = i;
             if(x == getEndSpot() - 1) {
                 if(potm.checkForAvalibalitiOfPosition(paneList.get(x)) == false) {
                     addProcessedPositions();
+                    addPosition(paneList.get(x));
                     addPosition(paneList.get(x+1));
                     setBonusPositions(ghostFigure.checkForBonus(paneList.get(x + 1)));
                     Platform.runLater(()->paneList.get(x + 1).getChildren().add(getRectangle()));
@@ -62,13 +73,16 @@ public class SuperSpeedFigure extends Figure implements MovingWay {
                     addProcessedPositions();
                     addPosition(paneList.get(x));
                     Platform.runLater(()->paneList.get(x).getChildren().add(getRectangle()));
+                }else {
+                    addProcessedPositions();
+                    addPosition(paneList.get(x));
                 }
             }
             try{
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }
+            }}
         }
         if(flag == true) {
             setEndSpot(getEndSpot() + 1);

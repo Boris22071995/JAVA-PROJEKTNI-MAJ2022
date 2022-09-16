@@ -52,6 +52,7 @@ public class Player extends Thread{
     Holes holes;
     ResultProcessing resultProcessing;
     MyTimer myTimer;
+    List<Figure> listOfFiguresForResults = new ArrayList<>();
 
 
     public Player(String name, String colour, Pane[][] panes, int matrixDimension,PlayingDeck playingDeck,ImageView imageView, PositionOnTheMap positionOnTheMap, int positionOfPlayer, GhostFigure ghostFigure, ArrayList<Label> labels, Label meaningOfCard, Label timeLabel, Holes holes,ResultProcessing rs,MyTimer timer) {
@@ -74,7 +75,6 @@ public class Player extends Thread{
         this.mp = new MovingPath(orginalPane, matrixDimension, labels);
         if(matrixDimension % 2 == 0) mp.addToListEvenNumber();
         else mp.addToListOddNumber();
-
         paneList = mp.getPaneList();
         this.numbers = mp.getNumbers();
         this.ghostFigure = ghostFigure;
@@ -85,6 +85,7 @@ public class Player extends Thread{
         producer.start();
         this.holes = holes;
         this.holes.addPlayer(this);
+        listOfFiguresForResults.addAll(figure);
     }
     private int nextIndex() {
         return (index + 1) % threadNumber;
@@ -117,6 +118,9 @@ public class Player extends Thread{
         return name;
     }
     public String getColour() {return colour;}
+    public List<Figure> getListOfFiguresForResults() {
+        return this.listOfFiguresForResults;
+    }
     @Override
     public synchronized void run() {
         if(positionOfPlayer == 1 && isGhostStarted == false) {
@@ -168,7 +172,11 @@ public class Player extends Thread{
                         }
                         printOnScreen(f.getBonusPositions());
                         f.resetBonusPositions();
-                        f.drawFigure();
+                        try {
+                            f.drawFigure();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         if(f.getEndSpot()<paneList.size())
                             positionOnTheMap.addOnMap(this,paneList.get(f.getEndSpot() - 1),f);
                     } else {

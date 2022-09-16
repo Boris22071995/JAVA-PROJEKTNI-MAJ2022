@@ -18,6 +18,7 @@ public abstract class Figure implements MovingWay {
     int bonusPositions = 0;
     int numberOfProcessedPositions = 0;
     List<Pane> processedPath = new ArrayList<>();
+    public static boolean pause = false;
 
     public Figure() {
         super();
@@ -86,6 +87,6 @@ public abstract class Figure implements MovingWay {
     public List<Pane> getProcessedPath() {
         return this.processedPath;
     }
-    public abstract void drawFigure();
+    public abstract void drawFigure() throws InterruptedException;
 
 }

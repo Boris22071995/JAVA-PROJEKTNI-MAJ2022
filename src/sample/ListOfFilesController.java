@@ -16,15 +16,12 @@ import javafx.stage.Stage;
 import org.unibl.etf.pj2.projektni.files.FileRead;
 import org.unibl.etf.pj2.projektni.files.FileVisit;
 
-import javax.swing.plaf.basic.BasicDesktopIconUI;
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -67,7 +64,7 @@ public class ListOfFilesController implements Initializable {
                     Parent root = loader.load();
                     Stage primaryStage = new Stage();
                     primaryStage.setTitle( nameOfFile);
-                    primaryStage.setScene(new Scene(root, 368, 400));
+                    primaryStage.setScene(new Scene(root, 820, 454));
                     primaryStage.show();
                    // desktop.open(new File(path + File.separator + nameOfFile));
                 }catch (IOException e) {

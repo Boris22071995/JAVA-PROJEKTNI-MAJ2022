@@ -33,13 +33,12 @@ public class ResultProcessing {
         String path = System.getProperty("user.dir") + File.separator + "rezultati" + File.separator + temp;
         File file = new File(path);
         try {
-
-               file.createNewFile();
+            file.createNewFile();
             FileWriter fileWriter = new FileWriter(file, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             for(int i = 0; i < listOfPlayers.size(); i++) {
                 bufferedWriter.write("Igrač " + (i+1) + " - " + listOfPlayers.get(i).getNames()+"\n");
-                List<Figure> figureList = listOfPlayers.get(i).getFigure();
+                List<Figure> figureList = listOfPlayers.get(i).getListOfFiguresForResults();
                 for(int j = 0; j < 4; j++) {
                     Figure f = figureList.get(j);
                     bufferedWriter.write("\t" + "Figura " + (j + 1) + "("+f.move()+", " + listOfPlayers.get(i).getColour() + ")" + " - " + "pređeni put (");
