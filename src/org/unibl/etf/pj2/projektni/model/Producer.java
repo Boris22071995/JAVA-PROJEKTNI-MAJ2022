@@ -1,5 +1,9 @@
 package org.unibl.etf.pj2.projektni.model;
 
+import org.unibl.etf.pj2.projektni.exception.LoggingException;
+
+import java.util.logging.Level;
+
 public class Producer extends Thread{
         PlayingDeckForGet pd;
 
@@ -12,9 +16,9 @@ public class Producer extends Thread{
             while (true) {
                 try {
                     pd.addCard();
-                    sleep(1100);
+                    sleep(1600);
                 }catch (InterruptedException e) {
-                    e.printStackTrace();
+                    LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
                 }
             }
         }

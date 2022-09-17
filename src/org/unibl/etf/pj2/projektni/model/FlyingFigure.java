@@ -4,9 +4,11 @@ import javafx.application.Platform;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+import org.unibl.etf.pj2.projektni.exception.LoggingException;
 import org.unibl.etf.pj2.projektni.interfaces.MovingWay;
 
 import java.util.List;
+import java.util.logging.Level;
 
 public class FlyingFigure extends Figure implements MovingWay {
     Polygon triangle;
@@ -45,50 +47,47 @@ public class FlyingFigure extends Figure implements MovingWay {
     }
 
     @Override
-    public synchronized void drawFigure()  {
+    public  void drawFigure()  {
         for(int i = getStartSpot(); i < getEndSpot(); i++) {
-
+            int br = i;
             if(pause == true) {
-                synchronized (Player.indexToPrint) {
-                try {
-                    Player.indexToPrint.wait();
-
-                }catch (InterruptedException ie) {
-                    ie.printStackTrace();
-                }}
-            }else {
+                i--;
+            }
+            else {
+                i=br;
             final int x = i;
-            if(x == getEndSpot() - 1) {
-                if(potm.checkForAvalibalitiOfPosition(paneList.get(x)) == false) {
+            if (x == getEndSpot() - 1) {
+                if (potm.checkForAvalibalitiOfPosition(paneList.get(x)) == false) {
                     addProcessedPositions();
                     addPosition(paneList.get(x));
-                    addPosition(paneList.get(x+1));
+                    addPosition(paneList.get(x + 1));
                     setBonusPositions(ghostFigure.checkForBonus(paneList.get(x + 1)));
-                    Platform.runLater(()->paneList.get(x + 1).getChildren().add(getTriangle()));
+                    Platform.runLater(() -> paneList.get(x + 1).getChildren().add(getTriangle()));
                     flag = true;
-                }else {
+                } else {
                     addProcessedPositions();
                     setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
                     addPosition(paneList.get(x));
                     Platform.runLater(() -> paneList.get(x).getChildren().add(getTriangle()));
                 }
-            }else {
-                if(potm.checkForAvalibalitiOfPosition(paneList.get(x))== true) {
+            } else {
+                if (potm.checkForAvalibalitiOfPosition(paneList.get(x)) == true) {
                     setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
                     addProcessedPositions();
                     addPosition(paneList.get(x));
-                    Platform.runLater(()->paneList.get(x).getChildren().add(getTriangle()));
-                }else {
+                    Platform.runLater(() -> paneList.get(x).getChildren().add(getTriangle()));
+                } else {
                     addProcessedPositions();
                     addPosition(paneList.get(x));
                 }
             }
-            try{
+            try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
             }
-        }
+        }}
+
         if(flag == true) {
             setEndSpot(getEndSpot() + 1);
             flag = false;
@@ -98,8 +97,7 @@ public class FlyingFigure extends Figure implements MovingWay {
             Platform.runLater(()->paneList.get(x).getChildren().remove(getTriangle()));
             isDone = true;
         }
-
-    }}
+    }
 
     public Pane[][] getOrginalPanes(){return this.orginalPanes;}
     public Polygon getTriangle() {

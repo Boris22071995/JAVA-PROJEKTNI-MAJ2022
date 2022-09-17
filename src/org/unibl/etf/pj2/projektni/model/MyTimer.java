@@ -2,9 +2,11 @@ package org.unibl.etf.pj2.projektni.model;
 
 import javafx.application.Platform;
 import javafx.scene.control.Label;
+import org.unibl.etf.pj2.projektni.exception.LoggingException;
 
 import java.awt.*;
 import java.sql.Time;
+import java.util.logging.Level;
 
 public class MyTimer extends Thread{
     Label timeLabel;
@@ -21,7 +23,7 @@ public class MyTimer extends Thread{
             try{
                 sleep(1000);
             }catch (InterruptedException e) {
-                e.printStackTrace();
+                LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
             }
         }
     }

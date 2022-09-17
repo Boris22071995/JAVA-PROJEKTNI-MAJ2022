@@ -4,9 +4,11 @@ import javafx.application.Platform;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import org.unibl.etf.pj2.projektni.exception.LoggingException;
 import org.unibl.etf.pj2.projektni.interfaces.MovingWay;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class SuperSpeedFigure extends Figure implements MovingWay {
     Rectangle rectangle = new Rectangle();
@@ -16,6 +18,7 @@ public class SuperSpeedFigure extends Figure implements MovingWay {
     PositionOnTheMap potm;
     GhostFigure ghostFigure;
     boolean flag = false;
+
 
     public SuperSpeedFigure(String boja, Pane[][] panes, int matrixDimension, MovingPath mp, PositionOnTheMap potm, GhostFigure ghost) {
         super(boja,panes);
@@ -40,18 +43,14 @@ public class SuperSpeedFigure extends Figure implements MovingWay {
     }
 
     @Override
-    public synchronized void drawFigure()  {
+    public  void drawFigure()  {
         for(int i = getStartSpot(); i < getEndSpot(); i++) {
-
+            int br = i;
             if(pause == true) {
-                synchronized (Player.indexToPrint){
-                try{
-                Player.indexToPrint.wait();
-                }catch (InterruptedException ie) {
-                    ie.printStackTrace();
-                }}
-
-            }else {
+                i--;
+            }
+            else{
+                i=br;
             final int x = i;
             if(x == getEndSpot() - 1) {
                 if(potm.checkForAvalibalitiOfPosition(paneList.get(x)) == false) {
@@ -81,9 +80,9 @@ public class SuperSpeedFigure extends Figure implements MovingWay {
             try{
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
-            }}
-        }
+                LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
+            }
+        }}
         if(flag == true) {
             setEndSpot(getEndSpot() + 1);
             flag = false;

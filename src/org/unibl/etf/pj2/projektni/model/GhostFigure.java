@@ -29,7 +29,7 @@ public class GhostFigure extends Thread{
         while(true) {
             Random rand = new Random();
             bonus = rand.nextInt(matrixDimension - 2 + 1) + 2;
-            position = rand.nextInt(path.size() - 1);
+            position = rand.nextInt(path.size() - 2);
             int realPosition = getPositionforReal(position);
             if(positionsOfBonuses.size() <= path.size()) {
                 positionsOfBonuses.add(new BonusPosition(path.get(realPosition), bonus));

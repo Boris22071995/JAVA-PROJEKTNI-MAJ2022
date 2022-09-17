@@ -9,34 +9,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.unibl.etf.pj2.projektni.exception.BadNameInputException;
-import org.unibl.etf.pj2.projektni.exception.MatrixSizeException;
-import org.unibl.etf.pj2.projektni.exception.NameAllreadyExistException;
-import org.unibl.etf.pj2.projektni.exception.NumberOfPlayersException;
+import org.unibl.etf.pj2.projektni.exception.*;
 
 
 import java.io.*;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.EventObject;
-import java.util.List;
-import java.util.ResourceBundle;
 import java.util.logging.*;
 
 public class PocetnaStranaController {
 
-    public static Handler handler;
-    public static Logger logger;
-    static {
-        try {
-            handler = new FileHandler("izuzeci.log",true);
-            logger = Logger.getLogger(PocetnaStranaController.class.getName());
-            logger.addHandler(handler);
-            handler.setFormatter(new SimpleFormatter());
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     @FXML
     Button zapocni = new Button();
@@ -71,13 +52,13 @@ public class PocetnaStranaController {
         try {
             pokupiPodatke();
         }catch(MatrixSizeException mse){
-             PocetnaStranaController.logger.log(Level.SEVERE, mse.fillInStackTrace().toString());
+             LoggingException.logger.log(Level.SEVERE, mse.fillInStackTrace().toString());
         }catch (NumberOfPlayersException nope) {
-            PocetnaStranaController.logger.log(Level.SEVERE, nope.fillInStackTrace().toString());
+             LoggingException.logger.log(Level.SEVERE, nope.fillInStackTrace().toString());
         }catch(FileNotFoundException fnfe) {
-            PocetnaStranaController.logger.log(Level.SEVERE, fnfe.fillInStackTrace().toString());
+             LoggingException.logger.log(Level.SEVERE, fnfe.fillInStackTrace().toString());
         }catch (Exception e) {
-            PocetnaStranaController.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
+             LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
         }
 
 
@@ -111,12 +92,12 @@ public class PocetnaStranaController {
         try{
             provjeriUnosImena(brIgraca);
         }catch (BadNameInputException bnie) {
-            PocetnaStranaController.logger.log(Level.SEVERE, bnie.fillInStackTrace().toString());
+            LoggingException.logger.log(Level.SEVERE, bnie.fillInStackTrace().toString());
         }
         try{
             popuniFajl(brIgraca);
         }catch (NumberOfPlayersException nope) {
-            PocetnaStranaController.logger.log(Level.SEVERE, nope.fillInStackTrace().toString());
+            LoggingException.logger.log(Level.SEVERE, nope.fillInStackTrace().toString());
         }
 
         }

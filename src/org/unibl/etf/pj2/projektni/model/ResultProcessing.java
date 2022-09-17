@@ -1,5 +1,7 @@
 package org.unibl.etf.pj2.projektni.model;
 
+import org.unibl.etf.pj2.projektni.exception.LoggingException;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -8,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class ResultProcessing {
     String path;
@@ -61,7 +64,7 @@ public class ResultProcessing {
             fileWriter.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
         }
         isDone = true;
         }

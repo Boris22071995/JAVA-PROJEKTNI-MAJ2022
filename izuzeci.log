@@ -90,3 +90,7 @@ Sep 06, 2022 5:37:44 PM sample.PocetnaStranaController pokupiPodatke
 SEVERE: org.unibl.etf.pj2.projektni.exception.BadNameInputException: Name input are not valid.
 Sep 06, 2022 5:37:45 PM sample.PocetnaStranaController zapocniIgru
 SEVERE: java.lang.NullPointerException: Cannot invoke "String.length()" because "str" is null
+Sep 17, 2022 3:37:59 PM sample.PocetnaStranaController pokupiPodatke
+SEVERE: org.unibl.etf.pj2.projektni.exception.BadNameInputException: Name input are not valid.
+Sep 17, 2022 3:37:59 PM sample.PocetnaStranaController zapocniIgru
+SEVERE: java.lang.NullPointerException: Cannot invoke "String.length()" because "str" is null

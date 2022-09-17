@@ -1,6 +1,9 @@
 package org.unibl.etf.pj2.projektni.model;
 
+import org.unibl.etf.pj2.projektni.exception.LoggingException;
+
 import java.util.concurrent.SynchronousQueue;
+import java.util.logging.Level;
 
 public class PlayingDeckForGet {
     public SynchronousQueue<PlayingCard> cards = new SynchronousQueue<PlayingCard>();
@@ -18,7 +21,7 @@ public class PlayingDeckForGet {
         try {
             pc = cards.take();
         }catch (InterruptedException e) {
-            e.printStackTrace();
+            LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
         }
         return pc;
     }

@@ -1,12 +1,14 @@
 package org.unibl.etf.pj2.projektni.model;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
+import org.unibl.etf.pj2.projektni.exception.LoggingException;
 import org.unibl.etf.pj2.projektni.interfaces.MovingWay;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import java.util.List;
+import java.util.logging.Level;
 
 public class SimpleFigure extends Figure implements MovingWay {
 
@@ -40,16 +42,14 @@ public class SimpleFigure extends Figure implements MovingWay {
         return "Obicna figura";
     }
     @Override
-    public synchronized void drawFigure() {
+    public  void drawFigure() {
         for(int i = getStartSpot(); i < getEndSpot(); i++) {
-            if(pause == true) {
-                synchronized (Player.indexToPrint){
-                try{
-                Player.indexToPrint.wait();
-                }catch (InterruptedException ie) {
-                    ie.printStackTrace();
-                }}
-            }else {
+            int br = i;
+            if(pause == true){
+               i--;
+            }
+            else{
+                i=br;
             final int x = i;
             if(x == getEndSpot() - 1) {
                 if(potm.checkForAvalibalitiOfPosition(paneList.get(x)) == false) {
@@ -79,9 +79,9 @@ public class SimpleFigure extends Figure implements MovingWay {
             try{
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
-            }}
-        }
+                LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
+            }
+        }}
         if(flag == true) {
             setEndSpot(getEndSpot() + 1);
             flag = false;

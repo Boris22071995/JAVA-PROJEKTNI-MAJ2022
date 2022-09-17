@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import org.unibl.etf.pj2.projektni.exception.LoggingException;
 import org.unibl.etf.pj2.projektni.files.FileRead;
 import org.unibl.etf.pj2.projektni.files.FileVisit;
 
@@ -24,6 +25,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 
 public class ListOfFilesController implements Initializable {
     @FXML
@@ -45,7 +47,7 @@ public class ListOfFilesController implements Initializable {
         try {
             Files.walkFileTree(startingDir, fv);
         } catch (IOException e) {
-            e.printStackTrace();
+            LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
         }
         List<FileRead> listaFajlova = fv.getFileReadList();
         final ObservableList<FileRead> filesModels = FXCollections.observableList(listaFajlova);
@@ -68,7 +70,7 @@ public class ListOfFilesController implements Initializable {
                     primaryStage.show();
                    // desktop.open(new File(path + File.separator + nameOfFile));
                 }catch (IOException e) {
-                    e.printStackTrace();
+                    LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
                 }
 
 

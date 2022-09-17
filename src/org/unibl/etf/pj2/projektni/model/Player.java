@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import org.unibl.etf.pj2.projektni.exception.LoggingException;
 import sample.Controller;
 
 import java.io.File;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Level;
 
 public class Player extends Thread{
 
@@ -135,7 +137,7 @@ public class Player extends Thread{
                     try {
                         indexToPrint.wait();
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
                     }
                 }
                 Figure f = figure.get(0);
@@ -175,7 +177,7 @@ public class Player extends Thread{
                         try {
                             f.drawFigure();
                         } catch (InterruptedException e) {
-                            e.printStackTrace();
+                            LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
                         }
                         if(f.getEndSpot()<paneList.size())
                             positionOnTheMap.addOnMap(this,paneList.get(f.getEndSpot() - 1),f);

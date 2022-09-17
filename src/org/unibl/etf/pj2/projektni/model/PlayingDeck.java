@@ -34,6 +34,7 @@ public class PlayingDeck{
         for(int i = 40; i < 52; i++)
             cards[i]  = new PlayingCard(5,"karte/5.png","Specijalna karta, figura prelazi zadati broj polja.");
         shuffel();
+        shuffel();
         addStrings();
         for(int i = 0; i < cards.length; i++) {
             PlayingCard pc = cards[i];

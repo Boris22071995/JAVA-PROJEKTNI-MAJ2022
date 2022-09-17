@@ -19,6 +19,7 @@ public abstract class Figure implements MovingWay {
     int numberOfProcessedPositions = 0;
     List<Pane> processedPath = new ArrayList<>();
     public static boolean pause = false;
+    public static Thread thread = new Thread();
 
     public Figure() {
         super();

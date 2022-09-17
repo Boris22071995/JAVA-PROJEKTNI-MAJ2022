@@ -22,6 +22,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import org.unibl.etf.pj2.projektni.exception.LoggingException;
 import org.unibl.etf.pj2.projektni.model.*;
 
 import java.io.*;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 
 public class Controller implements Initializable {
     @FXML
@@ -170,7 +172,7 @@ public class Controller implements Initializable {
         try {
             number = readFileWithNumberOfHoles();
         } catch (IOException e) {
-            e.printStackTrace();
+            LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
         }
         resultProcessing = new ResultProcessing(mp);
         holes = new Holes(number,mp,mp.getPaneList());
@@ -259,7 +261,6 @@ public class Controller implements Initializable {
                 pokreni.setText("Pokreni");
             }else {
                 Figure.pause = false;
-                Player.indexToPrint.notify();
                 pause = false;
                 pokreni.setText("Zaustavi");
 
@@ -341,7 +342,7 @@ public class Controller implements Initializable {
                     try {
                         doOnClick(listOfPlayers.get(pl),f);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
                     }
                 });
        /*         label.setOnMouseClicked(new EventHandler<MouseEvent>() {
