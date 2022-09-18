@@ -12,11 +12,11 @@ public class Producer extends Thread{
         }
 
         @Override
-        public synchronized void run() {
+        public void run() {
             while (true) {
                 try {
                     pd.addCard();
-                    sleep(1600);
+                    sleep(500);
                 }catch (InterruptedException e) {
                     LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
                 }

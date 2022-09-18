@@ -42,58 +42,61 @@ public class SimpleFigure extends Figure implements MovingWay {
         return "Obicna figura";
     }
     @Override
-    public  void drawFigure() {
-        for(int i = getStartSpot(); i < getEndSpot(); i++) {
-            int br = i;
-            if(pause == true){
-               i--;
-            }
-            else{
-                i=br;
-            final int x = i;
-            if(x == getEndSpot() - 1) {
-                if(potm.checkForAvalibalitiOfPosition(paneList.get(x)) == false) {
-                    addProcessedPositions();
-                    addPosition(paneList.get(x));
-                    addPosition(paneList.get(x+1));
-                    setBonusPositions(ghostFigure.checkForBonus(paneList.get(x + 1)));
-                    Platform.runLater(()->paneList.get(x + 1).getChildren().add(getCircle()));
-                    flag = true;
-                }else {
-                    addProcessedPositions();
-                    setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
-                    addPosition(paneList.get(x));
-                    Platform.runLater(() -> paneList.get(x).getChildren().add(getCircle()));
-                }
-            }else {
-                if(potm.checkForAvalibalitiOfPosition(paneList.get(x))== true) {
-                    setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
-                    addProcessedPositions();
-                    addPosition(paneList.get(x));
-                    Platform.runLater(()->paneList.get(x).getChildren().add(getCircle()));
+    public synchronized void drawFigure() {
+        synchronized (Player.indexToPrint) {
+            for (int i = getStartSpot(); i < getEndSpot(); i++) {
+                if (pause == true) {
+                        try {
+                            Player.indexToPrint.wait();
+                        } catch (InterruptedException ie) {
+                            LoggingException.logger.log(Level.SEVERE, ie.fillInStackTrace().toString());
+                        }
                 } else {
-                    addProcessedPositions();
-                    addPosition(paneList.get(x));
+                    final int x = i;
+                    if (x == getEndSpot() - 1) {
+                        if (potm.checkForAvalibalitiOfPosition(paneList.get(x)) == false) {
+                            addProcessedPositions();
+                            addPosition(paneList.get(x));
+                            addPosition(paneList.get(x + 1));
+                            setBonusPositions(ghostFigure.checkForBonus(paneList.get(x + 1)));
+                            Platform.runLater(() -> paneList.get(x + 1).getChildren().add(getCircle()));
+                            flag = true;
+                        } else {
+                            addProcessedPositions();
+                            setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
+                            addPosition(paneList.get(x));
+                            Platform.runLater(() -> paneList.get(x).getChildren().add(getCircle()));
+                        }
+                    } else {
+                        if (potm.checkForAvalibalitiOfPosition(paneList.get(x)) == true) {
+                            setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
+                            addProcessedPositions();
+                            addPosition(paneList.get(x));
+                            Platform.runLater(() -> paneList.get(x).getChildren().add(getCircle()));
+                        } else {
+                            addProcessedPositions();
+                            addPosition(paneList.get(x));
+                        }
+                    }
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
+                    }
                 }
             }
-            try{
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
+            if (flag == true) {
+                setEndSpot(getEndSpot() + 1);
+                flag = false;
             }
-        }}
-        if(flag == true) {
-            setEndSpot(getEndSpot() + 1);
-            flag = false;
-        }
 
-        if(getEndSpot() >= paneList.size()){
-            final int x = getEndSpot() - 1;
-            Platform.runLater(()->paneList.get(x).getChildren().remove(getCircle()));
-            isDone = true;
+            if (getEndSpot() >= paneList.size()) {
+                final int x = getEndSpot() - 1;
+                Platform.runLater(() -> paneList.get(x).getChildren().remove(getCircle()));
+                isDone = true;
+            }
         }
     }
-
     public Pane[][] getOrginalPanes(){return this.orginalPanes;}
     public List<Pane> getPaneList() {
         return this.paneList;

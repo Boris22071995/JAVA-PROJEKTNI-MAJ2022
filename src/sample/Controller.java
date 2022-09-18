@@ -113,10 +113,34 @@ public class Controller implements Initializable {
     Holes holes;
     ResultProcessing resultProcessing;
     MyTimer myTimer;
-
+    List<String> listOfNames = new ArrayList<>();
+    PlayingDeckForGet pdfg;
+    Producer producer;
+    Consumer consumer;
 
     int brojac = 0;
-   public Controller(int dimenzijaMatrice, int brojIgraca, String ime1, String ime2) throws IOException {
+    public Controller(List<String> listOfNames, int numberOfPlayer, int matrixDimension) {
+        this.listOfNames = listOfNames;
+        if(numberOfPlayer == 2) {
+            this.ime1 = listOfNames.remove(0);
+            this.ime2 = listOfNames.remove(0);
+        }else if(numberOfPlayer == 3) {
+            this.ime1 = listOfNames.remove(0);
+            this.ime2 = listOfNames.remove(0);
+            this.ime3 = listOfNames.remove(0);
+        }else
+        {
+            this.ime1 = listOfNames.remove(0);
+            this.ime2 = listOfNames.remove(0);
+            this.ime3 = listOfNames.remove(0);
+            this.ime4 = listOfNames.remove(0);
+        }
+        this.dimenzijaMatrice = matrixDimension;
+        this.playingDeck = new PlayingDeck();
+        numberOfPlayers = numberOfPlayer;
+
+    }
+    public Controller(int dimenzijaMatrice, int brojIgraca, String ime1, String ime2) throws IOException {
        this.dimenzijaMatrice = dimenzijaMatrice;
        this.brojIgraca = brojIgraca;
        this.ime1 = ime1;
@@ -125,7 +149,7 @@ public class Controller implements Initializable {
        numberOfPlayers = brojIgraca;
 
    }
-   public Controller(int dimenzijaMatrice, int brojIgraca, String ime1, String ime2, String ime3) throws IOException {
+    public Controller(int dimenzijaMatrice, int brojIgraca, String ime1, String ime2, String ime3) throws IOException {
        this.dimenzijaMatrice = dimenzijaMatrice;
        this.brojIgraca = brojIgraca;
        this.ime1 = ime1;
@@ -134,7 +158,7 @@ public class Controller implements Initializable {
        this.playingDeck = new PlayingDeck();
        numberOfPlayers = brojIgraca;
    }
-   public Controller(int dimenzijaMatrice, int brojIgraca, String ime1, String ime2, String ime3, String ime4) throws IOException {
+    public Controller(int dimenzijaMatrice, int brojIgraca, String ime1, String ime2, String ime3, String ime4) throws IOException {
        this.dimenzijaMatrice = dimenzijaMatrice;
        this.brojIgraca = brojIgraca;
        this.ime1 = ime1;
@@ -144,10 +168,9 @@ public class Controller implements Initializable {
        this.playingDeck = new PlayingDeck();
        numberOfPlayers = brojIgraca;
    }
-   public static int getNumberOfPlayers() {
+    public static int getNumberOfPlayers() {
        return  numberOfPlayers;
    }
-
     @Override
     public void initialize(URL url, ResourceBundle resources) {
 
@@ -179,6 +202,9 @@ public class Controller implements Initializable {
         for(int i = 0;i < tempsss.size();i++) {
             tempsss.get(i).setStyle("-fx-border-color: black; -fx-background-color:rgba(255, 255, 255, 0.87);");
         }
+        pdfg = new PlayingDeckForGet(playingDeck);
+        producer = new Producer(pdfg);
+        consumer = new Consumer(pdfg,imageView);
         podesavanjeImena();
         List<Pane> temp = new ArrayList<>();
         temp = player1.getPaneList();
@@ -245,23 +271,29 @@ public class Controller implements Initializable {
     }
     @FXML
     public void zapocni(javafx.event.ActionEvent ae) throws InterruptedException {
-            List<Player> igraci = new ArrayList<Player>();
+         //   List<Player> igraci = new ArrayList<Player>();
             if(firstRun == false) {
-                igraci.add(player1);
-                igraci.add(player2);
-                for (int i = 0; i < igraci.size(); i++) igraci.get(i).start();
+             //   igraci.add(player1);
+             //   igraci.add(player2);
+                for (int i = 0; i < listOfPlayers.size(); i++) listOfPlayers.get(i).start();
                 firstRun = true;
                 pokreni.setText("Zaustavi");
-
 
             }else {
             if(pause == false && firstRun == true) {
                 Figure.pause = true;
                 pause = true;
+                Player.pause = true;
                 pokreni.setText("Pokreni");
             }else {
-                Figure.pause = false;
-                pause = false;
+
+                synchronized (Player.indexToPrint) {
+                    Player.indexToPrint.notify();
+                    Figure.pause = false;
+                    pause = false;
+                    Player.pause = false;
+
+                }
                 pokreni.setText("Zaustavi");
 
             } }
@@ -278,8 +310,8 @@ public class Controller implements Initializable {
             ime4Label.setVisible(false);
             bojaPrvogIgraca = "zuta";
             bojaDrugogIgraca = "zelena";
-            player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing,myTimer);
-            player2 = new Player(ime2, bojaDrugogIgraca, panes,dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing,myTimer);
+            player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing,myTimer,pdfg,producer,consumer);
+            player2 = new Player(ime2, bojaDrugogIgraca, panes,dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing,myTimer,pdfg,producer,consumer);
             listOfPlayers.add(player1);
             listOfPlayers.add(player2);
        }
@@ -294,9 +326,9 @@ public class Controller implements Initializable {
            bojaPrvogIgraca = "crvena";
            bojaDrugogIgraca = "zuta";
            bojaTrecegIgraca = "zelena";
-           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing,myTimer);
-           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing,myTimer);
-           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,3,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing,myTimer);
+           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing,myTimer,pdfg,producer,consumer);
+           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing,myTimer,pdfg,producer,consumer);
+           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,3,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing,myTimer,pdfg,producer,consumer);
            listOfPlayers.add(player1);
            listOfPlayers.add(player2);
            listOfPlayers.add(player3);
@@ -310,10 +342,10 @@ public class Controller implements Initializable {
            bojaDrugogIgraca = "zuta";
            bojaTrecegIgraca = "zelena";
            bojaCetvrtogIgraca = "plava";
-           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing,myTimer);
-           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing,myTimer);
-           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,3,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing,myTimer);
-           player4 = new Player(ime4, bojaCetvrtogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,4,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing,myTimer);
+           player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing,myTimer,pdfg,producer,consumer);
+           player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing,myTimer,pdfg,producer,consumer);
+           player3 = new Player(ime3, bojaTrecegIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,3,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing,myTimer,pdfg,producer,consumer);
+           player4 = new Player(ime4, bojaCetvrtogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,4,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing,myTimer,pdfg,producer,consumer);
            listOfPlayers.add(player1);
            listOfPlayers.add(player2);
            listOfPlayers.add(player3);

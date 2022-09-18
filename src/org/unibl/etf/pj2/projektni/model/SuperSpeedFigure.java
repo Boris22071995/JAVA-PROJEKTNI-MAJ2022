@@ -43,14 +43,18 @@ public class SuperSpeedFigure extends Figure implements MovingWay {
     }
 
     @Override
-    public  void drawFigure()  {
+    public synchronized void drawFigure()  {
+        synchronized (Player.indexToPrint){
         for(int i = getStartSpot(); i < getEndSpot(); i++) {
-            int br = i;
             if(pause == true) {
-                i--;
+                    try{
+                        Player.indexToPrint.wait();
+                    }catch (InterruptedException ie) {
+                        LoggingException.logger.log(Level.SEVERE, ie.fillInStackTrace().toString());
+                    }
+
             }
             else{
-                i=br;
             final int x = i;
             if(x == getEndSpot() - 1) {
                 if(potm.checkForAvalibalitiOfPosition(paneList.get(x)) == false) {
@@ -93,7 +97,7 @@ public class SuperSpeedFigure extends Figure implements MovingWay {
             isDone = true;
         }
 
-    }
+    }}
 
     public Pane[][] getOrginalPanes(){return this.orginalPanes;}
     public Rectangle getRectangle() {

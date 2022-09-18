@@ -13,6 +13,8 @@ import org.unibl.etf.pj2.projektni.exception.*;
 
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.*;
 
 public class PocetnaStranaController {
@@ -42,12 +44,11 @@ public class PocetnaStranaController {
     String ime2;
     String ime3;
     String ime4;
+    List<String> listOfNames = new ArrayList<>();
 
 
     @FXML
     public void zapocniIgru(javafx.event.ActionEvent ae) throws IOException {
-        File file = new File("igraci.txt");
-        if(!file.exists()) file.createNewFile();
 
         try {
             pokupiPodatke();
@@ -72,6 +73,7 @@ public class PocetnaStranaController {
         else {
             loader.setController(new Controller(xDimenzija, brIgraca, ime1, ime2, ime3, ime4));
         }
+
         Parent root = loader.load();
         Scene scene= new Scene(root);
         Stage window = (Stage) ((Node) ae.getSource()).getScene().getWindow();
@@ -94,44 +96,7 @@ public class PocetnaStranaController {
         }catch (BadNameInputException bnie) {
             LoggingException.logger.log(Level.SEVERE, bnie.fillInStackTrace().toString());
         }
-        try{
-            popuniFajl(brIgraca);
-        }catch (NumberOfPlayersException nope) {
-            LoggingException.logger.log(Level.SEVERE, nope.fillInStackTrace().toString());
-        }
 
-        }
-        private void popuniFajl(int broj) throws IOException, NumberOfPlayersException {
-            File file = new File("igraci.txt");
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            FileWriter fw = new FileWriter(file.getAbsoluteFile());
-            BufferedWriter bw = new BufferedWriter(fw);
-
-            if(broj == 2) {
-                bw.write(ime1);
-                bw.write("\n");
-                bw.write(ime2);
-                bw.write("\n");
-            }else if(broj == 3) {
-                bw.write(ime1);
-                bw.write("\n");
-                bw.write(ime2);
-                bw.write("\n");
-                bw.write(ime3);
-                bw.write("\n");
-            }else if(broj == 4) {
-                bw.write(ime1);
-                bw.write("\n");
-                bw.write(ime2);
-                bw.write("\n");
-                bw.write(ime3);
-                bw.write("\n");
-                bw.write(ime4);
-                bw.write("\n");
-            }else throw new NumberOfPlayersException();
-            bw.close();
         }
         private void provjeriUnosImena(int broj) throws BadNameInputException, NumberOfPlayersException {
             if(broj == 2) {
@@ -142,6 +107,8 @@ public class PocetnaStranaController {
                 else {
                     ime1 = imePrvogIgraca.getText();
                     ime2 = imeDrugogIgraca.getText();
+                    listOfNames.add(ime1);
+                    listOfNames.add(ime2);
                 }
             }else if(broj == 3) {
                 if(imePrvogIgraca.getText().equals("") || imeDrugogIgraca.getText().equals("") || imeTrecegIgraca.getText().equals("") || !(imeCetvrtogIgraca.getText().equals(""))) {
@@ -152,6 +119,9 @@ public class PocetnaStranaController {
                     ime1 = imePrvogIgraca.getText();
                     ime2 = imeDrugogIgraca.getText();
                     ime3 = imeTrecegIgraca.getText();
+                    listOfNames.add(ime1);
+                    listOfNames.add(ime2);
+                    listOfNames.add(ime3);
                 }
             }else if(broj == 4) {
                 if(imePrvogIgraca.getText().equals("") || imeDrugogIgraca.getText().equals("") || imeTrecegIgraca.getText().equals("") || imeCetvrtogIgraca.getText().equals("")) {
@@ -165,6 +135,10 @@ public class PocetnaStranaController {
                     ime2 = imeDrugogIgraca.getText();
                     ime3 = imeTrecegIgraca.getText();
                     ime4 = imeCetvrtogIgraca.getText();
+                    listOfNames.add(ime1);
+                    listOfNames.add(ime2);
+                    listOfNames.add(ime3);
+                    listOfNames.add(ime4);
                 }
             }else throw new NumberOfPlayersException();
         }

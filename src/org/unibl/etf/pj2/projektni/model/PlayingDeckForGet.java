@@ -12,11 +12,10 @@ public class PlayingDeckForGet {
         this.playingDeck = playingDeck;
     }
     public void addCard() {
-           PlayingCard pc = playingDeck.getCard();
+               PlayingCard pc = playingDeck.getCard();
                cards.offer(pc);
-
     }
-    public synchronized PlayingCard readCard() {
+    public PlayingCard readCard() {
         PlayingCard pc = null;
         try {
             pc = cards.take();
