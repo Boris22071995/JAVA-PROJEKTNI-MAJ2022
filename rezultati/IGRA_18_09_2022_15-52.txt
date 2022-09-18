@@ -1,0 +1,11 @@
+Igrač 1 - Boris
+	Figura 1(Obicna figura, zuta) - pređeni put (6-17-28-39-50-59-68-77-86-95-84-73-62-51-42-33-24-15-16-27-38-49-58-67-76-85-74-63-52-43-34-25-26-37-48-57-66-75-64-53-44-35-36-47-56-65-54-45-46-55) - stigla do cilja (DA) 
+	Figura 2(Lebdeca figura, zuta) - pređeni put (6-17-28-39-50-59-68-77-86-95-84-73-62-51-42-33-24-15-16-27-38-49-58-67-76-85) - stigla do cilja (NE) 
+	Figura 3(Obicna figura, zuta) - pređeni put (NE) 
+	Figura 4(Obicna figura, zuta) - pređeni put (NE) 
+Igrač 2 - Sara
+	Figura 1(Super brza figura, zelena) - pređeni put (6-17-28-39-50-59-68-77-86-95-84-73-62-51-42-33-24-15-16-27-38-49-58-67-76-85-74-63-52-43-34-25-26-37-48-57-66-75-64-53-44-35-36-47-56-65-54-45-46-55) - stigla do cilja (DA) 
+	Figura 2(Obicna figura, zelena) - pređeni put (6-17) - stigla do cilja (NE) 
+	Figura 3(Super brza figura, zelena) - pređeni put (6-17-28-39-50-59-68-77-86-95-84-73-62-51-42-33-24-15-16-27-38-49-58-67-76-85-74-63-52-43-34-25-26-37-48-57-66-75-64-53-44-35-36-47-56-65-54-45-46-55) - stigla do cilja (DA) 
+	Figura 4(Super brza figura, zelena) - pređeni put (6-17-28-39-50-59-68-77-86-95-84-73-62-51-42-33-24-15-16-27-38-49-58-67-76-85-74-63-52-43-34-25-26-37-48-57-66-75-64-53-44-35-36-47-56-65-54-45-46-55) - stigla do cilja (DA) 
+Ukupno vrijeme trajanje igre: 245
