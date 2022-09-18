@@ -165,6 +165,7 @@ public class Player extends Thread{
                         if("Super brza figura".equals(f.move())) {
                             if((f.getEndSpot() + (pomjeraj * 2) + f.getBonusPositions()) <= paneList.size()) {
                                 f.setEndSpot(f.getEndSpot() + (pomjeraj * 2) + f.getBonusPositions());
+                                f.setEndSpot(checkForEndSpot(f.getEndSpot()));
                             }
                             else {
                                 f.setEndSpot(paneList.size());
@@ -172,6 +173,7 @@ public class Player extends Thread{
                         } else {
                             if((f.getEndSpot() + pomjeraj + f.getBonusPositions()) <= paneList.size()){
                                 f.setEndSpot(f.getEndSpot() + pomjeraj + f.getBonusPositions());
+                                f.setEndSpot(checkForEndSpot(f.getEndSpot()));
                             } else {
                                 f.setEndSpot(paneList.size());
                             }
@@ -202,274 +204,13 @@ public class Player extends Thread{
         }
 
     }
-
-    /*
-
-       @Override
-        public synchronized void run() {
-
-                if(positionOfPlayer == 1 && isGhostStarted == false) {
-                    ghostFigure.isDaemon();
-                    ghostFigure.start();
-                    isGhostStarted = true;
-                  //  myTimer = new MyTimer(this.timeLabel);
-                    myTimer.start();
-                }
-               while(true){
-
-                   synchronized (indexToPrint) {
-                       while(indexToPrint.get()!=index){
-                           try {
-                               indexToPrint.wait();
-                           } catch (InterruptedException e) {
-                               e.printStackTrace();
-                           }
-                       }
-                       if(pause == false) {
-                       Figure f = figure.get(0);
-                       if (f.getIsDone()) {
-                           Figure temp = figure.remove(0);
-                           figure.add(temp);
-                           f = figure.get(0);
-                           numberOfFiguresThatAreDone++;
-                       }
-                       if(numberOfPlayersThatAreDone == Controller.getNumberOfPlayers()) {
-                           System.out.println("SVI IGRACI SU ZAVRSILI");
-                           resultProcessing.setTimeOfPlay(myTimer.getSecond());
-                            resultProcessing.processing();
-                       }
-
-
-
-
-                       if(numberOfFiguresThatAreDone <= 4){
-                           //System.out.println("BROJ FIGURA KOJE SU ZAVRSILE " + numberOfFiguresThatAreDone);
-
-
-                       PlayingCard pc = consumer.getCard();
-                       int pomjeraj = pc.getNumber();
-                       if("Obicna figura".equals(f.move())){
-
-                           SimpleFigure sf = (SimpleFigure) f;
-                           if(pomjeraj!=5) {
-                               positionOnTheMap.removeFromMap(this,f);
-                               f.setStartSpot(f.getEndSpot());
-                               if((f.getEndSpot() + pomjeraj + f.getBonusPositions()) <= paneList.size()){
-                               f.setEndSpot(f.getEndSpot() + pomjeraj + f.getBonusPositions());}
-                               else f.setEndSpot(paneList.size());
-                               Platform.runLater(()->meaningOfCard.setText(this.toString()));
-                               f.resetBonusPositions();
-                           for (int i = f.getStartSpot(); i < f.getEndSpot(); i++) {
-                                if(pause == false) {
-                               final int x = i;
-                               if(x == f.getEndSpot() - 1) {
-                                   if(positionOnTheMap.checkForAvalibalitiOfPosition(paneList.get(x)) == false){
-                                       f.addProcessedPositions();
-                                       f.addPosition(paneList.get(x+1));
-                                       f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x + 1)));
-                                       Platform.runLater(()->paneList.get(x + 1).getChildren().add(sf.getCircle()));
-                                       flag = true;
-
-                                   }else {
-                                       Platform.runLater(() -> paneList.get(x).getChildren().add(sf.getCircle()));
-                                       f.addProcessedPositions();
-                                       f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
-                                       f.addPosition(paneList.get(x));
-                                   }
-                               }else{
-                                   if(positionOnTheMap.checkForAvalibalitiOfPosition(paneList.get(x))== true) {
-                                       f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
-                                       f.addProcessedPositions();
-                                       f.addPosition(paneList.get(x));
-                                       Platform.runLater(()->paneList.get(x).getChildren().add(sf.getCircle()));
-                                   }
-                               }
-                               try{
-                                   sleep(1000);
-                               } catch (InterruptedException e) {
-                                   e.printStackTrace();
-                               }
-                           }else {
-                                    try {
-                                        indexToPrint.wait();
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                           }
-                           if(flag == true) {
-                               f.setEndSpot(f.getEndSpot() + 1);
-                               flag = false;
-                           }
-
-                           if(f.getEndSpot() >= paneList.size()){
-                               final int x = f.getEndSpot() - 1;
-                               Platform.runLater(()->paneList.get(x).getChildren().remove(sf.getCircle()));
-                               f.isDone = true;
-                           }
-                               if(f.getEndSpot()<paneList.size())
-                               positionOnTheMap.addOnMap(this,paneList.get(f.getEndSpot() - 1),f);
-
-                       }else {
-                               holes.setPositionOnTheMap(positionOnTheMap);
-                               holes.processHoles();
-                       }}
-                       else if("Lebdeca figura".equals(f.move())) {
-                           FlyingFigure ff = (FlyingFigure) f;
-                           if(pomjeraj!=5) {
-                               positionOnTheMap.removeFromMap(this,f);
-                               f.setStartSpot(f.getEndSpot());
-                               if((f.getEndSpot() + pomjeraj + f.getBonusPositions()) <= paneList.size()){
-                                   f.setEndSpot(f.getEndSpot() + pomjeraj + f.getBonusPositions());}
-
-
-                               else f.setEndSpot(paneList.size());
-                               Platform.runLater(()->meaningOfCard.setText(this.toString()));
-                               f.resetBonusPositions();
-
-                           for (int i = f.getStartSpot(); i < f.getEndSpot(); i++) {
-                               if (pause == false) {
-                               final int x = i;
-                               if(x == f.getEndSpot() - 1) {
-                                   if(positionOnTheMap.checkForAvalibalitiOfPosition(paneList.get(x))== false){
-                                       f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x + 1)));
-                                       f.addProcessedPositions();
-                                       f.addPosition(paneList.get(x+1));
-                                       Platform.runLater(()->paneList.get(x + 1).getChildren().add(ff.getTriangle()));
-                                       flag = true;
-                                   }else {
-                                       f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
-                                       Platform.runLater(() -> paneList.get(x).getChildren().add(ff.getTriangle()));
-                                       f.addProcessedPositions();
-                                       f.addPosition(paneList.get(x));
-                                   }
-                               }else{
-                                   if(positionOnTheMap.checkForAvalibalitiOfPosition(paneList.get(x))== true) {
-                                       f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
-                                       Platform.runLater(()->paneList.get(x).getChildren().add(ff.getTriangle()));
-                                       f.addProcessedPositions();
-                                       f.addPosition(paneList.get(x));
-
-                                   }
-                               }
-                               try{
-                                   sleep(1000);
-                               } catch (InterruptedException e) {
-                                   e.printStackTrace();
-                               }
-                           } else {
-                                   try {
-                                       indexToPrint.wait();
-                                   } catch (InterruptedException e) {
-                                       e.printStackTrace();
-                                   }
-                               }
-                           }
-
-                               if(flag == true) {
-                                   f.setEndSpot(f.getEndSpot() + 1);
-                                   flag = false;
-                               }
-                           if(f.getEndSpot() >= paneList.size()){
-                               final int x = f.getEndSpot() - 1;
-                               Platform.runLater(()->paneList.get(x).getChildren().remove(ff.getTriangle()));
-                               f.isDone = true;
-                           }
-                           if(f.getEndSpot()<paneList.size())
-                               positionOnTheMap.addOnMap(this,paneList.get(f.getEndSpot() - 1),f);
-
-                       }else {
-                               holes.setPositionOnTheMap(positionOnTheMap);
-
-                               holes.processHoles();
-                       }}
-                       else if("Super brza figura".equals(f.move())){
-
-                           SuperSpeedFigure ssf = (SuperSpeedFigure) f;
-                           if(pomjeraj!=5) {
-                               positionOnTheMap.removeFromMap(this,f);
-                               f.setStartSpot(f.getEndSpot());
-                               if((f.getEndSpot() + (pomjeraj * 2) + f.getBonusPositions()) <= paneList.size()){
-                                   f.setEndSpot(f.getEndSpot() + (pomjeraj * 2) + f.getBonusPositions());}
-                               else f.setEndSpot(paneList.size());
-                               Platform.runLater(()->meaningOfCard.setText(this.toString()));
-                               f.resetBonusPositions();
-
-                           for (int i = f.getStartSpot(); i < f.getEndSpot(); i++) {
-                               if (pause == false) {
-                               final int x = i;
-                               if(x == f.getEndSpot() - 1) {
-                                   if(positionOnTheMap.checkForAvalibalitiOfPosition(paneList.get(x))== false){
-                                       f.addProcessedPositions();
-                                       f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x + 1)));
-                                       Platform.runLater(()->paneList.get(x + 1).getChildren().add(ssf.getRectangle()));
-                                       f.addPosition(paneList.get(x+1));
-                                       flag = true;
-                                   }else {
-                                       f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
-                                       f.addProcessedPositions();
-                                       f.addPosition(paneList.get(x));
-                                       Platform.runLater(() -> paneList.get(x).getChildren().add(ssf.getRectangle()));
-                                   }
-                               }else{
-                                   if(positionOnTheMap.checkForAvalibalitiOfPosition(paneList.get(x))== true) {
-                                       f.setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
-                                       f.addProcessedPositions();
-                                       f.addPosition(paneList.get(x));
-
-                                       Platform.runLater(()->paneList.get(x).getChildren().add(ssf.getRectangle()));
-                                   }
-                               }
-                               try{
-                                   sleep(1000);
-                               } catch (InterruptedException e) {
-                                   e.printStackTrace();
-                               }
-                           }else {
-                                   try {
-                                       indexToPrint.wait();
-                                   } catch (InterruptedException e) {
-                                       e.printStackTrace();
-                                   }
-                               }
-                           }
-                               if(flag == true) {
-                                   f.setEndSpot(f.getEndSpot() + 1);
-                                   flag = false;
-                               }
-                           if(f.getEndSpot() >= paneList.size()){
-                               final int x = f.getEndSpot() - 1;
-                               Platform.runLater(()->paneList.get(x).getChildren().remove(ssf.getRectangle()));
-                               f.isDone = true;
-                           }
-                               if(f.getEndSpot()<paneList.size())
-                               positionOnTheMap.addOnMap(this,paneList.get(f.getEndSpot() - 1),f);
-
-                       }else {
-                               holes.setPositionOnTheMap(positionOnTheMap);
-
-                           holes.processHoles();
-                       }}
-                       indexToPrint.set(nextIndex());
-                       indexToPrint.notifyAll();
-                   }
-                       else{
-                     //      System.out.println("SVE FIGURE ZA IGACA " + this.name + " ZAVRSILE");
-                         //  int p = new File(System.getProperty("user.dir") + File.separator + "rezultati").list().length;
-                         //  System.out.println("broj fajlova " + p);
-                           if(numberOfPlayersThatAreDone!=Controller.getNumberOfPlayers()) {
-                               numberOfPlayersThatAreDone++;
-                           }
-                           indexToPrint.set(nextIndex());
-                           indexToPrint.notifyAll();
-                       }
-               }else {
-                      //    indexToPrint.set(nextIndex());
-                           indexToPrint.notifyAll();
-                       }
-                   }
-           }
-       }*/
+    public int checkForEndSpot(int position) {
+        int temp = position - 1;
+        while(positionOnTheMap.checkForAvalibalitiOfPosition(paneList.get(temp)) == false && temp < paneList.size()) {
+            temp++;
+        }
+        return temp + 1;
+    }
     public List<Pane> getPaneList() {
         return this.paneList;
     }

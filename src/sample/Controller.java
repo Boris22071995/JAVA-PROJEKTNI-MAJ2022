@@ -288,7 +288,7 @@ public class Controller implements Initializable {
             }else {
 
                 synchronized (Player.indexToPrint) {
-                    Player.indexToPrint.notify();
+                    Player.indexToPrint.notifyAll();
                     Figure.pause = false;
                     pause = false;
                     Player.pause = false;

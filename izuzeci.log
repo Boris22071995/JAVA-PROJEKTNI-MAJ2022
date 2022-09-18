@@ -102,3 +102,5 @@ Sep 18, 2022 4:11:37 PM sample.PocetnaStranaController pokupiPodatke
 SEVERE: org.unibl.etf.pj2.projektni.exception.BadNameInputException: Name input are not valid.
 Sep 18, 2022 4:16:55 PM sample.PocetnaStranaController pokupiPodatke
 SEVERE: org.unibl.etf.pj2.projektni.exception.BadNameInputException: Name input are not valid.
+Sep 18, 2022 5:51:01 PM sample.PocetnaStranaController pokupiPodatke
+SEVERE: org.unibl.etf.pj2.projektni.exception.BadNameInputException: Name input are not valid.

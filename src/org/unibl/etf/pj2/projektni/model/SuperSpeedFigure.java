@@ -43,7 +43,7 @@ public class SuperSpeedFigure extends Figure implements MovingWay {
     }
 
     @Override
-    public synchronized void drawFigure()  {
+    public void drawFigure()  {
         synchronized (Player.indexToPrint){
         for(int i = getStartSpot(); i < getEndSpot(); i++) {
             if(pause == true) {
