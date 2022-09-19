@@ -11,8 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.unibl.etf.pj2.projektni.exception.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.logging.*;
 
 public class FirstPageController {
@@ -43,6 +42,9 @@ public class FirstPageController {
 
         @FXML
         public void zapocniIgru(javafx.event.ActionEvent ae) throws IOException {
+            Random rand = new Random();
+            int br = 0;
+            List<String> listOfNamesForShuffel = new ArrayList<>();
         try {
             pokupiPodatke();
         } catch(Exception mse){
@@ -50,13 +52,26 @@ public class FirstPageController {
         }
             FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
         if(brIgraca == 2) {
-        loader.setController(new Controller(xDimenzija, brIgraca, name1, name2));
+            listOfNamesForShuffel.add(name1);
+            listOfNamesForShuffel.add(name2);
+            Collections.shuffle(listOfNamesForShuffel);
+        loader.setController(new Controller(xDimenzija, brIgraca, listOfNamesForShuffel.get(0), listOfNamesForShuffel.get(1)));
         }
         else if(brIgraca == 3) {
-            loader.setController(new Controller(xDimenzija, brIgraca, name1, name2, name3));
+            listOfNamesForShuffel.add(name1);
+            listOfNamesForShuffel.add(name2);
+            listOfNamesForShuffel.add(name3);
+            Collections.shuffle(listOfNamesForShuffel);
+
+                loader.setController(new Controller(xDimenzija, brIgraca, listOfNamesForShuffel.get(0), listOfNamesForShuffel.get(1), listOfNamesForShuffel.get(2)));
         }
         else {
-            loader.setController(new Controller(xDimenzija, brIgraca, name1, name2, name3, name4));
+            listOfNamesForShuffel.add(name1);
+            listOfNamesForShuffel.add(name2);
+            listOfNamesForShuffel.add(name3);
+            listOfNamesForShuffel.add(name4);
+            Collections.shuffle(listOfNamesForShuffel);
+            loader.setController(new Controller(xDimenzija, brIgraca, listOfNamesForShuffel.get(0), listOfNamesForShuffel.get(1), listOfNamesForShuffel.get(2), listOfNamesForShuffel.get(3)));
         }
         if(validInput) {
             Parent root = loader.load();
@@ -169,4 +184,5 @@ public class FirstPageController {
             imeTrecegIgraca.setText("");
             imeCetvrtogIgraca.setText("");
         }
+
 }

@@ -240,5 +240,8 @@ public class Player extends Thread{
         meaningOfCard.setAlignment(Pos.CENTER);
         Platform.runLater(()->meaningOfCard.setText(text));
     }
+    public int getPositionOfPlayer() {
+        return this.positionOfPlayer;
+    }
 
 }
