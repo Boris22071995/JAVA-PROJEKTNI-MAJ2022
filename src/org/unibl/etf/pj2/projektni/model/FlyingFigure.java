@@ -58,13 +58,13 @@ public class FlyingFigure extends Figure implements MovingWay {
                     }
 
                 }
-            else {
             final int x = i;
             if (x == getEndSpot() - 1) {
                 if (potm.checkForAvalibalitiOfPosition(paneList.get(x)) == false) {
                     addProcessedPositions();
                     addPosition(paneList.get(x));
                     addPosition(paneList.get(x + 1));
+                    addTimeIngame();
                     setBonusPositions(ghostFigure.checkForBonus(paneList.get(x + 1)));
                     Platform.runLater(() -> paneList.get(x + 1).getChildren().add(getTriangle()));
                     flag = true;
@@ -72,6 +72,7 @@ public class FlyingFigure extends Figure implements MovingWay {
                     addProcessedPositions();
                     setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
                     addPosition(paneList.get(x));
+                    addTimeIngame();
                     Platform.runLater(() -> paneList.get(x).getChildren().add(getTriangle()));
                 }
             } else {
@@ -79,9 +80,11 @@ public class FlyingFigure extends Figure implements MovingWay {
                     setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
                     addProcessedPositions();
                     addPosition(paneList.get(x));
+                    addTimeIngame();
                     Platform.runLater(() -> paneList.get(x).getChildren().add(getTriangle()));
                 } else {
                     addProcessedPositions();
+                    addTimeIngame();
                     addPosition(paneList.get(x));
                 }
             }
@@ -90,7 +93,7 @@ public class FlyingFigure extends Figure implements MovingWay {
             } catch (InterruptedException e) {
                 LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
             }
-        }}
+        }
 
         if(flag == true) {
             setEndSpot(getEndSpot() + 1);

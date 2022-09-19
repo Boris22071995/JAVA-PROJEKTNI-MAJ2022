@@ -157,6 +157,13 @@ public class Player extends Thread{
                     resultProcessing.processing();
                 }
                 if(numberOfFiguresThatAreDone <= 4){
+                    if(pause == true) {
+                        try {
+                            indexToPrint.wait();
+                        } catch (InterruptedException e) {
+                            LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
+                        }
+                    }
                     PlayingCard pc = consumer.getCard();
                     int pomjeraj = pc.getNumber();
                     if(pomjeraj!=5) {
@@ -188,8 +195,15 @@ public class Player extends Thread{
                         if(f.getEndSpot()<paneList.size())
                             positionOnTheMap.addOnMap(this,paneList.get(f.getEndSpot() - 1),f);
                     } else {
-                        holes.setPositionOnTheMap(positionOnTheMap);
-                        holes.processHoles();
+                        if(pause == true) {
+                            try {
+                                indexToPrint.wait();
+                            } catch (InterruptedException e) {
+                                LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
+                            }
+                        }
+                            holes.setPositionOnTheMap(positionOnTheMap);
+                            holes.processHoles();
                     }
                     indexToPrint.set(nextIndex());
                     indexToPrint.notifyAll();

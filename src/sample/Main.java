@@ -10,7 +10,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("PocetnaStrana.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FirstPage.fxml"));
         Scene scene = new Scene(root, 529, 324);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Diamond circle");

@@ -284,9 +284,10 @@ public class Controller implements Initializable {
                 Figure.pause = true;
                 pause = true;
                 Player.pause = true;
+                myTimer.pause = true;
                 pokreni.setText("Pokreni");
             }else {
-
+                myTimer.pause = false;
                 synchronized (Player.indexToPrint) {
                     Player.indexToPrint.notifyAll();
                     Figure.pause = false;

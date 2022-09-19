@@ -1,6 +1,6 @@
 package org.unibl.etf.pj2.projektni.exception;
 
-import sample.PocetnaStranaController;
+import sample.FirstPageController;
 
 import java.io.IOException;
 import java.util.logging.FileHandler;
@@ -15,7 +15,7 @@ public class LoggingException {
     static {
         try {
             handler = new FileHandler("izuzeci.log",true);
-            logger = Logger.getLogger(PocetnaStranaController.class.getName());
+            logger = Logger.getLogger(FirstPageController.class.getName());
             logger.addHandler(handler);
             handler.setFormatter(new SimpleFormatter());
         }catch (IOException e) {

@@ -24,6 +24,8 @@ public class CrossedPathController implements Initializable {
     GridPane gridPane;
     @FXML
     Pane[][] panes;
+    @FXML
+    Label timeInGame;
     ArrayList<Label> labele = new ArrayList<>();
     List<Pane> tempsss = new ArrayList<>();
     MovingPath mp;
@@ -45,6 +47,7 @@ public class CrossedPathController implements Initializable {
     public  void initialize(URL url, ResourceBundle resources){
             name.setText(this.player.getNames());
             figureName.setText(this.figure.move());
+            timeInGame.setText("Vrijeme u igri: " + String.valueOf(figure.timeInGame()) + " s");
             napraviMatricu();
         mp = new MovingPath(panes,matrixDimension,labele);
         if(matrixDimension%2 == 0)

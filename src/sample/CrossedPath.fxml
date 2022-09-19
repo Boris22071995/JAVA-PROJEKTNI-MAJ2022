@@ -14,12 +14,12 @@
             <Font name="Berlin Sans FB" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="name" layoutX="58.0" layoutY="61.0" prefHeight="18.0" prefWidth="82.0" text="Ime i Prezime">
+      <Label fx:id="name" layoutX="35.0" layoutY="62.0" prefHeight="18.0" prefWidth="82.0" text="Ime i Prezime">
          <font>
             <Font name="Baskerville Old Face" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="figureName" layoutX="231.0" layoutY="62.0" text="Naziv figure">
+      <Label fx:id="figureName" layoutX="267.0" layoutY="62.0" text="Naziv figure">
          <font>
             <Font name="Baskerville Old Face" size="14.0" />
          </font>
@@ -50,5 +50,10 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
+      <Label fx:id="timeInGame" layoutX="139.0" layoutY="62.0" text="Vrijeme u igri: 5s">
+         <font>
+            <Font name="Baskerville Old Face" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

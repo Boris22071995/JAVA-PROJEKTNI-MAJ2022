@@ -19,11 +19,8 @@ public abstract class Figure implements MovingWay {
     int numberOfProcessedPositions = 0;
     List<Pane> processedPath = new ArrayList<>();
     public static boolean pause = false;
-    public static Thread thread = new Thread();
+    int timeInGame = 0;
 
-    public Figure() {
-        super();
-    }
     public Figure(String colour, Pane[][] panes) {
         this.colour = colour;
         this.orginalPanes = panes;
@@ -89,5 +86,11 @@ public abstract class Figure implements MovingWay {
         return this.processedPath;
     }
     public abstract void drawFigure() throws InterruptedException;
+    public void addTimeIngame() {
+        this.timeInGame++;
+    }
+    public int timeInGame() {
+        return this.timeInGame;
+    }
 
 }

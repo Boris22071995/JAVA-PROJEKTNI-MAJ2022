@@ -51,12 +51,13 @@ public class SimpleFigure extends Figure implements MovingWay {
                         } catch (InterruptedException ie) {
                             LoggingException.logger.log(Level.SEVERE, ie.fillInStackTrace().toString());
                         }
-                } else {
+                }
                     final int x = i;
                     if (x == getEndSpot() - 1) {
                         if (potm.checkForAvalibalitiOfPosition(paneList.get(x)) == false) {
                             addProcessedPositions();
                             addPosition(paneList.get(x));
+                            addTimeIngame();
                             addPosition(paneList.get(x + 1));
                             setBonusPositions(ghostFigure.checkForBonus(paneList.get(x + 1)));
                             Platform.runLater(() -> paneList.get(x + 1).getChildren().add(getCircle()));
@@ -65,6 +66,7 @@ public class SimpleFigure extends Figure implements MovingWay {
                             addProcessedPositions();
                             setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
                             addPosition(paneList.get(x));
+                            addTimeIngame();
                             Platform.runLater(() -> paneList.get(x).getChildren().add(getCircle()));
                         }
                     } else {
@@ -72,9 +74,11 @@ public class SimpleFigure extends Figure implements MovingWay {
                             setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
                             addProcessedPositions();
                             addPosition(paneList.get(x));
+                            addTimeIngame();
                             Platform.runLater(() -> paneList.get(x).getChildren().add(getCircle()));
                         } else {
                             addProcessedPositions();
+                            addTimeIngame();
                             addPosition(paneList.get(x));
                         }
                     }
@@ -83,7 +87,7 @@ public class SimpleFigure extends Figure implements MovingWay {
                     } catch (InterruptedException e) {
                         LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
                     }
-                }
+
             }
             if (flag == true) {
                 setEndSpot(getEndSpot() + 1);
