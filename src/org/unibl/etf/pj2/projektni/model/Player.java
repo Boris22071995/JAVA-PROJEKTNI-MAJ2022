@@ -57,6 +57,7 @@ public class Player extends Thread{
     List<Figure> listOfFiguresForResults = new ArrayList<>();
     PlayingDeckForGet pdfg;
     Producer producer;
+    boolean thisPlayerDone = false;
 
 
 
@@ -208,8 +209,9 @@ public class Player extends Thread{
                     indexToPrint.set(nextIndex());
                     indexToPrint.notifyAll();
                 } else {
-                    if(numberOfPlayersThatAreDone!=Controller.getNumberOfPlayers()) {
+                    if(numberOfPlayersThatAreDone!=Controller.getNumberOfPlayers() && thisPlayerDone == false) {
                         numberOfPlayersThatAreDone++;
+                        thisPlayerDone = true;
                     }
                     indexToPrint.set(nextIndex());
                     indexToPrint.notifyAll();

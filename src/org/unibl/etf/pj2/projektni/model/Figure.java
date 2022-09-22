@@ -3,7 +3,9 @@ package org.unibl.etf.pj2.projektni.model;
 import javafx.scene.layout.Pane;
 import org.unibl.etf.pj2.projektni.interfaces.MovingWay;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public abstract class Figure implements MovingWay {
@@ -20,6 +22,12 @@ public abstract class Figure implements MovingWay {
     List<Pane> processedPath = new ArrayList<>();
     public static boolean pause = false;
     int timeInGame = 0;
+    Date timeOfStart;
+    Date timeOfEnd;
+    Date timeInPlay;
+    Date timeOfPause;
+    String timeOfEndForWrite;
+    String timeOfPausedForWrite;
 
     public Figure(String colour, Pane[][] panes) {
         this.colour = colour;
@@ -91,6 +99,25 @@ public abstract class Figure implements MovingWay {
     }
     public int timeInGame() {
         return this.timeInGame;
+    }
+    public void setTimeOfStart() {
+        Date time = new Date(System.currentTimeMillis());
+       // System.out.println(new SimpleDateFormat("HH:mm:ss").format(time));
+        timeOfStart = time;
+    }
+    public void setTimeOfEnd() {
+        Date time = new Date(System.currentTimeMillis());
+      //  System.out.println(new SimpleDateFormat("HH:mm:ss").format(time));
+        timeOfEnd = time;
+    }
+    public void setTimeOfPause() {
+        Date time = new Date(System.currentTimeMillis());
+        timeOfPause = time;
+    }
+    public String calculateTimeOfEndForFigure() {
+        //this.timeInPlay = timeOfEnd - timeOfStart;
+        this.timeOfEndForWrite = new SimpleDateFormat("HH:mm:ss").format(timeOfEnd);
+        return "";
     }
 
 }
