@@ -20,7 +20,7 @@ public class SimpleFigure extends Figure implements MovingWay {
     PositionOnTheMap potm;
     boolean flag = false;
     GhostFigure ghostFigure;
-
+    boolean isFigureisStarted = false;
     public SimpleFigure(String boja, Pane[][] panes, int matrixDimension, MovingPath mp, PositionOnTheMap potm, GhostFigure ghost) {
         super(boja,panes);
         this.startSpot = 0;
@@ -51,6 +51,10 @@ public class SimpleFigure extends Figure implements MovingWay {
                         } catch (InterruptedException ie) {
                             LoggingException.logger.log(Level.SEVERE, ie.fillInStackTrace().toString());
                         }
+                }
+                if(!isFigureisStarted && getStartSpot() == 0) {
+                    this.setTimeOfStart();
+                    isFigureisStarted = true;
                 }
                     final int x = i;
                     if (x == getEndSpot() - 1) {
@@ -97,6 +101,7 @@ public class SimpleFigure extends Figure implements MovingWay {
             if (getEndSpot() >= paneList.size()) {
                 final int x = getEndSpot() - 1;
                 Platform.runLater(() -> paneList.get(x).getChildren().remove(getCircle()));
+                this.setTimeOfStop();
                 isDone = true;
             }
         }

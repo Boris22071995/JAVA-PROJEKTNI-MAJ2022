@@ -45,11 +45,17 @@ public class FirstPageController {
             Random rand = new Random();
             int br = 0;
             List<String> listOfNamesForShuffel = new ArrayList<>();
+
         try {
             pokupiPodatke();
         } catch(Exception mse){
              LoggingException.logger.log(Level.SEVERE, mse.fillInStackTrace().toString());
         }
+            try{
+                checkForNumberOfHoles();
+            }catch (NumberOfHolesException noe) {
+                LoggingException.logger.log(Level.SEVERE, noe.fillInStackTrace().toString());
+            }
             FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
         if(brIgraca == 2) {
             listOfNamesForShuffel.add(name1);
@@ -184,5 +190,21 @@ public class FirstPageController {
             imeTrecegIgraca.setText("");
             imeCetvrtogIgraca.setText("");
         }
+        public void checkForNumberOfHoles() throws IOException, NumberOfHolesException {
+            String path = System.getProperty("user.dir") + File.separator + "brojRupa.txt";
+            File file = new File(path);
+            FileInputStream fis = new FileInputStream(file);
+            BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+            String str = br.readLine();
+            int number = Integer.parseInt(str);
+            if(number > ((xDimenzija * xDimenzija) + 1)/2) {
+                showAlertDialog("Error", "Number of holes are not valid.", Alert.AlertType.ERROR);
+                clearEarlierInpup();
+                throw new NumberOfHolesException();
+            }
+            br.close();
+            fis.close();
+        }
+
 
 }

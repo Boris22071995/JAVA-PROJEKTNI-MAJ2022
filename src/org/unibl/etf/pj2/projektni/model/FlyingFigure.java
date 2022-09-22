@@ -18,6 +18,7 @@ public class FlyingFigure extends Figure implements MovingWay {
     PositionOnTheMap potm;
     GhostFigure ghostFigure;
     boolean flag = false;
+    boolean isFigureisStarted = false;
 
     public FlyingFigure(String boja, Pane[][] panes, int matrixDimension, MovingPath mp, PositionOnTheMap potm, GhostFigure ghost) {
         super(boja, panes);
@@ -58,6 +59,10 @@ public class FlyingFigure extends Figure implements MovingWay {
                     }
 
                 }
+            if(!isFigureisStarted && getStartSpot() == 0) {
+                this.setTimeOfStart();
+                isFigureisStarted = true;
+            }
             final int x = i;
             if (x == getEndSpot() - 1) {
                 if (potm.checkForAvalibalitiOfPosition(paneList.get(x)) == false) {
@@ -102,6 +107,7 @@ public class FlyingFigure extends Figure implements MovingWay {
         if(getEndSpot() >= paneList.size()){
             final int x = getEndSpot() - 1;
             Platform.runLater(()->paneList.get(x).getChildren().remove(getTriangle()));
+            this.setTimeOfStop();
             isDone = true;
         }
     }}

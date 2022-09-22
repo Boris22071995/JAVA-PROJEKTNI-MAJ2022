@@ -1,5 +1,7 @@
 package sample;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -23,6 +26,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import org.unibl.etf.pj2.projektni.exception.LoggingException;
+import org.unibl.etf.pj2.projektni.exception.NumberOfHolesException;
 import org.unibl.etf.pj2.projektni.model.*;
 
 import java.io.*;
@@ -195,8 +199,9 @@ public class Controller implements Initializable {
         try {
             number = readFileWithNumberOfHoles();
         } catch (IOException e) {
-            LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
+            e.printStackTrace();
         }
+
         resultProcessing = new ResultProcessing(mp);
         holes = new Holes(number,mp,mp.getPaneList());
         for(int i = 0;i < tempsss.size();i++) {
@@ -220,6 +225,7 @@ public class Controller implements Initializable {
         label.setText("Trenutni broj odigranih igara: " + p);
 
     }
+
     public void napraviMatricu() {
         panes = new Pane[dimenzijaMatrice][dimenzijaMatrice];
         for(int i = 1; i <= dimenzijaMatrice * dimenzijaMatrice; i++) {

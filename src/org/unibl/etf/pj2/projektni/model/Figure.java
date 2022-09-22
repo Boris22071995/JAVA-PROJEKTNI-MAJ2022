@@ -3,7 +3,9 @@ package org.unibl.etf.pj2.projektni.model;
 import javafx.scene.layout.Pane;
 import org.unibl.etf.pj2.projektni.interfaces.MovingWay;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public abstract class Figure implements MovingWay {
@@ -20,6 +22,8 @@ public abstract class Figure implements MovingWay {
     List<Pane> processedPath = new ArrayList<>();
     public static boolean pause = false;
     int timeInGame = 0;
+    long timeOfStart = 0;
+    long timeOfStop = 0;
 
     public Figure(String colour, Pane[][] panes) {
         this.colour = colour;
@@ -91,6 +95,16 @@ public abstract class Figure implements MovingWay {
     }
     public int timeInGame() {
         return this.timeInGame;
+    }
+    public void setTimeOfStart() {
+        this.timeOfStart = System.currentTimeMillis();
+    }
+    public void setTimeOfStop() {
+        this.timeOfStop = System.currentTimeMillis();
+    }
+    public float getTimeOfPlay() {
+        float sec = (timeOfStop - timeOfStart) / 1000F;
+        return sec;
     }
 
 }

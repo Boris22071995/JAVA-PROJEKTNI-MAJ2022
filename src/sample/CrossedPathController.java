@@ -47,7 +47,10 @@ public class CrossedPathController implements Initializable {
     public  void initialize(URL url, ResourceBundle resources){
             name.setText(this.player.getNames());
             figureName.setText(this.figure.move());
-            timeInGame.setText("Vrijeme u igri: " + String.valueOf(figure.timeInGame()) + " s");
+            if(figure.getIsDone() == false) {
+                figure.setTimeOfStop();
+            }
+            timeInGame.setText("Vrijeme u igri: " + figure.getTimeOfPlay() + "s");
             napraviMatricu();
         mp = new MovingPath(panes,matrixDimension,labele);
         if(matrixDimension%2 == 0)

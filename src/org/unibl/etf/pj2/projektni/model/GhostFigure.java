@@ -19,6 +19,7 @@ public class GhostFigure extends Thread{
     int matrixDimension;
     int bonus;
     int position;
+    boolean firstCircle = true;
     List<LabelForBonuses> labels = new ArrayList<>();
     public GhostFigure(List<Pane> path, int matrixDimension) {
         this.path = path;
@@ -27,6 +28,15 @@ public class GhostFigure extends Thread{
     @Override
     public void run() {
         while(true) {
+            if(firstCircle == true) {
+                try{
+                    System.out.println("PRVI KRUG");
+                    sleep(5000);
+                    firstCircle = false;
+                }catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             Random rand = new Random();
             bonus = rand.nextInt(matrixDimension - 2 + 1) + 2;
             position = rand.nextInt(path.size() - 2);
@@ -41,7 +51,6 @@ public class GhostFigure extends Thread{
 
             }
             try{
-                System.out.println("BROJ BONUS POLJA JE " + positionsOfBonuses.size() + " POZICIJA " + positionsOfBonuses.get(0).getPosition() + " BOnUS + " + positionsOfBonuses.get(0).getBonus());
                 sleep(5000);
             }catch (InterruptedException e) {
                 e.printStackTrace();

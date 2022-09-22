@@ -71,6 +71,7 @@ public class Holes {
                                   Platform.runLater(()->paneList.get(x).getChildren().remove(sf.getCircle()));
                                 //  potm.removeFromMap(player,f);
                                   figuresToRemove.add(f);
+                                  f.setTimeOfStop();
                                   f.isDone = true;
                               }
                           }
@@ -83,6 +84,7 @@ public class Holes {
                                   Platform.runLater(()->paneList.get(x).getChildren().remove(ssf.getRectangle()));
                                  // potm.removeFromMap(player,f);
                                   figuresToRemove.add(f);
+                                  f.setTimeOfStop();
                                   f.isDone = true;
                               }
                           }
