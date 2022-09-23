@@ -59,7 +59,7 @@ public class ResultProcessing {
                     }
                 }
             }
-            bufferedWriter.write("Ukupno vrijeme trajanje igre: " + timeOfPlay);
+            bufferedWriter.write("Ukupno vrijeme trajanje igre: " + timeOfPlay + "s");
             bufferedWriter.close();
             fileWriter.close();
 

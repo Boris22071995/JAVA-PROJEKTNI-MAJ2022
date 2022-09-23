@@ -153,7 +153,8 @@ public class Player extends Thread{
                     numberOfFiguresThatAreDone++;
                 }
                 if(numberOfPlayersThatAreDone == Controller.getNumberOfPlayers()) {
-                    System.out.println("SVI IGRACI SU ZAVRSILI");
+                  //  System.out.println("SVI IGRACI SU ZAVRSILI");
+                    MyTimer.pause = true;
                     resultProcessing.setTimeOfPlay(myTimer.getSecond());
                     resultProcessing.processing();
                 }

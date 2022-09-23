@@ -50,7 +50,7 @@ public class CrossedPathController implements Initializable {
             if(figure.getIsDone() == false) {
                 figure.setTimeOfStop();
             }
-            timeInGame.setText("Vrijeme u igri: " + figure.getTimeOfPlay() + "s");
+            timeInGame.setText("Vrijeme u igri: " + (int)figure.getTimeOfPlay() + "s");
             napraviMatricu();
         mp = new MovingPath(panes,matrixDimension,labele);
         if(matrixDimension%2 == 0)

@@ -30,7 +30,7 @@ public class GhostFigure extends Thread{
         while(true) {
             if(firstCircle == true) {
                 try{
-                    System.out.println("PRVI KRUG");
+                  //  System.out.println("PRVI KRUG");
                     sleep(5000);
                     firstCircle = false;
                 }catch (InterruptedException e) {
@@ -41,12 +41,16 @@ public class GhostFigure extends Thread{
             bonus = rand.nextInt(matrixDimension - 2 + 1) + 2;
             position = rand.nextInt(path.size() - 2);
             int realPosition = getPositionforReal(position);
+            if(realPosition == 0) {
+                realPosition = getPositionforReal(realPosition);
+            }
+            int positionForBonus = realPosition;
             if(positionsOfBonuses.size() <= path.size()) {
                 positionsOfBonuses.add(new BonusPosition(path.get(realPosition), bonus));
                 labels.add(new LabelForBonuses(path.get(realPosition),bonus));
                 LabelForBonuses temp = labels.get(labels.size()-1);
                 Platform.runLater(()->{
-                    path.get(realPosition).getChildren().add(temp.getLabel());
+                    path.get(positionForBonus).getChildren().add(temp.getLabel());
                 });
 
             }
@@ -84,7 +88,12 @@ public class GhostFigure extends Thread{
             if(temp<path.size()) {
                 return temp;
             }else {
-                temp = path.size() - 1;
+                temp = path.size() - 2;
+                for(BonusPosition b : positionsOfBonuses) {
+                    if (b.getPosition() == path.get(temp)){
+                        temp = 0;
+                    }
+                }
                 return temp;
             }
 

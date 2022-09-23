@@ -415,7 +415,7 @@ public class Controller implements Initializable {
         Parent root = loader.load();
         Stage primaryStage = new Stage();
         primaryStage.setTitle("Pređen put");
-        primaryStage.setScene(new Scene(root, 368, 400));
+        primaryStage.setScene(new Scene(root, 368, 448));
         primaryStage.show();
     }
     @FXML
