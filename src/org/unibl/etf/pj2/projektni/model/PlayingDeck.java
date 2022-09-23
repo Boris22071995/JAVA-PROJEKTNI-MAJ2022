@@ -13,26 +13,36 @@ import java.util.Random;
 
 public class PlayingDeck{
     PlayingCard[] cards = new PlayingCard[52];
+    RegularPlayingCard[] regularCards = new RegularPlayingCard[40];
+    SpecialPlayingCard[] specialCards = new SpecialPlayingCard[12];
     ImageView imageView;
     List<String> stringList= new ArrayList<String>();
     Label meaningOfCard;
     List<PlayingCard> deck = new ArrayList<>();
 
-    /*
-     File file = new File("karte/1.png");
-        Image image = new Image(file.toURI().toString());
-        //imageView = new ImageView(image);
-        imageView.setImage(image);
-     */
+
 
     public PlayingDeck() {
         int br = 0;
+        int br2 = 0;
         for(int i = 0; i < 40; i+=4)
             for(int j = 0; j < 4; j++) {
-                cards[br++] = new PlayingCard(j+1,"karte/"+ (j+1) +".png","Obicna karta, figura prelazi " + j+1 + "polja.");
+                regularCards[br++] = new RegularPlayingCard(j+1, System.getProperty("user.dir") + File.separator + "karte" + File.separator + (j+1) + ".png");
+              //  cards[br++] = new PlayingCard(j+1,"karte/"+ (j+1) +".png");
             }
         for(int i = 40; i < 52; i++)
-            cards[i]  = new PlayingCard(5,"karte/5.png","Specijalna karta, figura prelazi zadati broj polja.");
+            specialCards[br2++] = new SpecialPlayingCard(5,System.getProperty("user.dir") + File.separator + "karte" + File.separator + "5.png");
+            //cards[i]  = new PlayingCard(5,"karte/5.png");
+        for(int i = 0; i < 40; i++) {
+            cards[i] = regularCards[i];
+        }
+        int temp = 0;
+        for(int i = 40; i < 52; i++) {
+            cards[i] = specialCards[temp++];
+        }
+
+
+        shuffel();
         shuffel();
         shuffel();
         addStrings();

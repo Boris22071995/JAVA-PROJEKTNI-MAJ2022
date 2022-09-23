@@ -167,7 +167,7 @@ public class Player extends Thread{
                     }
                     PlayingCard pc = consumer.getCard();
                     int pomjeraj = pc.getNumber();
-                    if(pomjeraj!=5) {
+                    if("Regular card".equals(pc.meaning())) {
                         positionOnTheMap.removeFromMap(this,f);
                         f.setStartSpot(f.getEndSpot());
                         if("Super brza figura".equals(f.move())) {

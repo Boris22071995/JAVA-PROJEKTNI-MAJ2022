@@ -1,18 +1,18 @@
 package org.unibl.etf.pj2.projektni.model;
 
-public class PlayingCard {
+import org.unibl.etf.pj2.projektni.interfaces.MeaningOfCard;
+
+public class PlayingCard implements MeaningOfCard{
     int number;
     String imagePath;
-    String meaning; //specijalna ili obicna
 
     public PlayingCard() {
         super();
     }
 
-    public PlayingCard(int number, String imagePath, String meaning) {
+    public PlayingCard(int number, String imagePath) {
         this.number = number;
         this.imagePath = imagePath;
-        this.meaning = meaning;
     }
 
     public int getNumber() {
@@ -31,12 +31,8 @@ public class PlayingCard {
         this.imagePath = imagePath;
     }
 
-    public String getMeaning() {
-        return meaning;
+    @Override
+    public String meaning() {
+        return "Card";
     }
-
-    public void setMeaning(String meaning) {
-        this.meaning = meaning;
-    }
-
 }
