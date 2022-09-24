@@ -16,7 +16,6 @@ public class PositionOnTheMap {
     public void addOnMap(Player player, Pane position, Figure figure) {
             FigureOnMap fom = new FigureOnMap(player,position,figure);
             figuresOnMap.add(fom);
-        //System.out.println("DODANO U LISTU"+figuresOnMap.size());
     }
     public void removeFromMap(Player player, Figure figure) {
         if(figuresOnMap.size()!=0) {

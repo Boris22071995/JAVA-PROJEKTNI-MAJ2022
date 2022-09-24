@@ -182,3 +182,17 @@ Sep 24, 2022 1:17:07 PM sample.FirstPageController zapocniIgru
 SEVERE: org.unibl.etf.pj2.projektni.exception.NumberOfHolesException: Number of holes are not valid.
 Sep 24, 2022 1:17:22 PM sample.FirstPageController zapocniIgru
 SEVERE: org.unibl.etf.pj2.projektni.exception.NumberOfHolesException: Number of holes are not valid.
+Sep 24, 2022 10:14:46 PM sample.FirstPageController zapocniIgru
+SEVERE: org.unibl.etf.pj2.projektni.exception.MatrixSizeException: Matrix dimension is not valid.
+Sep 24, 2022 10:14:49 PM sample.FirstPageController zapocniIgru
+SEVERE: org.unibl.etf.pj2.projektni.exception.NumberOfHolesException: Number of holes are not valid.
+Sep 24, 2022 10:14:56 PM sample.FirstPageController zapocniIgru
+SEVERE: java.lang.NumberFormatException: For input string: ""
+Sep 24, 2022 10:14:58 PM sample.FirstPageController zapocniIgru
+SEVERE: org.unibl.etf.pj2.projektni.exception.NumberOfHolesException: Number of holes are not valid.
+Sep 24, 2022 10:15:11 PM sample.FirstPageController pokupiPodatke
+SEVERE: org.unibl.etf.pj2.projektni.exception.BadNameInputException: Name input are not valid.
+Sep 24, 2022 10:15:17 PM sample.FirstPageController zapocniIgru
+SEVERE: org.unibl.etf.pj2.projektni.exception.NumberOfPlayersException: Number of players are not valid.
+Sep 24, 2022 10:15:23 PM sample.FirstPageController zapocniIgru
+SEVERE: org.unibl.etf.pj2.projektni.exception.NumberOfPlayersException: Number of players are not valid.

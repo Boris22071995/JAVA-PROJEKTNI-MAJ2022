@@ -139,11 +139,13 @@ public class Player extends Thread{
                     numberOfFiguresThatAreDone++;
                 }
                 if(numberOfPlayersThatAreDone == Controller.getNumberOfPlayers()) {
+                    Platform.runLater(() -> meaningOfCard.setText("Kraj igre."));
                     MyTimer.pause = true;
                     resultProcessing.setTimeOfPlay(myTimer.getSecond());
                     resultProcessing.processing();
                     ghostFigure.setRunning();
-
+                    System.out.println("KRAJ");
+                    return;
                 }
                 if(numberOfFiguresThatAreDone <= 4){
                     if(pause) {
