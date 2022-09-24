@@ -2,6 +2,7 @@ package org.unibl.etf.pj2.projektni.model;
 
 import javafx.application.Platform;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -138,10 +139,11 @@ public class Player extends Thread{
                     numberOfFiguresThatAreDone++;
                 }
                 if(numberOfPlayersThatAreDone == Controller.getNumberOfPlayers()) {
-                  //  System.out.println("SVI IGRACI SU ZAVRSILI");
                     MyTimer.pause = true;
                     resultProcessing.setTimeOfPlay(myTimer.getSecond());
                     resultProcessing.processing();
+                    ghostFigure.setRunning();
+
                 }
                 if(numberOfFiguresThatAreDone <= 4){
                     if(pause) {
@@ -208,7 +210,7 @@ public class Player extends Thread{
     }
     public int checkForEndSpot(int position) {
         int temp = position - 1;
-        while(positionOnTheMap.checkForAvalibalitiOfPosition(paneList.get(temp)) == false && temp < paneList.size()) {
+        while(!positionOnTheMap.checkForAvalibalitiOfPosition(paneList.get(temp)) && temp < paneList.size()) {
             temp++;
         }
         return temp + 1;

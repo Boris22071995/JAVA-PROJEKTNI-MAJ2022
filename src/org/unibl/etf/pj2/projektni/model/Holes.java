@@ -77,7 +77,6 @@ public class Holes {
                               if (paneList.get(z) == position) {
                                   final int x = z;
                                   Platform.runLater(() -> paneList.get(x).getChildren().remove(ssf.getRectangle()));
-                                  // potm.removeFromMap(player,f);
                                   figuresToRemove.add(f);
                                   f.setTimeOfStop();
                                   f.isDone = true;
@@ -90,14 +89,13 @@ public class Holes {
                                   final int x = z;
                                   Platform.runLater(() -> paneList.get(x).getChildren().remove(ff.getTriangle()));
                                   listOfFlyingFigure.add(f);
-                                  potm.removeFromMap(player, f);
-                                  potm.addOnMap(player, position, f);
                               }
                           }
                       }
                   }
               }
           }
+
         for (Figure f : figuresToRemove) {
             Player temporaryPlayer = null;
             for (Player listOfPlayer : listOfPlayers) {

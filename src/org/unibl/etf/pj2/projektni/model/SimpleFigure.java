@@ -79,6 +79,7 @@ public class SimpleFigure extends Figure implements MovingWay {
                             addTimeIngame();
                             Platform.runLater(() -> paneList.get(x).getChildren().add(getCircle()));
                         } else {
+                            setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
                             addProcessedPositions();
                             addTimeIngame();
                             addPosition(paneList.get(x));

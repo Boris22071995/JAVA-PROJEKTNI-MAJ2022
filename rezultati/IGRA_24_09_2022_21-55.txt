@@ -1,0 +1,21 @@
+Igrač 1 - a
+	Figura 1(Obicna figura, crvena) - pređeni put (4-12-20-28-34-40-46-38-30-22-16-10-11) - stigla do cilja (NE) 
+	Figura 2(Super brza figura, crvena) - pređeni put (4-12-20-28-34-40-46-38-30-22-16-10-11-19-27-33-39-31-23-17-18-26) - stigla do cilja (NE) 
+	Figura 3(Super brza figura, crvena) - pređeni put (4-12-20-28-34-40-46-38-30-22-16-10-11-19-27-33-39-31-23-17-18-26-32-24-25) - stigla do cilja (DA) 
+	Figura 4(Lebdeca figura, crvena) - pređeni put (4-12-20-28-34-40-46-38-30-22-16-10-11-19-27-33-39-31-23-17-18-26-32-24-25) - stigla do cilja (DA) 
+Igrač 2 - b
+	Figura 1(Super brza figura, žuta) - pređeni put (4-12-20-28-34-40-46-38-30-22-16-10) - stigla do cilja (NE) 
+	Figura 2(Lebdeca figura, žuta) - pređeni put (4-12-20-28-34-40-46-38-30-22-16-10-11-19-27-33-39-31-23-17-18-26-32-24-25) - stigla do cilja (DA) 
+	Figura 3(Super brza figura, žuta) - pređeni put (4-12-20-28-34-40-46-38-30-22-16-10-11-19-27-33-39-31-23-17-18-26-32-24-25) - stigla do cilja (DA) 
+	Figura 4(Super brza figura, žuta) - pređeni put (4-12-20-28-34-40-46-38-30-22-16-10-11-19-27-33-39-31-23-17-18-26-32-24-25) - stigla do cilja (DA) 
+Igrač 3 - d
+	Figura 1(Lebdeca figura, zelena) - pređeni put (4-12-20-28-34-40-46-38-30-22-16-10-11-19-27-33-39-31-23-17-18-26-32-24-25) - stigla do cilja (DA) 
+	Figura 2(Obicna figura, zelena) - pređeni put (4) - stigla do cilja (NE) 
+	Figura 3(Lebdeca figura, zelena) - pređeni put (4-12-20-28-34-40-46-38-30-22-16-10-11-19-27-33-39-31-23-17-18-26-32-24-25) - stigla do cilja (DA) 
+	Figura 4(Obicna figura, zelena) - pređeni put (4-12-20-28-34-40-46-38-30-22-16-10-11-19-27-33-39-31-23-17-18-26-32-24-25) - stigla do cilja (DA) 
+Igrač 4 - c
+	Figura 1(Obicna figura, plava) - pređeni put (4-12-20-28-34-40) - stigla do cilja (NE) 
+	Figura 2(Super brza figura, plava) - pređeni put (4-12-20-28-34-40) - stigla do cilja (NE) 
+	Figura 3(Obicna figura, plava) - pređeni put (4-12-20-28) - stigla do cilja (NE) 
+	Figura 4(Lebdeca figura, plava) - pređeni put (4-12-20-28-34-40-46-38-30-22-16-10-11-19-27-33-39-31-23-17-18-26-32-24-25) - stigla do cilja (DA) 
+Ukupno vrijeme trajanje igre: 326s

@@ -1,0 +1,21 @@
+Igrač 1 - B
+	Figura 1(Super brza figura, crvena) - pređeni put (6-17-28-39-50-59) - stigla do cilja (NE) 
+	Figura 2(Super brza figura, crvena) - pređeni put (6-17-28-39-50-59-68-77-86-95-84-73-62-51-42-33-24-15-16-27-38-49-58) - stigla do cilja (NE) 
+	Figura 3(Obicna figura, crvena) - pređeni put (6-17-28-39-50-59-68) - stigla do cilja (NE) 
+	Figura 4(Super brza figura, crvena) - pređeni put (6-17-28-39-50-59-68-77-86-95-84-73-62-51-42-33-24-15-16-27-38-49-58-67-76-85-74-63-52-43-34-25-26-37-48-57-66-75-64-53-44-35-36-47-56-65-54-45-46-55) - stigla do cilja (DA) 
+Igrač 2 - D
+	Figura 1(Super brza figura, žuta) - pređeni put (6-17-28-39-50-59-68-77) - stigla do cilja (NE) 
+	Figura 2(Lebdeca figura, žuta) - pređeni put (6-17-28-39-50-59-68-77-86-95-84-73-62-51-42-33-24-15-16-27-38-49-58-67-76-85-74-63-52-43-34-25-26-37-48-57-66-75-64-53-44-35-36-47-56-65-54-45-46-55) - stigla do cilja (DA) 
+	Figura 3(Super brza figura, žuta) - pređeni put (6-17-28-39-50-59-68-77-86-95-84-73-62-51-42-33-24-15-16-27-38-49-58-67-76-85-74-63-52-43-34-25-26-37-48-57-66-75-64-53-44-35-36-47-56-65-54-45-46-55) - stigla do cilja (DA) 
+	Figura 4(Lebdeca figura, žuta) - pređeni put (6-17-28-39-50-59-68-77-86-95-84-73-62-51-42-33-24-15-16-27-38-49-58-67-76-85-74-63-52-43-34-25-26-37-48-57-66-75-64-53-44-35-36-47-56-65-54-45-46-55) - stigla do cilja (DA) 
+Igrač 3 - C
+	Figura 1(Super brza figura, zelena) - pređeni put (6-17) - stigla do cilja (NE) 
+	Figura 2(Obicna figura, zelena) - pređeni put (6-17) - stigla do cilja (NE) 
+	Figura 3(Obicna figura, zelena) - pređeni put (6) - stigla do cilja (NE) 
+	Figura 4(Super brza figura, zelena) - pređeni put (6-17-28-39) - stigla do cilja (NE) 
+Igrač 4 - A
+	Figura 1(Super brza figura, plava) - pređeni put (6-17-28-39-50-59) - stigla do cilja (NE) 
+	Figura 2(Lebdeca figura, plava) - pređeni put (6-17-28-39-50-59-68-77-86-95-84-73-62-51-42-33-24-15-16-27-38-49-58-67-76-85-74-63-52-43-34-25-26-37-48-57-66-75-64-53-44-35-36-47-56-65-54-45-46-55) - stigla do cilja (DA) 
+	Figura 3(Obicna figura, plava) - pređeni put (6-17-28-39-50-59-68-77-86-95-84-73-62-51-42-33-24-15-16-27-38-49-58-67-76-85-74-63-52-43-34-25-26-37-48-57-66-75-64-53-44-35-36-47-56-65-54-45-46-55) - stigla do cilja (DA) 
+	Figura 4(Obicna figura, plava) - pređeni put (6-17) - stigla do cilja (NE) 
+Ukupno vrijeme trajanje igre: 400s

@@ -17,6 +17,7 @@ public class GhostFigure extends Thread{
     int bonus;
     int position;
     boolean firstCircle = true;
+    boolean running = true;
     List<LabelForBonuses> labels = new ArrayList<>();
     public GhostFigure(List<Pane> path, int matrixDimension) {
         this.path = path;
@@ -24,7 +25,7 @@ public class GhostFigure extends Thread{
     }
     @Override
     public void run() {
-        while(true) {
+        while(running) {
             if(firstCircle) {
                 try{
                     sleep(5000);
@@ -159,6 +160,9 @@ public class GhostFigure extends Thread{
         public void setBonus(int bonus) {
             this.bonus = bonus;
         }
+    }
+    public void setRunning(){
+        this.running = false;
     }
 
 }
