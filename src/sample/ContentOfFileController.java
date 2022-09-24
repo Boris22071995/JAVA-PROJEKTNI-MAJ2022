@@ -2,7 +2,6 @@ package sample;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import org.unibl.etf.pj2.projektni.exception.LoggingException;
 
@@ -23,21 +22,15 @@ public class ContentOfFileController implements Initializable {
     public ContentOfFileController(String path) {
         this.path = path;
     }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try (Stream<String> lines = Files.lines(Paths.get(path), Charset.defaultCharset())) {
-            lines.forEachOrdered(line -> process(line));
+            lines.forEachOrdered(this::process);
         } catch (IOException e) {
             LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
         }
         textArea.setText(text);
     }
-
     private void process(String line) {
         text+= line+"\n";
     }

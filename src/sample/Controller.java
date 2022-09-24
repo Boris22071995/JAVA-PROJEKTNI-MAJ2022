@@ -1,16 +1,11 @@
 package sample;
-import javafx.application.Platform;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -19,21 +14,17 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import org.unibl.etf.pj2.projektni.exception.LoggingException;
-import org.unibl.etf.pj2.projektni.exception.NumberOfHolesException;
 import org.unibl.etf.pj2.projektni.model.*;
 
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 
@@ -76,7 +67,6 @@ public class Controller implements Initializable {
     Label meaningOfCard = new Label();
     @FXML
     Button files;
-
     String bojaPrvogIgraca;
     String bojaDrugogIgraca;
     String bojaTrecegIgraca;
@@ -84,16 +74,10 @@ public class Controller implements Initializable {
 
     boolean firstRun = false;
     boolean pause = false;
-
-
     Player player1;
     Player player2;
     Player player3;
-    Player player4;  //C:\Users\Boris\OneDrive\Desktop\JAVA-PROJEKTNI-MAJ2022\karte
-
-    List<PlayingCard> pastCards = new ArrayList<>();
-
-    Boolean on = false;
+    Player player4;
     @FXML
     Label timerLabel;
     int dimenzijaMatrice;
@@ -103,17 +87,12 @@ public class Controller implements Initializable {
     String ime3;
     String ime4;
     ArrayList<Label> labele = new ArrayList<>();
-    ArrayList<Figure> sveFigure = new ArrayList<>();
-    PlayingDeck pd;
-    List<Figure> figures;
     PositionOnTheMap positionOnTheMap = new PositionOnTheMap();
     static int numberOfPlayers;
-    //Test
     List<Pane> tempsss = new ArrayList<>();
     private final PlayingDeck playingDeck;
     List<Player> listOfPlayers = new ArrayList<>();
     MovingPath mp;
-    GhostFigure ghost;
     Holes holes;
     ResultProcessing resultProcessing;
     MyTimer myTimer;
@@ -121,8 +100,6 @@ public class Controller implements Initializable {
     PlayingDeckForGet pdfg;
     Producer producer;
     Consumer consumer;
-
-    int brojac = 0;
     public Controller(List<String> listOfNames, int numberOfPlayer, int matrixDimension) {
         this.listOfNames = listOfNames;
         if(numberOfPlayer == 2) {
@@ -142,18 +119,16 @@ public class Controller implements Initializable {
         this.dimenzijaMatrice = matrixDimension;
         this.playingDeck = new PlayingDeck();
         numberOfPlayers = numberOfPlayer;
-
     }
-    public Controller(int dimenzijaMatrice, int brojIgraca, String ime1, String ime2) throws IOException {
+    public Controller(int dimenzijaMatrice, int brojIgraca, String ime1, String ime2){
        this.dimenzijaMatrice = dimenzijaMatrice;
        this.brojIgraca = brojIgraca;
        this.ime1 = ime1;
        this.ime2 = ime2;
        this.playingDeck = new PlayingDeck();
        numberOfPlayers = brojIgraca;
-
    }
-    public Controller(int dimenzijaMatrice, int brojIgraca, String ime1, String ime2, String ime3) throws IOException {
+    public Controller(int dimenzijaMatrice, int brojIgraca, String ime1, String ime2, String ime3){
        this.dimenzijaMatrice = dimenzijaMatrice;
        this.brojIgraca = brojIgraca;
        this.ime1 = ime1;
@@ -162,7 +137,7 @@ public class Controller implements Initializable {
        this.playingDeck = new PlayingDeck();
        numberOfPlayers = brojIgraca;
    }
-    public Controller(int dimenzijaMatrice, int brojIgraca, String ime1, String ime2, String ime3, String ime4) throws IOException {
+    public Controller(int dimenzijaMatrice, int brojIgraca, String ime1, String ime2, String ime3, String ime4){
        this.dimenzijaMatrice = dimenzijaMatrice;
        this.brojIgraca = brojIgraca;
        this.ime1 = ime1;
@@ -201,31 +176,29 @@ public class Controller implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         resultProcessing = new ResultProcessing(mp);
         holes = new Holes(number,mp,mp.getPaneList());
-        for(int i = 0;i < tempsss.size();i++) {
-            tempsss.get(i).setStyle("-fx-border-color: black; -fx-background-color:rgba(255, 255, 255, 0.87);");
+        for (Pane pane : tempsss) {
+            pane.setStyle("-fx-border-color: black; -fx-background-color:rgba(255, 255, 255, 0.87);");
         }
         pdfg = new PlayingDeckForGet(playingDeck);
         producer = new Producer(pdfg);
         consumer = new Consumer(pdfg,imageView);
         podesavanjeImena();
-        List<Pane> temp = new ArrayList<>();
+        List<Pane> temp;
         temp = player1.getPaneList();
-        for(int i = 0; i < temp.size();i++) {
-            temp.get(i).setStyle("-fx-border-color: black; -fx-background-color:rgba(0, 129, 255, 0.3)"); //lightred 255,99,71,0.5 light blude 0, 129, 255, 0.3
+        for (Pane pane : temp) {
+            pane.setStyle("-fx-border-color: black; -fx-background-color:rgba(0, 129, 255, 0.3)"); //lightred 255,99,71,0.5 light blude 0, 129, 255, 0.3
         }
-        File file = new File("karte/6.png");
+        File file = new File(System.getProperty("user.dir") + File.separator + "karte" + File.separator  + "6.png");
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
         createPathForFigure();
         meaningOfCard.setWrapText(true);
-        int p = new File(System.getProperty("user.dir") + File.separator + "rezultati").list().length;
+        int p = Objects.requireNonNull(new File(System.getProperty("user.dir") + File.separator + "rezultati").list()).length;
         label.setText("Trenutni broj odigranih igara: " + p);
-
+        meaningOfCard.setText("\t \t \t \t" + "Opis značenja karte");
     }
-
     public void napraviMatricu() {
         panes = new Pane[dimenzijaMatrice][dimenzijaMatrice];
         for(int i = 1; i <= dimenzijaMatrice * dimenzijaMatrice; i++) {
@@ -245,10 +218,8 @@ public class Controller implements Initializable {
                     panes[i][j].setMinWidth(20);
                     panes[i][j].setMinHeight(20);
                 }
-
                 panes[i][j].setStyle("-fx-border-color: black;"); //-fx-background-color:rgba(255, 255, 255, 0.87);
             }
-
         for(int i = 0; i < dimenzijaMatrice; i++)
             for(int j = 0; j < dimenzijaMatrice; j++)
             {
@@ -277,23 +248,19 @@ public class Controller implements Initializable {
     }
     @FXML
     public void zapocni(javafx.event.ActionEvent ae) throws InterruptedException {
-         //   List<Player> igraci = new ArrayList<Player>();
-            if(firstRun == false) {
-             //   igraci.add(player1);
-             //   igraci.add(player2);
-                for (int i = 0; i < listOfPlayers.size(); i++) listOfPlayers.get(i).start();
+            if(!firstRun) {
+                for (Player listOfPlayer : listOfPlayers) listOfPlayer.start();
                 firstRun = true;
                 pokreni.setText("Zaustavi");
-
             }else {
-            if(pause == false && firstRun == true) {
+            if(!pause && firstRun) {
                 Figure.pause = true;
                 pause = true;
                 Player.pause = true;
-                myTimer.pause = true;
+                MyTimer.pause = true;
                 pokreni.setText("Pokreni");
             }else {
-                myTimer.pause = false;
+                MyTimer.pause = false;
                 synchronized (Player.indexToPrint) {
                     Player.indexToPrint.notifyAll();
                     Figure.pause = false;
@@ -304,8 +271,6 @@ public class Controller implements Initializable {
                 pokreni.setText("Zaustavi");
 
             } }
-
-
    }
     public void podesavanjeImena() {
         GhostFigure ghostFigure;
@@ -315,7 +280,7 @@ public class Controller implements Initializable {
             ime3Label.setText(ime2);
             ime1Label.setVisible(false);
             ime4Label.setVisible(false);
-            bojaPrvogIgraca = "zuta";
+            bojaPrvogIgraca = "žuta";
             bojaDrugogIgraca = "zelena";
             player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing,myTimer,pdfg,producer,consumer);
             player2 = new Player(ime2, bojaDrugogIgraca, panes,dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing,myTimer,pdfg,producer,consumer);
@@ -331,7 +296,7 @@ public class Controller implements Initializable {
            ime2Label.setAlignment(Pos.CENTER);
            ime3Label.setAlignment(Pos.CENTER_RIGHT);
            bojaPrvogIgraca = "crvena";
-           bojaDrugogIgraca = "zuta";
+           bojaDrugogIgraca = "žuta";
            bojaTrecegIgraca = "zelena";
            player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing,myTimer,pdfg,producer,consumer);
            player2 = new Player(ime2, bojaDrugogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,2,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing,myTimer,pdfg,producer,consumer);
@@ -346,7 +311,7 @@ public class Controller implements Initializable {
            ime3Label.setText(ime3);
            ime4Label.setText(ime4);
            bojaPrvogIgraca = "crvena";
-           bojaDrugogIgraca = "zuta";
+           bojaDrugogIgraca = "žuta";
            bojaTrecegIgraca = "zelena";
            bojaCetvrtogIgraca = "plava";
            player1 = new Player(ime1, bojaPrvogIgraca, panes, dimenzijaMatrice,playingDeck,imageView,positionOnTheMap,1,ghostFigure, labele, meaningOfCard, timerLabel, holes,resultProcessing,myTimer,pdfg,producer,consumer);
@@ -357,13 +322,12 @@ public class Controller implements Initializable {
            listOfPlayers.add(player2);
            listOfPlayers.add(player3);
            listOfPlayers.add(player4);
-
        }
     }
     public void createPathForFigure() {
         List<Figure> figureList = new ArrayList<>();
-        for(int i = 0; i < listOfPlayers.size(); i++) {
-            figureList.addAll(listOfPlayers.get(i).getFigure());
+        for (Player listOfPlayer : listOfPlayers) {
+            figureList.addAll(listOfPlayer.getFigure());
         }
         int temp = 0;
         for(int i = 0; i < listOfPlayers.size(); i++) {
@@ -384,17 +348,6 @@ public class Controller implements Initializable {
                         LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
                     }
                 });
-       /*         label.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        try {
-                            doOnClick(listOfPlayers.get(pl),f);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });*/
-
             }
         }
     }
@@ -433,9 +386,6 @@ public class Controller implements Initializable {
         FileInputStream fis = new FileInputStream(file);
         BufferedReader br = new BufferedReader(new InputStreamReader(fis));
         String str = br.readLine();
-        int number = Integer.parseInt(str);
-        return number;
+        return Integer.parseInt(str);
     }
-
-
 }

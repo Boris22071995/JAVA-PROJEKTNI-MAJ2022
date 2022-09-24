@@ -1,21 +1,18 @@
 package org.unibl.etf.pj2.projektni.model;
 
 import javafx.application.Platform;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class GhostFigure extends Thread{
-    List<Pane> path = new ArrayList<>();
+    List<Pane> path;
     List<BonusPosition> positionsOfBonuses = new ArrayList<>();
-    int numberOfPositions;
     int matrixDimension;
     int bonus;
     int position;
@@ -28,9 +25,8 @@ public class GhostFigure extends Thread{
     @Override
     public void run() {
         while(true) {
-            if(firstCircle == true) {
+            if(firstCircle) {
                 try{
-                  //  System.out.println("PRVI KRUG");
                     sleep(5000);
                     firstCircle = false;
                 }catch (InterruptedException e) {
@@ -49,9 +45,7 @@ public class GhostFigure extends Thread{
                 positionsOfBonuses.add(new BonusPosition(path.get(realPosition), bonus));
                 labels.add(new LabelForBonuses(path.get(realPosition),bonus));
                 LabelForBonuses temp = labels.get(labels.size()-1);
-                Platform.runLater(()->{
-                    path.get(positionForBonus).getChildren().add(temp.getLabel());
-                });
+                Platform.runLater(()-> path.get(positionForBonus).getChildren().add(temp.getLabel()));
 
             }
             try{
@@ -75,22 +69,20 @@ public class GhostFigure extends Thread{
                     }
                 }
                 final LabelForBonuses tmp = lfb;
-                Platform.runLater(()->{
-                    pane.getChildren().remove(tmp.getLabel());
-                });
+                Platform.runLater(()-> pane.getChildren().remove(tmp.getLabel()));
             }
         }
         return bonus;
     }
     public int getPositionforReal(int position) {
         int temp = position;
-            while (isPositionFree(temp) != true && temp < path.size()){temp++;} ;
+            while (!isPositionFree(temp) && temp < path.size()){temp++;}
             if(temp<path.size()) {
                 return temp;
             }else {
                 temp = path.size() - 2;
                 for(BonusPosition b : positionsOfBonuses) {
-                    if (b.getPosition() == path.get(temp)){
+                    if (b.getPosition() == path.get(temp)) {
                         temp = 0;
                     }
                 }
@@ -101,8 +93,8 @@ public class GhostFigure extends Thread{
     public boolean isPositionFree(int position) {
         if(position < path.size()) {
             Pane pane = path.get(position);
-            for (int i = 0; i < positionsOfBonuses.size(); i++) {
-                if (positionsOfBonuses.get(i).getPosition() == pane)
+            for (BonusPosition positionsOfBonus : positionsOfBonuses) {
+                if (positionsOfBonus.getPosition() == pane)
                     return false;
             }
             return true;
@@ -118,19 +110,15 @@ public class GhostFigure extends Thread{
             this.bonus = bonus;
             this.position = position;
         }
-
         public Pane getPosition() {
             return position;
         }
-
         public void setPosition(Pane position) {
             this.position = position;
         }
-
         public int getBonus() {
             return bonus;
         }
-
         public void setBonus(int bonus) {
             this.bonus = bonus;
         }

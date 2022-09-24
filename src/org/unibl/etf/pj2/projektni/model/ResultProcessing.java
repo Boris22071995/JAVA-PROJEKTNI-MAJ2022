@@ -13,13 +13,12 @@ import java.util.List;
 import java.util.logging.Level;
 
 public class ResultProcessing {
-    String path;
     List<Player> listOfPlayers = new ArrayList<>();
     boolean isDone = false;
     MovingPath mp;
     int timeOfPlay;
 
-    List<Integer> numbersOfProcessedPath = new ArrayList<>();
+    List<Integer> numbersOfProcessedPath;
     public ResultProcessing(MovingPath mp){
         this.mp = mp;
         numbersOfProcessedPath = mp.getNumbers();
@@ -28,15 +27,13 @@ public class ResultProcessing {
         this.timeOfPlay = time;
     }
     public void processing() {
-        if(isDone == false) {
-        int p = new File(System.getProperty("user.dir") + File.separator + "rezultati").list().length;
+        if(!isDone) {
         DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("dd_MM_yyyy_HH-mm");
         LocalDateTime dateAndTime = LocalDateTime.now();
         String temp = "IGRA_"+formatTime.format(dateAndTime)+".txt";
         String path = System.getProperty("user.dir") + File.separator + "rezultati" + File.separator + temp;
         File file = new File(path);
         try {
-            file.createNewFile();
             FileWriter fileWriter = new FileWriter(file, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             for(int i = 0; i < listOfPlayers.size(); i++) {

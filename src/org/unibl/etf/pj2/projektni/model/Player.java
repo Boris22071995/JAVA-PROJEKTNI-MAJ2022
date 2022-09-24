@@ -2,18 +2,11 @@ package org.unibl.etf.pj2.projektni.model;
 
 import javafx.application.Platform;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import org.unibl.etf.pj2.projektni.exception.LoggingException;
 import sample.Controller;
-
-import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -25,13 +18,11 @@ public class Player extends Thread{
     static public final AtomicInteger indexToPrint = new AtomicInteger(0);
     static private int threadNumber = 0;
     final private int index;
-    static int numberOfFiguresThatEnd = 0;
     static int numberOfPlayersThatAreDone;
     public static boolean pause = false;
 
     String name;
     String colour;
-    int stop = 0;
     List<Figure> figure = new ArrayList<>();
     Pane[][] orginalPane;
     int matrixDimension;
@@ -42,13 +33,11 @@ public class Player extends Thread{
     ImageView imageView;
     PositionOnTheMap positionOnTheMap;
     int numberOfFiguresThatAreDone = 1;
-    boolean flag = false;
     int positionOfPlayer;
     GhostFigure ghostFigure;
     boolean isGhostStarted = false;
     ArrayList<Label> labels;
     List<Integer> numbers;
-    List<Integer> processedNumbers;
     Label meaningOfCard;
     Label timeLabel;
     Holes holes;
@@ -58,10 +47,6 @@ public class Player extends Thread{
     PlayingDeckForGet pdfg;
     Producer producer;
     boolean thisPlayerDone = false;
-
-
-
-
     public Player(String name, String colour, Pane[][] panes, int matrixDimension,PlayingDeck playingDeck,ImageView imageView, PositionOnTheMap positionOnTheMap, int positionOfPlayer, GhostFigure ghostFigure, ArrayList<Label> labels, Label meaningOfCard, Label timeLabel, Holes holes,ResultProcessing rs,MyTimer timer,PlayingDeckForGet pdfg, Producer producer, Consumer consumer) {
         this.myTimer = timer;
         this.resultProcessing = rs;
@@ -129,8 +114,8 @@ public class Player extends Thread{
     }
     @Override
     public synchronized void run() {
-        if(positionOfPlayer == 1 && isGhostStarted == false) {
-            ghostFigure.isDaemon();
+        if(positionOfPlayer == 1 && !isGhostStarted) {
+            ghostFigure.setDaemon(true);
             ghostFigure.start();
             isGhostStarted = true;
             producer.start();
@@ -159,7 +144,7 @@ public class Player extends Thread{
                     resultProcessing.processing();
                 }
                 if(numberOfFiguresThatAreDone <= 4){
-                    if(pause == true) {
+                    if(pause) {
                         try {
                             indexToPrint.wait();
                         } catch (InterruptedException e) {
@@ -197,7 +182,7 @@ public class Player extends Thread{
                         if(f.getEndSpot()<paneList.size())
                             positionOnTheMap.addOnMap(this,paneList.get(f.getEndSpot() - 1),f);
                     } else {
-                        if(pause == true) {
+                        if(pause) {
                             try {
                                 indexToPrint.wait();
                             } catch (InterruptedException e) {
@@ -210,7 +195,7 @@ public class Player extends Thread{
                     indexToPrint.set(nextIndex());
                     indexToPrint.notifyAll();
                 } else {
-                    if(numberOfPlayersThatAreDone!=Controller.getNumberOfPlayers() && thisPlayerDone == false) {
+                    if(numberOfPlayersThatAreDone!=Controller.getNumberOfPlayers() && !thisPlayerDone) {
                         numberOfPlayersThatAreDone++;
                         thisPlayerDone = true;
                     }
@@ -234,7 +219,8 @@ public class Player extends Thread{
     @Override
     public String toString() {
         return  "Na potezu je igrač " + this.name + "." + "\n" + "Pomijera se figura " +
-                    numberOfFiguresThatAreDone + " ( " + figure.get(0).move() + " )." + "\n" + "Prelazi " + (figure.get(0).getEndSpot() - figure.get(0).getStartSpot()) + ", od pozicije " + numbers.get(figure.get(0).getStartSpot()) +
+                    numberOfFiguresThatAreDone + " (" + figure.get(0).move() + ")" + "\n" + "Prelazi " + (figure.get(0).getEndSpot() - figure.get(0).getStartSpot()) +
+                " polja" + ", od pozicije " + numbers.get(figure.get(0).getStartSpot()) +
                     " do pozicije " + numbers.get(figure.get(0).getEndSpot() - 1) + ". \n" + "Uključujući bonus od ";
     }
     public void printOnScreen(int bonus) {
@@ -242,9 +228,6 @@ public class Player extends Thread{
         meaningOfCard.setMaxWidth(Double.MAX_VALUE);
         meaningOfCard.setAlignment(Pos.CENTER);
         Platform.runLater(()->meaningOfCard.setText(text));
-    }
-    public int getPositionOfPlayer() {
-        return this.positionOfPlayer;
     }
 
 }

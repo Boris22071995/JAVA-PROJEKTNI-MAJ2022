@@ -32,12 +32,10 @@ public class ListOfFilesController implements Initializable {
     TableView<FileRead> tableView;
     @FXML
     private TableColumn<String,String> fileNameForTable;
-
     @Override
     public void initialize(URL url, ResourceBundle resources) {
         String pattern = "*.txt";
         String path = System.getProperty("user.dir") + File.separator + "rezultati";
-
         File f = new File(path);
         if (!f.exists()) {
             return;
@@ -59,7 +57,6 @@ public class ListOfFilesController implements Initializable {
                     return;
                 }
                 String nameOfFile = tableView.getSelectionModel().getSelectedItem().getNameOfFile();
-
                 try{
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("ContentOfFile.fxml"));
                     loader.setController(new ContentOfFileController(path + File.separator + nameOfFile));
@@ -68,14 +65,10 @@ public class ListOfFilesController implements Initializable {
                     primaryStage.setTitle( nameOfFile);
                     primaryStage.setScene(new Scene(root, 820, 454));
                     primaryStage.show();
-                   // desktop.open(new File(path + File.separator + nameOfFile));
                 }catch (IOException e) {
                     LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
                 }
-
-
             }
         });
-
     }
 }

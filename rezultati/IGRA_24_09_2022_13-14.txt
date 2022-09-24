@@ -1,0 +1,11 @@
+Igrač 1 - a
+	Figura 1(Lebdeca figura, žuta) - pređeni put (4-12-20-28-34-40-46-38-30-22-16-10-11-19-27-33-39-31-23-17-18-26-32-24-25) - stigla do cilja (DA) 
+	Figura 2(Super brza figura, žuta) - pređeni put (4-12-20-28-34-40-46-38-30-22-16-10-11-19-27-33-39-31-23-17-18-26-32-24-25) - stigla do cilja (DA) 
+	Figura 3(Super brza figura, žuta) - pređeni put (4-12-20-28-34-40-46-38-30-22-16-10-11-19-27-33-39-31-23-17-18-26-32-24-25) - stigla do cilja (DA) 
+	Figura 4(Obicna figura, žuta) - pređeni put (4-12-20-28-34-40-46-38-30-22-16-10-11-19-27-33-39-31-23-17-18-26-32-24) - stigla do cilja (NE) 
+Igrač 2 - b
+	Figura 1(Obicna figura, zelena) - pređeni put (4) - stigla do cilja (NE) 
+	Figura 2(Obicna figura, zelena) - pređeni put (4-12-20-28-34-40-46-38-30-22-16-10-11-19-27-33-39-31-23-17-18-26-32-24-25) - stigla do cilja (DA) 
+	Figura 3(Obicna figura, zelena) - pređeni put (4-12-20-28-34-40-46-38-30) - stigla do cilja (NE) 
+	Figura 4(Obicna figura, zelena) - pređeni put (4-12-20-28-34-40-46-38-30-22-16-10-11-19-27-33-39-31-23-17-18-26-32-24-25) - stigla do cilja (DA) 
+Ukupno vrijeme trajanje igre: 189s

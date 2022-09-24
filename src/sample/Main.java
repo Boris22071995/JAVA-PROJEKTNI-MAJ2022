@@ -14,11 +14,8 @@ public class Main extends Application {
         Scene scene = new Scene(root, 529, 324);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Diamond circle");
-
         primaryStage.show();
     }
-
-
     public static void main(String[] args) {
         launch(args);
     }

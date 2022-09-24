@@ -1,7 +1,6 @@
 package org.unibl.etf.pj2.projektni.model;
 
 import org.unibl.etf.pj2.projektni.exception.LoggingException;
-
 import java.util.logging.Level;
 
 public class Producer extends Thread{
@@ -10,7 +9,6 @@ public class Producer extends Thread{
         public Producer(PlayingDeckForGet pd) {
             this.pd = pd;
         }
-
         @Override
         public void run() {
             while (true) {

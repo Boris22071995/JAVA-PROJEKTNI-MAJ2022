@@ -2,18 +2,15 @@ package org.unibl.etf.pj2.projektni.model;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-
 import java.io.File;
 
 public class Consumer {
    static PlayingDeckForGet pd;
     ImageView imageView;
-    public Consumer(PlayingDeckForGet pd, ImageView imageView) {
-        this.pd = pd;
+    public Consumer(PlayingDeckForGet pdf, ImageView imageView) {
+        pd = pdf;
         this.imageView = imageView;
     }
-
     public synchronized PlayingCard getCard() {
         PlayingCard pc;
         pc = pd.readCard();

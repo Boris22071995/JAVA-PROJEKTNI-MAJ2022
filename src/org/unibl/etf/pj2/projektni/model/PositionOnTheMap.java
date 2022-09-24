@@ -1,7 +1,6 @@
 package org.unibl.etf.pj2.projektni.model;
 
 import javafx.scene.layout.Pane;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,19 +24,15 @@ public class PositionOnTheMap {
             if(figuresOnMap.get(i).figure==figure && figuresOnMap.get(i).player==player){
                 figuresOnMap.remove(i);
             }}
-     //   System.out.println("OBRISANO IZ LISTE" + figuresOnMap.size());
     }
     public boolean checkForAvalibalitiOfPosition(Pane position) {
         if(figuresOnMap.size()!=0) {
-        for(int i = 0; i < figuresOnMap.size(); i++)
-            if(figuresOnMap.get(i).position == position)
-                return false;
+            for (FigureOnMap figureOnMap : figuresOnMap)
+                if (figureOnMap.position == position)
+                    return false;
         }
         return true;
 
-    }
-    public void ispisi() {
-        System.out.println("RADIII " + figuresOnMap.size());
     }
     public Figure getFigureFromMap(int position) {
         return figuresOnMap.get(position).getFigure();

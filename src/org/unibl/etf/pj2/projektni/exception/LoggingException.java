@@ -1,7 +1,5 @@
 package org.unibl.etf.pj2.projektni.exception;
-
 import sample.FirstPageController;
-
 import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;

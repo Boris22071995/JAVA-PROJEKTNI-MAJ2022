@@ -17,7 +17,7 @@ public class FileVisit implements FileVisitor<Path> {
        fileReadList = new ArrayList<>();
    }
    public int getNumberOfFiles() {
-       return new File(System.getProperty("user.dir") + File.separator + "rezultati").list().length;
+       return new File(System.getProperty("user.dir") + File.separator + folder).list().length;
    }
    void find(Path file) {
        Path name  = file.getFileName();
@@ -28,27 +28,23 @@ public class FileVisit implements FileVisitor<Path> {
    public List<FileRead> getFileReadList() {
        return this.fileReadList;
    }
-
     @Override
-    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
         find(dir);
         return FileVisitResult.CONTINUE;
     }
-
     @Override
-    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
         find(file);
         return FileVisitResult.CONTINUE;
     }
-
     @Override
-    public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+    public FileVisitResult visitFileFailed(Path file, IOException exc) {
        System.err.println(exc);
        return FileVisitResult.CONTINUE;
     }
-
     @Override
-    public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+    public FileVisitResult postVisitDirectory(Path dir, IOException exc) {
        find(dir);
        return FileVisitResult.CONTINUE;
     }

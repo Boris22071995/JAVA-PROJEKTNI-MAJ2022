@@ -9,7 +9,6 @@ import javafx.scene.layout.Pane;
 import org.unibl.etf.pj2.projektni.model.Figure;
 import org.unibl.etf.pj2.projektni.model.MovingPath;
 import org.unibl.etf.pj2.projektni.model.Player;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,24 +29,22 @@ public class CrossedPathController implements Initializable {
     List<Pane> tempsss = new ArrayList<>();
     MovingPath mp;
     List<Pane> paneList;
-
     int matrixDimension;
     Player player;
     Figure figure;
-    public CrossedPathController() {
 
+    public CrossedPathController() {
     }
     public CrossedPathController(Player player, Figure figure, int matrixDimension) {
         this.player = player;
         this.figure = figure;
         this.matrixDimension = matrixDimension;
-
     }
     @Override
     public  void initialize(URL url, ResourceBundle resources){
             name.setText(this.player.getNames());
             figureName.setText(this.figure.move());
-            if(figure.getIsDone() == false) {
+            if(!figure.getIsDone()) {
                 figure.setTimeOfStop();
             }
             timeInGame.setText("Vrijeme u igri: " + (int)figure.getTimeOfPlay() + "s");

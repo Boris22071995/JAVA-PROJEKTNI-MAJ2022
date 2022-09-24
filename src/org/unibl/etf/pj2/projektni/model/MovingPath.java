@@ -2,11 +2,8 @@ package org.unibl.etf.pj2.projektni.model;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 public class MovingPath {
 
@@ -14,8 +11,6 @@ public class MovingPath {
     int matrixDimension;
     List<Pane> paneList = new ArrayList<>();
     ArrayList<Label> labels;
-    ArrayList<Label> labelsOnPath;
-
     int[][] matrixOfNumbers;
     List<Integer> numbers = new ArrayList<>();
     int br = 1;
@@ -74,8 +69,8 @@ public class MovingPath {
             }
             dimenzija-=1;
         } while((i != pola || j != pola) && dimenzija != pola);
-        for(int k = 0; k < obidjeno.size();k++){
-            numbers.add(matrixOfNumbers[obidjeno.get(k).getY()][obidjeno.get(k).getX()]);
+        for (HelpClass helpClass : obidjeno) {
+            numbers.add(matrixOfNumbers[helpClass.getY()][helpClass.getX()]);
         }
         processNumbers();
     }
@@ -89,12 +84,11 @@ public class MovingPath {
         paneList.add(panes[j][i]);
         HelpClass p = new HelpClass(j,i);
         obidjeno.add(p);
-
         do {
             while(++j < dimenzija) {
                 ++i; paneList.add(panes[j][i]);
                 HelpClass a = new HelpClass(j,i);
-                obidjeno.add(a); //i=3;j=6
+                obidjeno.add(a);
             }
             j--;
             while (--j >= pola - 1) {
@@ -133,8 +127,8 @@ public class MovingPath {
                     }
                 }
         }while(dimenzija != pola);
-        for(int k = 0; k < obidjeno.size();k++){
-            numbers.add(matrixOfNumbers[obidjeno.get(k).getY()][obidjeno.get(k).getX()]);
+        for (HelpClass helpClass : obidjeno) {
+            numbers.add(matrixOfNumbers[helpClass.getY()][helpClass.getX()]);
         }
         processNumbers();
     }
@@ -158,7 +152,6 @@ public class MovingPath {
             this.y = y;
         }
         public int getX(){return this.x;}
-
         public int getY() {return this.y;}
     }
     public List<Integer> getNumbers() {

@@ -1,6 +1,5 @@
 package org.unibl.etf.pj2.projektni.model;
 import javafx.application.Platform;
-import javafx.geometry.Pos;
 import org.unibl.etf.pj2.projektni.exception.LoggingException;
 import org.unibl.etf.pj2.projektni.interfaces.MovingWay;
 
@@ -16,7 +15,6 @@ public class SimpleFigure extends Figure implements MovingWay {
     List<Pane> paneList;
     int matrixDimension;
     MovingPath mp;
-    boolean done = false;
     PositionOnTheMap potm;
     boolean flag = false;
     GhostFigure ghostFigure;
@@ -45,7 +43,7 @@ public class SimpleFigure extends Figure implements MovingWay {
     public void drawFigure() {
         synchronized (Player.indexToPrint) {
             for (int i = getStartSpot(); i < getEndSpot(); i++) {
-                if (pause == true) {
+                if (pause) {
                         try {
                             Player.indexToPrint.wait();
                         } catch (InterruptedException ie) {
@@ -58,7 +56,7 @@ public class SimpleFigure extends Figure implements MovingWay {
                 }
                     final int x = i;
                     if (x == getEndSpot() - 1) {
-                        if (potm.checkForAvalibalitiOfPosition(paneList.get(x)) == false) {
+                        if (!potm.checkForAvalibalitiOfPosition(paneList.get(x))) {
                             addProcessedPositions();
                             addPosition(paneList.get(x));
                             addTimeIngame();
@@ -74,7 +72,7 @@ public class SimpleFigure extends Figure implements MovingWay {
                             Platform.runLater(() -> paneList.get(x).getChildren().add(getCircle()));
                         }
                     } else {
-                        if (potm.checkForAvalibalitiOfPosition(paneList.get(x)) == true) {
+                        if (potm.checkForAvalibalitiOfPosition(paneList.get(x))) {
                             setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
                             addProcessedPositions();
                             addPosition(paneList.get(x));
@@ -93,7 +91,7 @@ public class SimpleFigure extends Figure implements MovingWay {
                     }
 
             }
-            if (flag == true) {
+            if (flag) {
                 setEndSpot(getEndSpot() + 1);
                 flag = false;
             }
@@ -131,5 +129,4 @@ public class SimpleFigure extends Figure implements MovingWay {
 
 
     }
-
 }

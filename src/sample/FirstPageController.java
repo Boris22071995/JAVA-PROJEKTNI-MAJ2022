@@ -42,10 +42,7 @@ public class FirstPageController {
 
         @FXML
         public void zapocniIgru(javafx.event.ActionEvent ae) throws IOException {
-            Random rand = new Random();
-            int br = 0;
             List<String> listOfNamesForShuffel = new ArrayList<>();
-
         try {
             pokupiPodatke();
         } catch(Exception mse){
@@ -197,7 +194,7 @@ public class FirstPageController {
             BufferedReader br = new BufferedReader(new InputStreamReader(fis));
             String str = br.readLine();
             int number = Integer.parseInt(str);
-            if(number > ((xDimenzija * xDimenzija) + 1)/2) {
+            if(number > ((xDimenzija * xDimenzija) + 1)/2 || number<=0) {
                 showAlertDialog("Error", "Number of holes are not valid.", Alert.AlertType.ERROR);
                 clearEarlierInpup();
                 throw new NumberOfHolesException();

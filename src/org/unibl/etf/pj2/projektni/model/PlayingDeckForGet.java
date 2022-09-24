@@ -1,12 +1,11 @@
 package org.unibl.etf.pj2.projektni.model;
 
 import org.unibl.etf.pj2.projektni.exception.LoggingException;
-
 import java.util.concurrent.SynchronousQueue;
 import java.util.logging.Level;
 
 public class PlayingDeckForGet {
-    public SynchronousQueue<PlayingCard> cards = new SynchronousQueue<PlayingCard>();
+    public SynchronousQueue<PlayingCard> cards = new SynchronousQueue<>();
     PlayingDeck playingDeck;
     public PlayingDeckForGet(PlayingDeck playingDeck) {
         this.playingDeck = playingDeck;

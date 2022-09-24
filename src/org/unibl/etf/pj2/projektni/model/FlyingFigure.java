@@ -6,7 +6,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import org.unibl.etf.pj2.projektni.exception.LoggingException;
 import org.unibl.etf.pj2.projektni.interfaces.MovingWay;
-
 import java.util.List;
 import java.util.logging.Level;
 
@@ -46,12 +45,11 @@ public class FlyingFigure extends Figure implements MovingWay {
     public String move() {
         return "Lebdeca figura";
     }
-
     @Override
     public void drawFigure()  {
         synchronized (Player.indexToPrint) {
         for(int i = getStartSpot(); i < getEndSpot(); i++) {
-            if(pause == true) {
+            if(pause) {
                     try{
                         Player.indexToPrint.wait();
                     }catch (InterruptedException ie) {
@@ -65,7 +63,7 @@ public class FlyingFigure extends Figure implements MovingWay {
             }
             final int x = i;
             if (x == getEndSpot() - 1) {
-                if (potm.checkForAvalibalitiOfPosition(paneList.get(x)) == false) {
+                if (!potm.checkForAvalibalitiOfPosition(paneList.get(x))) {
                     addProcessedPositions();
                     addPosition(paneList.get(x));
                     addPosition(paneList.get(x + 1));
@@ -81,7 +79,7 @@ public class FlyingFigure extends Figure implements MovingWay {
                     Platform.runLater(() -> paneList.get(x).getChildren().add(getTriangle()));
                 }
             } else {
-                if (potm.checkForAvalibalitiOfPosition(paneList.get(x)) == true) {
+                if (potm.checkForAvalibalitiOfPosition(paneList.get(x))) {
                     setBonusPositions(ghostFigure.checkForBonus(paneList.get(x)));
                     addProcessedPositions();
                     addPosition(paneList.get(x));
@@ -100,7 +98,7 @@ public class FlyingFigure extends Figure implements MovingWay {
             }
         }
 
-        if(flag == true) {
+        if(flag) {
             setEndSpot(getEndSpot() + 1);
             flag = false;
         }
@@ -111,7 +109,6 @@ public class FlyingFigure extends Figure implements MovingWay {
             isDone = true;
         }
     }}
-
     public Pane[][] getOrginalPanes(){return this.orginalPanes;}
     public Polygon getTriangle() {
         return this.triangle;
