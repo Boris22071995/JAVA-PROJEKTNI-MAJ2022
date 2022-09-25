@@ -5,11 +5,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import org.unibl.etf.pj2.projektni.exception.LoggingException;
-import org.unibl.etf.pj2.projektni.interfaces.MovingWay;
 import java.util.List;
 import java.util.logging.Level;
 
-public class SuperSpeedFigure extends Figure implements MovingWay {
+public class SuperSpeedFigure extends Figure {
     Rectangle rectangle = new Rectangle();
     List<Pane> paneList;
     int matrixDimension;
@@ -42,11 +41,11 @@ public class SuperSpeedFigure extends Figure implements MovingWay {
     }
     @Override
     public void drawFigure()  {
-        synchronized (Player.indexToPrint){
+        synchronized (Player.currentPlayer){
         for(int i = getStartSpot(); i < getEndSpot(); i++) {
             if(pause) {
                     try{
-                        Player.indexToPrint.wait();
+                        Player.currentPlayer.wait();
                     }catch (InterruptedException ie) {
                         LoggingException.logger.log(Level.SEVERE, ie.fillInStackTrace().toString());
                     }

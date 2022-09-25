@@ -2,7 +2,7 @@ package org.unibl.etf.pj2.projektni.model;
 
 import org.unibl.etf.pj2.projektni.interfaces.MeaningOfCard;
 
-public class PlayingCard implements MeaningOfCard{
+public abstract class PlayingCard implements MeaningOfCard{
     int number;
     String imagePath;
 

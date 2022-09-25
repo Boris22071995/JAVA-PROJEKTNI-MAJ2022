@@ -18,6 +18,7 @@ public class GhostFigure extends Thread{
     int position;
     boolean firstCircle = true;
     boolean running = true;
+    public static boolean pause = false;
     List<LabelForBonuses> labels = new ArrayList<>();
     public GhostFigure(List<Pane> path, int matrixDimension) {
         this.path = path;
@@ -26,6 +27,7 @@ public class GhostFigure extends Thread{
     @Override
     public void run() {
         while(running) {
+            if(!pause) {
             if(firstCircle) {
                 try{
                     sleep(5000);
@@ -54,8 +56,14 @@ public class GhostFigure extends Thread{
             }catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
-    }
+        } else {
+                try{
+                    sleep(10);
+                }catch (InterruptedException ie) {
+                    ie.printStackTrace();
+                }
+            }
+    }}
     public int checkForBonus(Pane pane) {
         int bonus = 0;
         for(int i = 0; i < positionsOfBonuses.size(); i++) {

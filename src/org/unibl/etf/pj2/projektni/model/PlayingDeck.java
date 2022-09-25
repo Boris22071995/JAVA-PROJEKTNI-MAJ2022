@@ -35,8 +35,8 @@ public class PlayingDeck{
     public void shuffel() {
         int prviBroj;
         int drugiBroj;
-        PlayingCard card1 = new PlayingCard();
-        PlayingCard card2 = new PlayingCard();
+        PlayingCard card1;
+        PlayingCard card2;
         Random rand = new Random();
         for(int i = 0; i < 25; i++) {
             prviBroj = rand.nextInt(52);

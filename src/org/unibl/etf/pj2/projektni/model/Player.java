@@ -2,7 +2,6 @@ package org.unibl.etf.pj2.projektni.model;
 
 import javafx.application.Platform;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -16,9 +15,9 @@ import java.util.logging.Level;
 
 public class Player extends Thread{
 
-    static public final AtomicInteger indexToPrint = new AtomicInteger(0);
+    static public final AtomicInteger currentPlayer = new AtomicInteger(0);
     static private int threadNumber = 0;
-    final private int index;
+    final private int nextPlayer;
     static int numberOfPlayersThatAreDone;
     public static boolean pause = false;
 
@@ -64,7 +63,7 @@ public class Player extends Thread{
         this.colour = colour;
         this.orginalPane = panes;
         this.matrixDimension = matrixDimension;
-        index = threadNumber++;
+        nextPlayer = threadNumber++;
         this.mp = new MovingPath(orginalPane, matrixDimension, labels);
         if(matrixDimension % 2 == 0) mp.addToListEvenNumber();
         else mp.addToListOddNumber();
@@ -79,8 +78,8 @@ public class Player extends Thread{
         this.holes.addPlayer(this);
         listOfFiguresForResults.addAll(figure);
     }
-    private int nextIndex() {
-        return (index + 1) % threadNumber;
+    private int getNextPlayer() {
+        return (nextPlayer + 1) % threadNumber;
     }
     public List<Figure> getFigure() {
         return figure;
@@ -123,10 +122,10 @@ public class Player extends Thread{
             myTimer.start();
         }
         while(true) {
-            synchronized (indexToPrint) {
-                while(indexToPrint.get()!=index){
+            synchronized (currentPlayer) {
+                while(currentPlayer.get()!= nextPlayer){
                     try {
-                        indexToPrint.wait();
+                        currentPlayer.wait();
                     } catch (InterruptedException e) {
                         LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
                     }
@@ -150,7 +149,7 @@ public class Player extends Thread{
                 if(numberOfFiguresThatAreDone <= 4){
                     if(pause) {
                         try {
-                            indexToPrint.wait();
+                            currentPlayer.wait();
                         } catch (InterruptedException e) {
                             LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
                         }
@@ -188,7 +187,7 @@ public class Player extends Thread{
                     } else {
                         if(pause) {
                             try {
-                                indexToPrint.wait();
+                                currentPlayer.wait();
                             } catch (InterruptedException e) {
                                 LoggingException.logger.log(Level.SEVERE, e.fillInStackTrace().toString());
                             }
@@ -196,15 +195,15 @@ public class Player extends Thread{
                             holes.setPositionOnTheMap(positionOnTheMap);
                             holes.processHoles();
                     }
-                    indexToPrint.set(nextIndex());
-                    indexToPrint.notifyAll();
+                    currentPlayer.set(getNextPlayer());
+                    currentPlayer.notifyAll();
                 } else {
                     if(numberOfPlayersThatAreDone!=Controller.getNumberOfPlayers() && !thisPlayerDone) {
                         numberOfPlayersThatAreDone++;
                         thisPlayerDone = true;
                     }
-                    indexToPrint.set(nextIndex());
-                    indexToPrint.notifyAll();
+                    currentPlayer.set(getNextPlayer());
+                    currentPlayer.notifyAll();
                 }
             }
         }

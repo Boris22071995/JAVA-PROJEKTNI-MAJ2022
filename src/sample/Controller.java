@@ -6,7 +6,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -257,17 +256,18 @@ public class Controller implements Initializable {
             if(!pause && firstRun) {
                 Figure.pause = true;
                 pause = true;
+                GhostFigure.pause = true;
                 Player.pause = true;
                 MyTimer.pause = true;
                 pokreni.setText("Pokreni");
             }else {
                 MyTimer.pause = false;
-                synchronized (Player.indexToPrint) {
-                    Player.indexToPrint.notifyAll();
+                synchronized (Player.currentPlayer) {
+                    Player.currentPlayer.notifyAll();
                     Figure.pause = false;
                     pause = false;
                     Player.pause = false;
-
+                    GhostFigure.pause = false;
                 }
                 pokreni.setText("Zaustavi");
 
